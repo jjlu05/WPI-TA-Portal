@@ -4,10 +4,10 @@
 --------
 Prepared by:
 
-* `<author1>`,`<organization>`
-* `<author1>`,`<organization>`
-* `<author1>`,`<organization>`
-* `<author1>`,`<organization>`
+* `Harleen Kaur`,`BME & RBE>`
+* `Julian Kreis`,`CS`
+* `Jed Geoghegan`,`CS & DS`
+* `Jacob Lu`,`IMGD & CS`
 
 ---
 
@@ -43,31 +43,88 @@ Prepared by:
 
 Provide a short description of the software being specified. Describe its purpose, including relevant benefits, objectives, and goals.
 
+To provide a user friendly interface for students and faculty to find and promote job vacancies for the upcoming year autonomously. Students will enter contact information and course preferences which will automatically enter them for job listings and intructors can choose from a generated list of applicants who are interested in their course. 
+
 ----
 # 2. Requirements Specification
 
 This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
 
+The software should be seperated into student and faculty sections.
+
+In the student section:
+1. Allow students to create a student account and enter their profile information, containing:
+  a. A username (that is their WPI email) and a password
+  b. Their contact information (first name, last name, WPI ID, email, phone)
+  c. Other account information (major, cumulative GPA, expected graduation date)
+  d. The courses that they have been an SA for before
+2. Students should be able to login through two methods. Incorrect login data is not accepted.
+  a. Using their WPI email and password. 
+  b. Using the WPI SSO service.Students can view open SA positions. In addition to seeing a list of all open SA positions, 
+Positions that meet a specified criteria will be sorted and listed under a "Recommended SA
+Positions" tab in ranked order. The criteria is open-ended, but must include: 
+  a. If the student already served as an SA for the course
+  b. If the student took the course and received A
+Positions under this tab should be sorted based on how many conditions in this criteria the student has met.
+4. Each SA position should have this information displayed
+a. course number, section, and title (e.g., 'CS3733-02 Software Engineering')
+b. term (e.g. '2024B')
+c. instructor's name and contact information, and
+5. Applying for positions: Students can apply to multiple SA positions. For each application, a student m
+5. Applyin for positions: Students can apply to multiple SA positions. For each application, a student must enter
+a. The grade they earned when they took the co
+b. The year and term they took the course
+
+cIn the faculty section:
+1. Allow faculty to create an instructor account and enter their profile information, containing:
+  a. A username (that is their WPI email) and a password
+  b. Their contact information (first name, last name, WPI ID, email, phone)
+2. Faculty should be able to login through two methods. Incorrect login data is not accepted.
+  a. Using their WPI email and password. 
+  b. Using the WPI SSO service.
+3. Instructors should be able to create the new course sections that they will be teaching
+  a. The course sections will contain a course number, section, and term. This data should be
+
 ## 2.1 Customer, Users, and Stakeholders
 
 A brief description of the customer, stakeholders, and users of your software.
+
+Customer: 
+- WPI Computer Science Department
+
+Users: 
+- Student Users: Undergraduate Students interested in applying for SA positions
+- Faculty Users: Faculty in the CS Department responsible for teaching undergrad courses 
+
+Stakeholders:
+- WPI Computer Science Department
+a. Students: Those who want to apply to be SA's will create accounts, apply, and interact with system by viewing their applications
+b. Faculty: Will use the platform to create and manage SA positions for their courses
+c. Students(General body): While they are not directly interaacting with the system unless applying for a SA position,  
+   the system is designed to improve their experience 
+d. Admin Users: responsible for maintaining the web application, ensuring it runs smoothly
+
 
 ----
 ## 2.2 User Stories
 This section will include the user stories you identified for your project. Make sure to write your user stories in the form : 
 "As a **[Role]**, I want **[Feature]** so that **[Reason/Benefit]** "
 
-1. User story 1
-2. User story 2
-3. User story 3
+1. As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions. 
+2. As a student, I want to view all SA positions so that I can choose positions of interest. 
+3. As a student, I want to view a list of recommended positions so that I can find relevant opportunities. 
+4. As a student, I want to view a detailed desription of a position so that I can understand the requirements for each course. 
+5. As a student, I want to apply to SA positions so that I can get a job. 
+6. As a student, I want to view the status of my applications so that I can track my SA application progress.
+7. As a student, I want towithdraw my application for a SA position so that I can change my decision to be a SA.  
+9. As faculty, I want to add courses with open SA positions so that I can
+10. As faculty, I want to many positions I have. 
+11. As faculty, I want to view student applications so that I can review qualifications. 
+12. As faculty, I want to
+13. As a student, I w
 
-----
 ## 2.3 Use Cases
-
-This section will include the specification for your project in the form of use cases. 
-
-Group the related user stories and provide a use case for each user story group. You don't need to draw the use-case diagram for the use cases; you will only provide the textual descriptions.  **Also, you don't need to include the use cases for "registration" and "login" use cases for both student and faculty users.**
-
+12
   * First, provide a short description of the actors involved (e.g., regular user, administrator, etc.) and then follow with a list of the use cases.
   * Then, for each use case, include the following:
 
@@ -81,15 +138,39 @@ Group the related user stories and provide a use case for each user story group.
 
 Each use case should also have a field called "Iteration" where you specify in which iteration you plan to implement this feature.
 
-You may use the following table template for your use cases. Copy-paste this table for each use case you will include in your document.
+You may use th:e following table template for your use cases. Copy-paste this table for each use case you will include in your document.
 
-| Use case # 1      |   |
+| Use case # 1: Crea      |   |
+| ------------------ |--|
+i| Name              | Student Account Creato  |
+io
+o| Name              | "enter your reponse here"  |
+| Participating actor  | "enter your reponse here"  |
+| Entry condition(s)     | "enter your reponse here"  |
+| Exit condition(s)           | "enter your reponse here"  |
+| Flow of events | "enter your reponse here"  |
+| Alternative flow of events    | "enter your reponse here"  |
+| Iteration #         | "enter your reponse here"  |
+
+| Use case # 2  |   |
 | ------------------ |--|
 | Name              | "enter your reponse here"  |
 | Participating actor  | "enter your reponse here"  |
 | Entry condition(s)     | "enter your reponse here"  |
 | Exit condition(s)           | "enter your reponse here"  |
 | Flow of events | "enter your reponse here"  |
+| Alternative flow of events    | "enter your reponse here"  |
+| Iteration #         | "enter your reponse here"  |
+
+| Use case # 3      |   |
+| ------------------ |--|
+| Name              | "enter your reponse here"  |
+| Participating actor  | "enter your reponse here"  |
+| Entry condition(s)     | "enter your reponse here"  |
+| Exit condition(s)           | "enter your reponse here"  |
+| Flow of events | "enter your reponse here"  |
+| Alternative flow of events    | "enter your reponse here"  |
+| Iteration #         | "enter your reponse here"  |
 | Alternative flow of events    | "enter your reponse here"  |
 | Iteration #         | "enter your reponse here"  |
 
