@@ -1,6 +1,6 @@
 # Software Requirements and Use Cases
 
-## Your Project Title
+## SA Connect: "Streamlining the Student Assistant Recruitment Process"
 --------
 Prepared by:
 
@@ -43,12 +43,16 @@ Prepared by:
 
 Provide a short description of the software being specified. Describe its purpose, including relevant benefits, objectives, and goals.
 
-To provide a user friendly interface for students and faculty to find and promote job vacancies for the upcoming year autonomously. Students will enter contact information and course preferences which will automatically enter them for job listings and intructors can choose from a generated list of applicants who are interested in their course. 
+To provide a user friendly interface for students and faculty to find and promote job vacancies for the upcoming year autonomously. 
+Students will enter contact information and course preferences which will automatically enter them for job listings and intructors can choose from a 
+generated list of applicants who are interested in their course. 
 
 ----
 # 2. Requirements Specification
 
-This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
+This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to 
+enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those 
+requirements.
 
 The software should be seperated into student and faculty sections.
 
@@ -58,24 +62,27 @@ In the student section:
   b. Their contact information (first name, last name, WPI ID, email, phone)
   c. Other account information (major, cumulative GPA, expected graduation date)
   d. The courses that they have been an SA for before
-2. Students should be able to login through two methods. Incorrect login data is not accepted.
+2. Students should be able to login through two methods:
   a. Using their WPI email and password. 
-  b. Using the WPI SSO service.Students can view open SA positions. In addition to seeing a list of all open SA positions, 
-Positions that meet a specified criteria will be sorted and listed under a "Recommended SA
-Positions" tab in ranked order. The criteria is open-ended, but must include: 
+  b. Using the WPI SSO service.
+3. Students can view open SA positions. In addition to seeing a list of all open SA positions, there will be a seperate "Recommended SA Positions" section to display recomended positions in ranked order based on specified criteria. Positions under this tab should be sorted based on how many conditions in this criteria the student has met. The criteria is open-ended, but must include: 
   a. If the student already served as an SA for the course
   b. If the student took the course and received A
-Positions under this tab should be sorted based on how many conditions in this criteria the student has met.
 4. Each SA position should have this information displayed
-a. course number, section, and title (e.g., 'CS3733-02 Software Engineering')
-b. term (e.g. '2024B')
-c. instructor's name and contact information, and
-5. Applying for positions: Students can apply to multiple SA positions. For each application, a student m
-5. Applyin for positions: Students can apply to multiple SA positions. For each application, a student must enter
-a. The grade they earned when they took the co
-b. The year and term they took the course
+  a. course number, section, and title (e.g., 'CS3733-02 Software Engineering')
+  b. term (e.g. '2024B')
+  c. instructor's name and contact information
+  d. qualifications needed for the SA position
+5. Applying for positions: Students can apply to multiple SA positions. For each application, a student must enter
+  a. The grade they earned when they took the course
+  b. The year and term they took the course
+  c. The year and term they are applying for SAship
+6. View the SA positions they have already applied to and check the statuses of their application
+  a. When submitted, the status will appear as "Pending"
+  b. When an instructor accepts their application, the status will change to "Assigned".
+7. Withdraw applications that have the status of "pending"
 
-cIn the faculty section:
+In the faculty section:
 1. Allow faculty to create an instructor account and enter their profile information, containing:
   a. A username (that is their WPI email) and a password
   b. Their contact information (first name, last name, WPI ID, email, phone)
@@ -83,7 +90,19 @@ cIn the faculty section:
   a. Using their WPI email and password. 
   b. Using the WPI SSO service.
 3. Instructors should be able to create the new course sections that they will be teaching
-  a. The course sections will contain a course number, section, and term. This data should be
+  a. Each course offering will contain a course number, section, and term. At least one of those datapoints should differ from those each other course offering, allowing the course section to be uniquely identified
+  b. The SA positions will be associated with these course offerings
+4. Faculty should be able to create SA positions for each course offering they have made. When creating the position, they should be able to choose
+  a. Choose the course section for SAship from among the sections they have created
+  b. Enter the number of SAs needed for the course section
+  c. Enter the qualifications needed for the SAship such is min GPA, min grade in course, or prior SA experience
+5. Faculty should be able to see the list of students that applied to each of their sections and if the applicants have already been assigned to a different course
+6. Additionally, faculty hsould be able to see the qualifications of each student such as GPA, earned grade in the class, and previous courses they've been SA in
+7. The instructor of the course should be able to select applicant that has not already been assigned a position to an SAship position they have created
+8. One student can be assigned to a single SA position
+9. There can be multiple SAs in a single course, but no more than the maximum number of SAs set by the instructor
+
+
 
 ## 2.1 Customer, Users, and Stakeholders
 
@@ -139,39 +158,126 @@ Each use case should also have a field called "Iteration" where you specify in w
 
 You may use th:e following table template for your use cases. Copy-paste this table for each use case you will include in your document.
 
-| Use case # 1: Crea      |   |
-| ------------------ |--|
-i| Name              | Student Account Creato  |
-io
-o| Name              | "enter your reponse here"  |
-| Participating actor  | "enter your reponse here"  |
-| Entry condition(s)     | "enter your reponse here"  |
-| Exit condition(s)           | "enter your reponse here"  |
-| Flow of events | "enter your reponse here"  |
-| Alternative flow of events    | "enter your reponse here"  |
-| Iteration #         | "enter your reponse here"  |
+Actors Involved:
+- Student: A student interested in applying for Student Assistant (SA) positions within the Computer Science Department. 
+           The student can create an account, log in, view open SA positions, view recommended SA positions, apply for SA positions, 
+           track application statuses, and withdraw applications if needed.
 
-| Use case # 2  |   |
+- Faculty: A faculty member in the Computer Science Department responsible for managing Student Assistant (SA) positions for their courses. 
+           The faculty member can create an account, log in, add course sections, create SA positions, review student applicants,
+           view student qualifications, and assign students to open SA positions.
+
+- System: The web application platform that manages student and instructor accounts, stores and displays available SA positions, 
+          handles the application process, and updates application statuses. The system interacts with students to retrieve, display, and 
+          manage data related to SA recruitment.
+
+
+| Use case # 1      |   |
 | ------------------ |--|
-| Name              | "enter your reponse here"  |
-| Participating actor  | "enter your reponse here"  |
-| Entry condition(s)     | "enter your reponse here"  |
-| Exit condition(s)           | "enter your reponse here"  |
-| Flow of events | "enter your reponse here"  |
-| Alternative flow of events    | "enter your reponse here"  |
-| Iteration #         | "enter your reponse here"  |
+| Name              | Student Account Creation  |
+| Participating actor  | student  |
+| Entry condition(s)     | The student has not created an account yet |
+| Exit condition(s)           | The Student account is created  |
+| Flow of events | 1. The student navigates to account registration page
+                   2. The system displays the registration form
+                   3. The student enters their WPI information, password, and contact details
+                   4. The system validates the provided information, stores the account details, and confirms the account creation and notifies the student
+                   5. The student confirms account creation
+                   6. The system stores the account details and sends a confirmation message to the student of the creation of the account |
+| Alternative flow of events    | - If the email is already registered, the system notifies the student, who may try again or exit.
+                                  - If the password is too weak, the system prompts the student to enter a stronger password.  |
+| Iteration #         | Sprint 1  |
+
+
+| Use case # 2      |   |
+| ------------------ |--|
+| Name              | Student Login  |
+| Participating actor  | student  |
+| Entry condition(s)     | The student has an existing account |
+| Exit condition(s)           | The student is logged into their account  |
+| Flow of events | 1. The student navigates to the login page.
+                   2. The system displays the login form.
+                   3. The student enters their WPI email and password and submits the form.
+                   4. The system validates the login credentials.
+                   5. The system notifies the student if login is successful and redirects them to their dashboard.  |
+| Alternative flow of events    | - If the credentials are incorrect, the system notifies the student, who may retry or reset their password  |
+| Iteration #         | Sprint 1  |
+
 
 | Use case # 3      |   |
 | ------------------ |--|
-| Name              | "enter your reponse here"  |
-| Participating actor  | "enter your reponse here"  |
-| Entry condition(s)     | "enter your reponse here"  |
-| Exit condition(s)           | "enter your reponse here"  |
-| Flow of events | "enter your reponse here"  |
-| Alternative flow of events    | "enter your reponse here"  |
-| Iteration #         | "enter your reponse here"  |
-| Alternative flow of events    | "enter your reponse here"  |
-| Iteration #         | "enter your reponse here"  |
+| Name              | Viewing open SA Positions  |
+| Participating actor  | Student  |
+| Entry condition(s)     | The student is logged in and navigates to the SA positions page  |
+| Exit condition(s)           | The system displays a list of open SA positions to the student  |
+| Flow of events | 1. The student navigates to the SA positions page.
+                   2. The system fetches the list of open SA positions.
+                   3. The system displays the list to the student, including recommendations based on qualifications. |
+| Alternative flow of events    | - If no SA positions are available, the system displays a message indicating that no positions are currently open  |
+| Iteration #         | Sprint 2  |
+
+
+| Use case # 4      |   |
+| ------------------ |--|
+| Name              | Viewing Detailed Description of a SA Position  |
+| Participating actor  | Student  |
+| Entry condition(s)     |The student is logged in and has navigated to the SA positions list  |
+| Exit condition(s)           | The system displays the detailed description of a selected SA position, including the course title, section, term, instructor contact information, and required qualifications  |
+| Flow of events | 1. The student views the list of available SA positions and selects a specific SA position from the list.
+                   2. The system retrieves and displays the detailed description of the selected SA position, including course number, section, title, term, instructor’s contact information, and required qualifications |
+| Alternative flow of events    | - If the system is unable to retrieve details for the selected position (e.g., data not available), the system displays an error message indicating that the details are unavailable  |
+| Iteration #         | Sprint 2  |
+
+
+| Use case # 5     |   |
+| ------------------ |--|
+| Name              | Apply for SA position  |
+| Participating actor  | Student  |
+| Entry condition(s)     | The student is logged in and viewing an open SA position  |
+| Exit condition(s)           | The application is submitted, and the status is set to "Pending."  |
+| Flow of events | 1. The student selects an SA position to apply for.
+                   2. The system displays an application form for the position.
+                   3. The student enters the necessary details (school year, term completed).
+                   4. The system validates the application information.
+                   5. The system prompts for confirmation upon validation.
+                   6. The student confirms
+                   7. The system submits the application as "Pending." |
+| Alternative flow of events    | - If required information is missing, the system prompts the student to fill in missing details.
+                                  - If the student has already applied for the position, the system notifies them of the duplicate application. |
+| Iteration #         | Sprint 2  |
+
+
+| Use case # 6     |   |
+| ------------------ |--|
+| Name              | View Application Status  |
+| Participating actor  | Student  |
+| Entry condition(s)     | The student is logged in and has applied for at least one SA position |
+| Exit condition(s)           | The student can view the status of each application (Pending, Assigned, or Withdrawn)  |
+| Flow of events | 1. The student navigates to the "My Applications" page
+                   2. The system retrieves the list of applications and their statuses
+                   3. The student clicks on a specific application 
+                   4. The system shows the student's application status |
+| Alternative flow of events    |  If no applications exist, the system displays a message indicating no applications found  |
+| Iteration #         | Sprint 2  |
+
+
+| Use case # 7     |   |
+| ------------------ |--|
+| Name              | Withdraw Application  |
+| Participating actor  | Student  |
+| Entry condition(s)     | The student has an application in "Pending" status and is logged in |
+| Exit condition(s)           | The selected application is withdrawn, and the status changes to "Withdrawn."  |
+| Flow of events | 1. The student navigates to "My Applications" and selects a pending application to withdraw.
+                   2. The system displays a confirmation prompt for withdrawal
+                   3. The student confirms the withdrawal
+                   4. The system changes the application status to "Withdrawn" and updates the application list view |
+| Alternative flow of events    |  - If the application status is not "Pending," the system prevents withdrawal and notifies the student.
+                                   - If the student cancels, the application status remains unchanged.  |
+| Iteration #         | Sprint 3  |
+
+
+
+
 
 ----
 # 3. User Interface
@@ -188,7 +294,7 @@ You may use Figma to design your interface:
 # 4. Product Backlog
 
 Here you should include a link to your GitHub repo issues page, i.e., your product backlog. Make sure to create an issue for each user story.  
-
+https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues 
 ----
 # 5. References
 
