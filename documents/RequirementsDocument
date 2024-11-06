@@ -58,24 +58,27 @@ In the student section:
   b. Their contact information (first name, last name, WPI ID, email, phone)
   c. Other account information (major, cumulative GPA, expected graduation date)
   d. The courses that they have been an SA for before
-2. Students should be able to login through two methods. Incorrect login data is not accepted.
+2. Students should be able to login through two methods:
   a. Using their WPI email and password. 
-  b. Using the WPI SSO service.Students can view open SA positions. In addition to seeing a list of all open SA positions, 
-Positions that meet a specified criteria will be sorted and listed under a "Recommended SA
-Positions" tab in ranked order. The criteria is open-ended, but must include: 
+  b. Using the WPI SSO service.
+3. Students can view open SA positions. In addition to seeing a list of all open SA positions, there will be a seperate "Recommended SA Positions" section to display recomended positions in ranked order based on specified criteria. Positions under this tab should be sorted based on how many conditions in this criteria the student has met. The criteria is open-ended, but must include: 
   a. If the student already served as an SA for the course
   b. If the student took the course and received A
-Positions under this tab should be sorted based on how many conditions in this criteria the student has met.
 4. Each SA position should have this information displayed
-a. course number, section, and title (e.g., 'CS3733-02 Software Engineering')
-b. term (e.g. '2024B')
-c. instructor's name and contact information, and
-5. Applying for positions: Students can apply to multiple SA positions. For each application, a student m
-5. Applyin for positions: Students can apply to multiple SA positions. For each application, a student must enter
-a. The grade they earned when they took the co
-b. The year and term they took the course
+  a. course number, section, and title (e.g., 'CS3733-02 Software Engineering')
+  b. term (e.g. '2024B')
+  c. instructor's name and contact information
+  d. qualifications needed for the SA position
+5. Applying for positions: Students can apply to multiple SA positions. For each application, a student must enter
+  a. The grade they earned when they took the course
+  b. The year and term they took the course
+  c. The year and term they are applying for SAship
+6. View the SA positions they have already applied to and check the statuses of their application
+  a. When submitted, the status will appear as "Pending"
+  b. When an instructor accepts their application, the status will change to "Assigned".
+7. Withdraw applications that have the status of "pending"
 
-cIn the faculty section:
+In the faculty section:
 1. Allow faculty to create an instructor account and enter their profile information, containing:
   a. A username (that is their WPI email) and a password
   b. Their contact information (first name, last name, WPI ID, email, phone)
@@ -83,7 +86,19 @@ cIn the faculty section:
   a. Using their WPI email and password. 
   b. Using the WPI SSO service.
 3. Instructors should be able to create the new course sections that they will be teaching
-  a. The course sections will contain a course number, section, and term. This data should be
+  a. Each course offering will contain a course number, section, and term. At least one of those datapoints should differ from those each other course offering, allowing the course section to be uniquely identified
+  b. The SA positions will be associated with these course offerings
+4. Faculty should be able to create SA positions for each course offering they have made. When creating the position, they should be able to choose
+  a. Choose the course section for SAship from among the sections they have created
+  b. Enter the number of SAs needed for the course section
+  c. Enter the qualifications needed for the SAship such is min GPA, min grade in course, or prior SA experience
+5. Faculty should be able to see the list of students that applied to each of their sections and if the applicants have already been assigned to a different course
+6. Additionally, faculty hsould be able to see the qualifications of each student such as GPA, earned grade in the class, and previous courses they've been SA in
+7. The instructor of the course should be able to select applicant that has not already been assigned a position to an SAship position they have created
+8. One student can be assigned to a single SA position
+9. There can be multiple SAs in a single course, but no more than the maximum number of SAs set by the instructor
+
+
 
 ## 2.1 Customer, Users, and Stakeholders
 
