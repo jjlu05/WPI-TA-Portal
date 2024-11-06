@@ -1,6 +1,6 @@
 # Software Requirements and Use Cases
 
-## Your Project Title
+## SA Connect: "Streamlining the Student Assistant Recruitment Process"
 --------
 Prepared by:
 
@@ -43,12 +43,16 @@ Prepared by:
 
 Provide a short description of the software being specified. Describe its purpose, including relevant benefits, objectives, and goals.
 
-To provide a user friendly interface for students and faculty to find and promote job vacancies for the upcoming year autonomously. Students will enter contact information and course preferences which will automatically enter them for job listings and intructors can choose from a generated list of applicants who are interested in their course. 
+To provide a user friendly interface for students and faculty to find and promote job vacancies for the upcoming year autonomously. 
+Students will enter contact information and course preferences which will automatically enter them for job listings and intructors can choose from a 
+generated list of applicants who are interested in their course. 
 
 ----
 # 2. Requirements Specification
 
-This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
+This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to 
+enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those 
+requirements.
 
 The software should be seperated into student and faculty sections.
 
@@ -128,16 +132,15 @@ This section will include the user stories you identified for your project. Make
 1. As a student, I want to create an account using my WPI credentials so that I can apply for SA positions.
 2. As a student, I want to log in to my account so that I can view available SA positions and apply for them
 3. As a student, I want to view all SA positions so that I can choose positions of interest. 
-4. As a student, I want to view a list of recommended positions so that I can find relevant opportunities. 
-5. As a student, I want to view a detailed description of a position so that I can understand the requirements for each course. 
-6. As a student, I want to apply to SA positions so that I can get a job. 
-7. As a student, I want to view the status of my applications so that I can track my SA application progress.
-8. As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA.  
-9. As faculty, I want to add courses with open SA positions so that I can
-10. As faculty, I want to many positions I have. 
-11. As faculty, I want to view student applications so that I can review qualifications. 
-12. As faculty, I want to
-13. As a student, I w
+4. As a student, I want to view a detailed description of a position so that I can understand the requirements for each course. 
+5. As a student, I want to apply to SA positions so that I can get a job. 
+6. As a student, I want to view the status of my applications so that I can track my SA application progress.
+7. As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA.  
+8. As faculty, I want to add courses with open SA positions so that I can
+9. As faculty, I want to many positions I have. 
+10. As faculty, I want to view student applications so that I can review qualifications. 
+11. As faculty, I want to
+12. As faculty, I w
 
 ## 2.3 Use Cases
 12
@@ -217,19 +220,6 @@ Actors Involved:
 
 | Use case # 4      |   |
 | ------------------ |--|
-| Name              | Viewing recommended SA Positions  |
-| Participating actor  | Student  |
-| Entry condition(s)     | The student is logged in and navigates to the SA positions page  |
-| Exit condition(s)           | The system displays a list of recommended SA positions based on the student’s profile  |
-| Flow of events | 1. The student selects the option to view recommended SA positions.
-                   2. The system matches the student’s profile with qualifications for each position.
-                   3. The system displays a list of recommended positions in ranked order. |
-| Alternative flow of events    | - If no matching positions are found, the system displays an empty list message  |
-| Iteration #         | Sprint 2  |
-
-
-| Use case # 5      |   |
-| ------------------ |--|
 | Name              | Viewing Detailed Description of a SA Position  |
 | Participating actor  | Student  |
 | Entry condition(s)     |The student is logged in and has navigated to the SA positions list  |
@@ -240,7 +230,7 @@ Actors Involved:
 | Iteration #         | Sprint 2  |
 
 
-| Use case # 6      |   |
+| Use case # 5     |   |
 | ------------------ |--|
 | Name              | Apply for SA position  |
 | Participating actor  | Student  |
@@ -258,7 +248,7 @@ Actors Involved:
 | Iteration #         | Sprint 2  |
 
 
-| Use case # 7     |   |
+| Use case # 6     |   |
 | ------------------ |--|
 | Name              | View Application Status  |
 | Participating actor  | Student  |
@@ -272,7 +262,7 @@ Actors Involved:
 | Iteration #         | Sprint 2  |
 
 
-| Use case # 8      |   |
+| Use case # 7     |   |
 | ------------------ |--|
 | Name              | Withdraw Application  |
 | Participating actor  | Student  |
@@ -285,6 +275,9 @@ Actors Involved:
 | Alternative flow of events    |  - If the application status is not "Pending," the system prevents withdrawal and notifies the student.
                                    - If the student cancels, the application status remains unchanged.  |
 | Iteration #         | Sprint 3  |
+
+
+
 
 
 ----
