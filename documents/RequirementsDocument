@@ -365,9 +365,24 @@ Actors Involved:
 Here you should include the sketches or mockups for the main parts of the interface.
 You may use Figma to design your interface:
 
-  Example image. The image file is in the `./images` directory.
+UI Pages needed:
+
+Staff:
+Main page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form
+Create course page
+Edit course form
+
+Student:
+Main page shows courses they can apply to, including a separate relevant courses section
+Separate page to view application status
+
+Both:   
+Login Page
+Profile creation page
+Edit Profile (Student will need more info)
+
   <kbd>
-      <img src="images/figma.jpg"  border="2">
+      <img src="FigmaMockup.png"  border="2">
   </kbd>
   
 ----
