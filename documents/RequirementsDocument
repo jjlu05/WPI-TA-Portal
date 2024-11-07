@@ -38,23 +38,17 @@ Prepared by:
 |      |      |         |         |
 |      |      |         |         |
 
+
 ----
 # 1. Introduction
-
-Provide a short description of the software being specified. Describe its purpose, including relevant benefits, objectives, and goals.
 
 To provide a user friendly interface for students and faculty to find and promote SA job vacancies for the upcoming year autonomously. 
 Students will enter contact information and course preferences which will automatically enter them for job listings and intructors can choose from a 
 generated list of applicants who are interested in their course. 
 
+
 ----
 # 2. Requirements Specification
-
-This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to 
-enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those 
-requirements.
-
-The software should be seperated into student and faculty sections.
 
 In the student section:
 1. Allow students to create a student account and enter their profile information, containing:
@@ -102,11 +96,8 @@ In the faculty section:
 8. One student can be assigned to a single SA position
 9. There can be multiple SAs in a single course, but no more than the maximum number of SAs set by the instructor
 
-
-
+----
 ## 2.1 Customer, Users, and Stakeholders
-
-A brief description of the customer, stakeholders, and users of your software.
 
 Customer: 
 - WPI Computer Science Department
@@ -123,11 +114,8 @@ c. Students(General body): While they are not directly interaacting with the sys
    the system is designed to improve their experience 
 d. Admin Users: responsible for maintaining the web application, ensuring it runs smoothly
 
-
 ----
 ## 2.2 User Stories
-This section will include the user stories you identified for your project. Make sure to write your user stories in the form : 
-"As a **[Role]**, I want **[Feature]** so that **[Reason/Benefit]** "
 
 1. As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions.  
 2. As a student, I want to view all SA positions so that I can choose positions of interest.  
@@ -142,22 +130,8 @@ This section will include the user stories you identified for your project. Make
 11. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
 12. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position.  
 
+----
 ## 2.3 Use Cases
-12
-  * First, provide a short description of the actors involved (e.g., regular user, administrator, etc.) and then follow with a list of the use cases.
-  * Then, for each use case, include the following:
-
-    * Name,
-    * Participating actors,
-    * Entry condition(s) (in what system state is this use case applicable),
-    * Exit condition(s) (what is the system state after the use case is done),
-    * Flow of events (how will the user interact with the system; list the user actions and the system responses to those),
-    * Alternative flow of events (what are the exceptional cases in the flow of events and they will be handles)
-    * Iteration # (which sprint do you plan to work on this use case) 
-
-Each use case should also have a field called "Iteration" where you specify in which iteration you plan to implement this feature.
-
-You may use th:e following table template for your use cases. Copy-paste this table for each use case you will include in your document.
 
 Actors Involved:
 - Student: A student interested in applying for Student Assistant (SA) positions within the Computer Science Department. 
@@ -167,6 +141,10 @@ Actors Involved:
 - Faculty: A faculty member in the Computer Science Department responsible for managing Student Assistant (SA) positions for their courses. 
            The faculty member can create an account, log in, add course sections, create SA positions, review student applicants,
            view student qualifications, and assign students to open SA positions.
+
+- Administrator: The system administrators are responsible for overseeing the web application. 
+                 The administrator manages user accounts (both students and faculty), monitors system activity, resolves issues, and ensures that 
+                 the system runs efficiently. The administrator has control over user permissions and can make necessary adjustments to the system.
 
 - System: The web application platform that manages student and instructor accounts, stores and displays available SA positions, 
           handles the application process, and updates application statuses. The system interacts with students to retrieve, display, and 
@@ -276,6 +254,7 @@ Actors Involved:
                                    - If the student cancels, the application status remains unchanged.  |
 | Iteration #         | Sprint 3  |
 
+
 | Use case # 8      |   |
 | ------------------ |--|
 | Name              | Faculty Account Creation  |
@@ -343,6 +322,7 @@ Actors Involved:
                                   -  if user cancels no positions will be added and user will be returned to course section page. |
 | Iteration #         | Sprint 1  |
 
+
 | Use case # 12     |   |
 | ------------------ |--|
 | Name              |  View Student Applications |
@@ -357,9 +337,9 @@ Actors Involved:
                    5. The faculty reviews the qualifications of each applicant   |
 | Alternative flow of events    | - if there are no applications for a position system will
                                    display a message to inform user
-                                  - if user exits page they will be redirected to dashboard 
- |
+                                  - if user exits page they will be redirected to dashboard |
 | Iteration #         | Sprint 2  |
+
 
 | Use case # 13     |   |
 | ------------------ |--|
@@ -398,6 +378,7 @@ You may use Figma to design your interface:
 
 Here you should include a link to your GitHub repo issues page, i.e., your product backlog. Make sure to create an issue for each user story.  
 https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues 
+
 ----
 # 5. References
 
