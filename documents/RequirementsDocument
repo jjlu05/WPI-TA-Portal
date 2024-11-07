@@ -177,8 +177,7 @@ Actors Involved:
 | Flow of events | 1. The student navigates to the login page.
                    2. The system displays the login form.
                    3. The student enters their WPI email and password and submits the form.
-                   4. The system validates the login credentials.
-                   5. The system notifies the student if login is successful and redirects them to their dashboard.  |
+                   4. The system validates the login credentials notifies the student if login is successful and redirects them to their dashboard.  |
 | Alternative flow of events    | - If the credentials are incorrect, the system notifies the student, who may retry or reset their password  |
 | Iteration #         | Sprint 1  |
 
@@ -190,8 +189,7 @@ Actors Involved:
 | Entry condition(s)     | The student is logged in and navigates to the SA positions page  |
 | Exit condition(s)           | The system displays a list of open SA positions to the student  |
 | Flow of events | 1. The student navigates to the SA positions page.
-                   2. The system fetches the list of open SA positions.
-                   3. The system displays the list to the student, including recommendations based on qualifications. |
+                   2. The system fetches the list of open SA positions and displays the list to the student, including recommendations based on qualifications. |
 | Alternative flow of events    | - If no SA positions are available, the system displays a message indicating that no positions are currently open  |
 | Iteration #         | Sprint 2  |
 
@@ -217,10 +215,9 @@ Actors Involved:
 | Flow of events | 1. The student selects an SA position to apply for.
                    2. The system displays an application form for the position.
                    3. The student enters the necessary details (school year, term completed).
-                   4. The system validates the application information.
-                   5. The system prompts for confirmation upon validation.
-                   6. The student confirms
-                   7. The system submits the application as "Pending." |
+                   4. The system validates the application information and prompts for confirmation upon validation.
+                   5. The student confirms
+                   6. The system submits the application as "Pending." |
 | Alternative flow of events    | - If required information is missing, the system prompts the student to fill in missing details.
                                   - If the student has already applied for the position, the system notifies them of the duplicate application. |
 | Iteration #         | Sprint 2  |
