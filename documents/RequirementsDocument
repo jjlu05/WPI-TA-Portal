@@ -140,6 +140,7 @@ This section will include the user stories you identified for your project. Make
 10. As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.  
 11. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
 12. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position. 
+13. As faculty, I want to create an account using my WPI credentials so that I can log in and hire students.  
 
 ## 2.3 Use Cases
 12
@@ -275,7 +276,109 @@ Actors Involved:
                                    - If the student cancels, the application status remains unchanged.  |
 | Iteration #         | Sprint 3  |
 
+| Use case # 8      |   |
+| ------------------ |--|
+| Name              | Faculty Account Creation  |
+| Participating actor  | Faculty  |
+| Entry condition(s)     | The faculty member has not created an account yet |
+| Exit condition(s)           | The faculty account is created  |
+| Flow of events | 1. The user navigates to account registration page
+                   2. The system displays the registration form
+                   3. The user enters their WPI information, password, and contact details
+                   4. The system validates the provided information, stores the account details, and confirms the account creation and notifies the user
+                   5. The user confirms account creation
+                   6. The system stores the account details and sends a confirmation message to the user of the creation of the account |
+| Alternative flow of events    | - If the email is already registered, the system notifies the user, who may try again or exit.
+                                  - If the password is too weak, the system prompts the user to enter a stronger password.  |
+| Iteration #         | Sprint 1  |
 
+
+| Use case # 9      |   |
+| ------------------ |--|
+| Name              | Faculty Login  |
+| Participating actor  | Faculty  |
+| Entry condition(s)     | The faculty user has an existing account |
+| Exit condition(s)           | The faculty user is logged into their account  |
+| Flow of events | 1. The user navigates to the login page.
+                   2. The system displays the login form.
+                   3. The user enters their WPI email and password and submits the form.
+                   4. The system validates the login credentials.
+                   5. The system notifies the user if login is successful and redirects them to their dashboard.  |
+| Alternative flow of events    | - If the credentials are incorrect, the system notifies the user, who may retry or reset their password  |
+| Iteration #         | Sprint 1  |
+
+
+| Use case # 10     |   |
+| ------------------ |--|
+| Name              |  Add course with SA positions |
+| Participating actor  | Faculty  |
+| Entry condition(s)     | The faculty user has logged in and selected to add a course  |
+| Exit condition(s)           | A new course is created and associated with the faculty user, and positions can be added to the course. |
+| Flow of events | 1. The user navigates to "manage courses" and selects the option to add a
+                   new course section 
+                   2. System displays a form with a drop down menu of a list of availible courses.
+                   3. The faculty user selects a course from the drop down menu and enters the section number and term
+                   4. the user submits the form
+                   5. The system validates the informtion, and ensures that the course section is unique and saves the new course section under the user's profile.  |
+| Alternative flow of events    | - if the course section already exists for the term,
+                                    system will alert user and promt an adjusted entry of the form
+                                  - if faculty cancels, no course is added and user is
+                                    returned to manage courses page
+ |
+| Iteration #         | Sprint 1  |
+
+| Use case # 11     |   |
+| ------------------ |--|
+| Name              |  Add Open SA positions to Course |
+| Participating actor  | Faculty  |
+| Entry condition(s)     | The faculty user has logged in and has previously added a course  |
+| Exit condition(s)           | A new position is created and associated with the selected course section, and is visible to students on SA positions page. |
+| Flow of events | 1. The user navigates to "manage courses" and selects an existing course 
+                   2. The user selects option to add SA position
+                   3. System displays a form to specify number of SAs needed and required qualifications
+                   4. The user fills the form and submits
+                   5. The system validates the informtion, and saves the SA position information, linking it to the course section.  |
+| Alternative flow of events    | - if course section has reached max SA positions system
+                                    will display error message 
+                                  -  if user cancels no positions will be added and user will be returned to course section page. |
+| Iteration #         | Sprint 1  |
+
+| Use case # 12     |   |
+| ------------------ |--|
+| Name              |  View Student Applications |
+| Participating actor  | Faculty  |
+| Entry condition(s)     | The faculty user is logged in and has created open SA positions
+                           for one or more course sections  |
+| Exit condition(s)           | The faculty user views the list of student applications for one or more SA positions. |
+| Flow of events | 1. user navigates to "manage SA application" page
+                   2. system displays a list of all SA positions that were created by the user  
+                   3. user selects a course section to view 
+                   4. System displays a table with all the student applications and profile information 
+                   5. The faculty reviews the qualifications of each applicant   |
+| Alternative flow of events    | - if there are no applications for a position system will
+                                   display a message to inform user
+                                  - if user exits page they will be redirected to dashboard 
+ |
+| Iteration #         | Sprint 2  |
+
+| Use case # 13     |   |
+| ------------------ |--|
+| Name              |  Assign SA Position to Student |
+| Participating actor  | Faculty  |
+| Entry condition(s)     | The faculty user has logged in and has reviewed student
+                           applications, and has determined the students eligible for assignment.  |
+| Exit condition(s)           | The selected student is assigned to the SA position, and the system updates the student's application status to "Assigned." |
+| Flow of events | 1. The user navigates to "manage SA applications" and selects student
+                     application
+                   2. system displays the student's details and assignment options
+                   3. user selects the option to assign the student to the SA postion
+                   4. system verifies student hasn't been assigned to another position
+                   5. system updates application status to "Assigned" and sends a     notification to the student.    |
+| Alternative flow of events    | - if student is already assigned to another position
+                                    system will send an error message and notifies user
+                                  -  if user cancels no changes are made to the student's application status 
+ |
+| Iteration #         | Sprint 3  |
 
 
 
