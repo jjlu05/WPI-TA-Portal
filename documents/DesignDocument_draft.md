@@ -3,10 +3,10 @@
 ## Your Project Title
 --------
 Prepared by:
-* `<author1>`,`<organization>`
-* `<author2>`,`<organization>`
-* `<author3>`,`<organization>`
-* `<author4>`,`<organization>`
+* `Harleen Kaur`,`BME and RBE`
+* `Julian Kreis`,`CS`
+* `Jed Geoghegan`,`CS & DS`
+* `Jacob Lu`,`IMGD & CS`
 ---
 **Course** : CS 3733 - Software Engineering
 **Instructor**: Sakire Arslan Ay
