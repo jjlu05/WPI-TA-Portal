@@ -52,6 +52,16 @@ Provide a UML diagram of your database model showing the associations and
 relationships among tables.
 
 
+Classes
+- User: 
+- Student: 
+- Faculty: 
+- Course: course details
+- SA Position: details of available SA positions
+- SA Application: details of SA application
+
+
+
 
 ## 2.2 Subsystems and Interfaces
 ### 2.2.1 Overview
