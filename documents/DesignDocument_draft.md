@@ -42,17 +42,26 @@ This document describes the design of the Student Assistant Recruitment System f
 (**Note**: For all subsections of Section-2: You should describe the design for the
 end product (completed application) - not only your iteration1 version. You will
 revise this document and add more details later.)
+
+
+
 ## 2.1 Database Model
 Provide a list of your tables (i.e., SQL Alchemy classes) in your database model
 and briefly explain the role of each table.
 Provide a UML diagram of your database model showing the associations and
 relationships among tables.
+
+
+
 ## 2.2 Subsystems and Interfaces
 ### 2.2.1 Overview
 Describe the high-level architecture of your software: i.e., the major subsystems
 and how they fit together. Provide a UML component diagram that illustrates the
 architecture of your software. Briefly mention the role of each subsystem in your
 architectural design. Please refer to the "System Level Design" lectures in Week 4.
+
+
+
 ### 2.2.2 Interfaces
 Include a detailed description of the routes your application will implement.
 * Brainstorm with your team members and identify all routes you need to implement
@@ -62,6 +71,9 @@ operation it implements”.
 * You can use the following table template to list your route specifications.
 * Organize this section according to your subsytem decomposition, i.e., include a
 sub-section for each subsytem and list all routes for that sub-section in a table.
+
+
+
 #### 2.2.2.1 \<Subsystem1> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
@@ -71,6 +83,9 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |4. | | | |
 |5. | | | |
 |6. | | | |
+
+
+
 #### 2.2.2.2 \<Subsystem2> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
@@ -81,17 +96,25 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |5. | | | |
 |6. | | | |
 Repeat the above for other subsystems you included in your application.
+
+
+
 ### 2.3 User Interface Design
 Provide a list of the page templates you plan to create and supplement your
 description with UI sketches or screenshots. Make sure to mention which user-
 stories in your “Requirements and Use Cases" document will utilize these interfaces
 for user interaction.
+
+
+
 # 3. References
 Cite your references here.
 For the papers you cite give the authors, the title of the article, the journal
 name, journal volume number, date of publication and inclusive page numbers. Giving
 only the URL for the journal is not appropriate.
 For the websites, give the title, author (if applicable) and the website URL.
+
+
 ----
 # Appendix: Grading Rubric
 (Please remove this part in your final submission)
