@@ -27,10 +27,17 @@ Prepared by:
 | ------ | ------ | --------- | --------- |
 |Revision 1 |2024-11-15 |Initial draft | 1.0 |
 | | | | |
+
+
 # 1. Introduction
 Explain the purpose of this document. If this is a revision of an earlier document,
 please make sure to summarize what changes have been made during the revision (keep
 this discussion brief).
+
+This document describes the design of the Student Assistant Recruitment System for the Computer Science Department. The purpose of this system is to manage student assistant (SA) applications, position creation, and assignment to students. This document provides a detailed software design including the database model, subsystem architectures, and user interface designs. This is the first revision, and we plan to add more specific details and examples in future drafts.
+
+
+
 # 2. Software Design
 (**Note**: For all subsections of Section-2: You should describe the design for the
 end product (completed application) - not only your iteration1 version. You will
