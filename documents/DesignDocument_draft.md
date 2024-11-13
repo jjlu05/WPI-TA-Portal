@@ -43,8 +43,6 @@ This document describes the design of the Student Assistant Recruitment System f
 end product (completed application) - not only your iteration1 version. You will
 revise this document and add more details later.)
 
-
-
 ## 2.1 Database Model
 Provide a list of your tables (i.e., SQL Alchemy classes) in your database model
 and briefly explain the role of each table.
@@ -53,12 +51,12 @@ relationships among tables.
 
 
 Classes
-- User: 
-- Student: 
-- Faculty: 
-- Course: course details
-- SA Position: details of available SA positions
-- SA Application: details of SA application
+- User: The base class that stores common information for both students and instructors.
+- Student: stores information specific to students.
+- Faculty: stores information specific to faculty.
+- Course: stores course details
+- SA Position: stores details of available SA positions
+- SA Application: stores details of SA application
 
 
 
