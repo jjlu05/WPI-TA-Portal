@@ -58,8 +58,7 @@ Classes
 - SA Position: stores details of available SA positions
 - SA Application: stores details of SA application
 
-
-
+UML Diagram: CHECK
 
 ## 2.2 Subsystems and Interfaces
 ### 2.2.1 Overview
@@ -68,6 +67,23 @@ and how they fit together. Provide a UML component diagram that illustrates the
 architecture of your software. Briefly mention the role of each subsystem in your
 architectural design. Please refer to the "System Level Design" lectures in Week 4.
 
+
+
+Major subsystems:
+- User Management Subsystem: ensures that both students and faculty can securely log in, access their profiles, and perform actions based on their role (student or faculty)
+
+- Database Subsystem: handles all database interactions, ensuring that data is properly stored, updated, and retrieved.
+
+- Course Management Subsystem:responsible for managing course details, including course names, sections, and terms. It ensures that SA positions are linked to the correct course and course section.
+
+- SA Position Management Subsystem: responsible for managing the creation, modification, and removal of student assistant (SA) positions. Faculty members can create SA positions by associating them with specific courses and defining the number of positions available.
+
+- SA Application Management Subsystem: responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
+
+- User Interface (UI) Subsystem?: responsible for presenting a user-friendly interface for both students and faculty to interact with the system. This subsystem includes web pages, forms, and other UI components.
+
+
+UML Component: CHECK
 
 
 ### 2.2.2 Interfaces
