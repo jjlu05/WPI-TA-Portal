@@ -1,6 +1,6 @@
 
 # Project Design Document
-## Your Project Title
+## SA Connect: "Streamlining the Student Assistant Recruitment Process"
 --------
 Prepared by:
 * `Harleen Kaur`,`BME and RBE`
