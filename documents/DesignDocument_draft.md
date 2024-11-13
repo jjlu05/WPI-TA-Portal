@@ -34,7 +34,7 @@ Explain the purpose of this document. If this is a revision of an earlier docume
 please make sure to summarize what changes have been made during the revision (keep
 this discussion brief).
 
-This document describes the design of the Student Assistant Recruitment System for the Computer Science Department. The purpose of this system is to manage student assistant (SA) applications, position creation, and assignment to students. This document provides a detailed software design including the database model, subsystem architectures, and user interface designs. This is the first revision, and we plan to add more specific details and examples in future drafts.
+This document describes the design of the Student Assistant Recruitment System for the WPI Computer Science Department. The purpose of this system is to manage student assistant (SA) applications, position creation, and assignment to students. This document provides a detailed software design including the database model, subsystem architectures, and user interface designs. This is the first revision, and we plan to add more specific details and examples in future drafts.
 
 
 
