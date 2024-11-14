@@ -78,9 +78,6 @@ Major subsystems:
 
 - SA Application Management Subsystem: responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
 
-
-
-
 UML Component: CHECK
 
 
