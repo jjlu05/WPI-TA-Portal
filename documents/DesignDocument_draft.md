@@ -51,9 +51,9 @@ relationships among tables.
 
 
 Classes
-- User: The base class that stores common information for both students and instructors.
-- Student: stores information specific to students.
-- Faculty: stores information specific to faculty.
+- User: The base class that stores common information for both students and instructors
+- Student: stores information specific to students
+- Faculty: stores information specific to faculty
 - Course: stores course details
 - SA Position: stores details of available SA positions
 - SA Application: stores details of SA application
@@ -67,8 +67,6 @@ and how they fit together. Provide a UML component diagram that illustrates the
 architecture of your software. Briefly mention the role of each subsystem in your
 architectural design. Please refer to the "System Level Design" lectures in Week 4.
 
-
-
 Major subsystems:
 - User Management Subsystem: ensures that both students and faculty can securely log in, access their profiles, and perform actions based on their role (student or faculty)
 
@@ -77,9 +75,6 @@ Major subsystems:
 - SA Position Management Subsystem: responsible for managing the creation, modification, and removal of student assistant (SA) positions. Faculty members can create SA positions by associating them with specific courses and defining the number of positions available.
 
 - SA Application Management Subsystem: responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
-
-
-
 
 UML Component: CHECK
 
@@ -95,8 +90,29 @@ operation it implements”.
 sub-section for each subsytem and list all routes for that sub-section in a table.
 
 
+#### 2.2.2.1 \<User Management SS> Routes
+| | Methods | URL Path | Description |
+|:--|:------------------|:-----------|:-------------|
+|1. | POST | /users/register/ | registers a new user |
+|2. | POST | /users/login/ | authenticates and logs in user |
+|3. | GET | | |
+|4. | | | |
+|5. | | | |
+|6. | | | |
 
-#### 2.2.2.1 \<Subsystem1> Routes
+
+
+#### 2.2.2.2 \<Course Management SS> Routes
+| | Methods | URL Path | Description |
+|:--|:------------------|:-----------|:-------------|
+|1. | | | |
+|2. | | | |
+|3. | | | |
+|4. | | | |
+|5. | | | |
+|6. | | | |
+
+#### 2.2.2.2 \<SA Pos Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | | | |
