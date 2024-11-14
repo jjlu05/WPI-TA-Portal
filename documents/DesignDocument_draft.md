@@ -128,7 +128,7 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |6. | | | |
 
 
-#### 2.2.2.2 \<Course Management SS> Routes
+#### 2.2.2.2 \<Application Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | | | |
