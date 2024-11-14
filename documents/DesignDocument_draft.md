@@ -54,11 +54,15 @@ Classes
 - User: The base class that stores common information for both students and instructors
 - Student: stores information specific to students
 - Faculty: stores information specific to faculty
-- Course: stores course details
+- Course Offering: stores course offering details
+- Course Experience: stores data about a student's previous experience in a course
 - SA Position: stores details of available SA positions
-- SA Application: stores details of SA application
+- SA Application: stores details of SA applications
 
-UML Diagram: CHECK
+UML Diagram:
+<kbd>
+      <img src="images/UML_Database_Diagram_Draft.png"  border="2">
+</kbd>
 
 ## 2.2 Subsystems and Interfaces
 ### 2.2.1 Overview
@@ -76,7 +80,10 @@ Major subsystems:
 
 - SA Application Management Subsystem: responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
 
-UML Component: CHECK
+UML Component:
+<kbd>
+      <img src="images/UML_Database_Diagram_Draft.png"  border="2">
+</kbd>
 
 
 ### 2.2.2 Interfaces
@@ -87,35 +94,30 @@ for the **completed** application.
 operation it implements”.
 * You can use the following table template to list your route specifications.
 * Organize this section according to your subsytem decomposition, i.e., include a
+=======
+@@ -92,107 +90,106 @@
+>>>>>>> d9266bd025ff49e77e38d83cd9b37919fe9b41cc
 sub-section for each subsytem and list all routes for that sub-section in a table.
 
 
 #### 2.2.2.1 \<User Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-### student
-|1. | POST | /users/student/register/ | registers a new user |
-|2. | POST | /users/student/login/ | authenticates and logs in user |
-|3. | GET | /users/student/logout	| ends a user session |
-|4. | GET | /users/student/profile | Retrieves the profile information of the logged-in user |
-|5. | POST | /users/student/editprofile| edits a student's profile |
-### faculty
-|6. | POST | /users/faculty/register/ | registers a new user |
-|7. | POST | /users/faculty/login/ | authenticates and logs in user |
-|8. | GET | /users/faculty/logout	| ends a user session |
-|9. | GET | /users/faculty/profile | Retrieves the profile information of the logged-in user |
-|10. | POST | /users/faculty/editprofile| edits a faculty's profile |
+|1. | POST | /users/register/ | registers a new user |
+|2. | POST | /users/login/ | authenticates and logs in user |
+|3. | GET | | |
+|4. | | | |
+|5. | | | |
+|6. | | | |
+
 
 
 #### 2.2.2.2 \<Course Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|1. | POST | /course/create |creates a new course |
+|2. | POST | /course/<course_id>/edit|edit an existing course |
+
 
 #### 2.2.2.3 \<SA Pos Management SS> Routes
 | | Methods | URL Path | Description |
@@ -128,15 +130,15 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |6. | | | |
 
 
-#### 2.2.2.2 \<Course Management SS> Routes
+#### 2.2.2.2 \<Application Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|1. | GET | /applications | retrieves a list of all applications submitted by the logged-in user |
+|2. | POST | /applications/submit | submits a new application for a course, position, or opportunity |
+|3. | GET | /applications/{application_id} | retrieves details of a specific application for a course, position, or opportunity |
+|4. | GET | /applications/status/{applicationId} | retrieves the status of a specific application |
+|5. | POST | /applications/withdraw/{applicationId}	| withdraws a specfic application for a specified SA position |
+|6. | GET | /applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
 
 
 ### 2.3 User Interface Design
