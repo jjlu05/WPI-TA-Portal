@@ -96,7 +96,7 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 
 
 
-#### 2.2.2.1 \<Subsystem1> Routes
+#### 2.2.2.1 \<User Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | | | |
@@ -108,7 +108,7 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 
 
 
-#### 2.2.2.2 \<Subsystem2> Routes
+#### 2.2.2.2 \<Course Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | | | |
@@ -117,8 +117,27 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |4. | | | |
 |5. | | | |
 |6. | | | |
-Repeat the above for other subsystems you included in your application.
 
+#### 2.2.2.2 \<SA Pos Management SS> Routes
+| | Methods | URL Path | Description |
+|:--|:------------------|:-----------|:-------------|
+|1. | | | |
+|2. | | | |
+|3. | | | |
+|4. | | | |
+|5. | | | |
+|6. | | | |
+
+
+#### 2.2.2.2 \<Course Management SS> Routes
+| | Methods | URL Path | Description |
+|:--|:------------------|:-----------|:-------------|
+|1. | | | |
+|2. | | | |
+|3. | | | |
+|4. | | | |
+|5. | | | |
+|6. | | | |
 
 
 ### 2.3 User Interface Design
