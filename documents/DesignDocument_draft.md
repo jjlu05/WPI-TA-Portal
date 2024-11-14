@@ -117,12 +117,12 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |5. | | | |
 |6. | | | |
 
-#### 2.2.2.2 \<SA Pos Management SS> Routes
+#### 2.2.2.3 \<SA Pos Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
+|1. |POST | user/faculty/courses/create SA positions | create SA positions|
+|2. |POST | user/faculty/courses/edit SA positions |edit SA positon |
+|3. |GET | user/faculty/positions|displays list of all SA positions|
 |4. | | | |
 |5. | | | |
 |6. | | | |
