@@ -67,8 +67,6 @@ and how they fit together. Provide a UML component diagram that illustrates the
 architecture of your software. Briefly mention the role of each subsystem in your
 architectural design. Please refer to the "System Level Design" lectures in Week 4.
 
-
-
 Major subsystems:
 - User Management Subsystem: ensures that both students and faculty can securely log in, access their profiles, and perform actions based on their role (student or faculty)
 
@@ -92,13 +90,12 @@ operation it implements”.
 sub-section for each subsytem and list all routes for that sub-section in a table.
 
 
-
 #### 2.2.2.1 \<User Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
+|1. | POST | /users/register/ | registers a new user |
+|2. | POST | /users/login/ | authenticates and logs in user |
+|3. | GET | | |
 |4. | | | |
 |5. | | | |
 |6. | | | |
