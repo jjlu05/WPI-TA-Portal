@@ -51,9 +51,9 @@ relationships among tables.
 
 
 Classes
-- User: The base class that stores common information for both students and instructors.
-- Student: stores information specific to students.
-- Faculty: stores information specific to faculty.
+- User: The base class that stores common information for both students and instructors
+- Student: stores information specific to students
+- Faculty: stores information specific to faculty
 - Course: stores course details
 - SA Position: stores details of available SA positions
 - SA Application: stores details of SA application
