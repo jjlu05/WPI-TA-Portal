@@ -130,7 +130,7 @@ operation it implements”.
 |5. | GET | user/faculty/courses/applications/recommendations for faculty	| retrieves a list of recommended positions for each course for faculty member |
 
 
-#### 2.2.2.2 \<Applications Management SS> Routes
+#### 2.2.2.4 \<Applications Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | GET | /applications | retrieves a list of all applications submitted by the logged-in user |
