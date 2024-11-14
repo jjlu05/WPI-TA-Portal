@@ -131,9 +131,8 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |1. |POST | user/faculty/courses/create SA positions | create SA positions|
 |2. |POST | user/faculty/courses/edit SA positions |edit SA positon |
 |3. |GET | user/faculty/positions|displays list of all SA positions|
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|4. | GET | /applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
+
 
 
 #### 2.2.2.2 \<Course Management SS> Routes
