@@ -74,6 +74,7 @@ architectural design. Please refer to the "System Level Design" lectures in Week
 Major subsystems:
 - User Management Subsystem: ensures that both students and faculty can securely log in, access their profiles, and perform actions based on their role (student or faculty)
 
+<<<<<<< HEAD
 - Course Management Subsystem: responsible for managing course details, including course names, sections, and terms. It ensures that SA positions are linked to the correct course and course section.
 
 - SA Position Management Subsystem: responsible for managing the creation, modification, and removal of student assistant (SA) positions. Faculty members can create SA positions by associating them with specific courses and defining the number of positions available.
@@ -94,35 +95,30 @@ for the **completed** application.
 operation it implements”.
 * You can use the following table template to list your route specifications.
 * Organize this section according to your subsytem decomposition, i.e., include a
+=======
+@@ -92,107 +90,106 @@
+>>>>>>> d9266bd025ff49e77e38d83cd9b37919fe9b41cc
 sub-section for each subsytem and list all routes for that sub-section in a table.
 
 
 #### 2.2.2.1 \<User Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-### student
-|1. | POST | /users/student/register/ | registers a new user |
-|2. | POST | /users/student/login/ | authenticates and logs in user |
-|3. | GET | /users/student/logout	| ends a user session |
-|4. | GET | /users/student/profile | retrieves the profile information of the logged-in user |
-|5. | POST | /users/student/editprofile| edits a student's profile |
-### faculty
-|6. | POST | /users/faculty/register/ | registers a new user |
-|7. | POST | /users/faculty/login/ | authenticates and logs in user |
-|8. | GET | /users/faculty/logout	| ends a user session |
-|9. | GET | /users/faculty/profile | retrieves the profile information of the logged-in user |
-|10. | POST | /users/faculty/editprofile| edits a faculty's profile |
+|1. | POST | /users/register/ | registers a new user |
+|2. | POST | /users/login/ | authenticates and logs in user |
+|3. | GET | | |
+|4. | | | |
+|5. | | | |
+|6. | | | |
+
 
 
 #### 2.2.2.2 \<Course Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|1. | POST | /course/create |creates a new course |
+|2. | POST | /course/<course_id>/edit|edit an existing course |
+
 
 #### 2.2.2.2 \<SA Pos Management SS> Routes
 | | Methods | URL Path | Description |
@@ -135,15 +131,11 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |6. | | | |
 
 
-#### 2.2.2.2 \<Application Management SS> Routes
+#### 2.2.2.2 \<Course Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|1. | POST | /course/create |creates a new course |
+|2. | POST | /course/<course_id>/edit|edit an existing course |
 
 
 ### 2.3 User Interface Design

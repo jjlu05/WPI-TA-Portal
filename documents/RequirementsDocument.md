@@ -295,7 +295,7 @@ Actors Involved:
                    2. System displays a form with a drop down menu of a list of availible courses.
                    3. The faculty user selects a course from the drop down menu and enters the section number and term
                    4. the user submits the form
-                   5. The system validates the informtion, and ensures that the course section is unique and saves the new course section under the user's profile.  |
+                   5. The system validates the information, and ensures that the course section is unique and saves the new course section under the user's profile.  |
 | Alternative flow of events    | - if the course section already exists for the term,
                                     system will alert user and promt an adjusted entry of the form
                                   - if faculty cancels, no course is added and user is
