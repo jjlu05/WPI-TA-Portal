@@ -54,11 +54,15 @@ Classes
 - User: The base class that stores common information for both students and instructors
 - Student: stores information specific to students
 - Faculty: stores information specific to faculty
-- Course: stores course details
+- Course Offering: stores course offering details
+- Course Experience: stores data about a student's previous experience in a course
 - SA Position: stores details of available SA positions
-- SA Application: stores details of SA application
+- SA Application: stores details of SA applications
 
-UML Diagram: CHECK
+UML Diagram:
+<kbd>
+      <img src="images/UML_Database_Diagram_Draft.png"  border="2">
+</kbd>
 
 ## 2.2 Subsystems and Interfaces
 ### 2.2.1 Overview
@@ -76,7 +80,10 @@ Major subsystems:
 
 - SA Application Management Subsystem: responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
 
-UML Component: CHECK
+UML Component:
+<kbd>
+      <img src="images/UML_Database_Diagram_Draft.png"  border="2">
+</kbd>
 
 
 ### 2.2.2 Interfaces
