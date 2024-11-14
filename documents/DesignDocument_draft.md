@@ -95,9 +95,6 @@ operation it implements”.
 * You can use the following table template to list your route specifications.
 * Organize this section according to your subsytem decomposition, i.e., include a
 =======
-@@ -92,107 +90,106 @@
->>>>>>> d9266bd025ff49e77e38d83cd9b37919fe9b41cc
-sub-section for each subsytem and list all routes for that sub-section in a table.
 
 
 #### 2.2.2.1 \<User Management SS> Routes
@@ -128,8 +125,9 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |:--|:------------------|:-----------|:-------------|
 |1. |POST | user/faculty/courses/create SA positions | create SA positions|
 |2. |POST | user/faculty/courses/edit SA positions |edit SA positon |
-|3. |GET | user/faculty/positions|displays list of all SA positions|
+|3. |GET | user/faculty/positions|displays list of all SA positions created|
 |4. | GET | /applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
+|5. | GET | /applications/recommendations for faculty	| retrieves a list of recommended positions for each course for faculty member |
 
 
 #### 2.2.2.2 \<Applications Management SS> Routes
