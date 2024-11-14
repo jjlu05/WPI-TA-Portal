@@ -70,29 +70,16 @@ architectural design. Please refer to the "System Level Design" lectures in Week
 Major subsystems:
 - User Management Subsystem: ensures that both students and faculty can securely log in, access their profiles, and perform actions based on their role (student or faculty)
 
-- Course Management Subsystem: responsible for managing course details, including course names, sections, and terms. It ensures that SA positions are linked to the correct course and course section.
-
-- SA Position Management Subsystem: responsible for managing the creation, modification, and removal of student assistant (SA) positions. Faculty members can create SA positions by associating them with specific courses and defining the number of positions available.
-
-- SA Application Management Subsystem: responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
-
-UML Component: CHECK
-
-
-### 2.2.2 Interfaces
-Include a detailed description of the routes your application will implement.
-* Brainstorm with your team members and identify all routes you need to implement
-for the **completed** application.
-* For each route specify its “methods”, “URL path”, and “a description of the
-operation it implements”.
-* You can use the following table template to list your route specifications.
-* Organize this section according to your subsytem decomposition, i.e., include a
+@@ -92,107 +90,106 @@
 sub-section for each subsytem and list all routes for that sub-section in a table.
 
 
 #### 2.2.2.1 \<User Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
+|1. | | | |
+|2. | | | |
+|3. | | | |
 |1. | POST | /users/register/ | registers a new user |
 |2. | POST | /users/login/ | authenticates and logs in user |
 |3. | GET | | |
@@ -105,12 +92,9 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 #### 2.2.2.2 \<Course Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|1. | POST | /course/create |creates a new course |
+|2. | POST | /course/<course_id>/edit|edit an existing course |
+
 
 #### 2.2.2.2 \<SA Pos Management SS> Routes
 | | Methods | URL Path | Description |
@@ -123,15 +107,15 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |6. | | | |
 
 
-
-#### 2.2.2.2 \<User Management> Routes
+#### 2.2.2.2 \<SA Appl SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. |create_s_account() |/student/register | |
-|2. |create_f_account() |/faculty/register | |
-
-Repeat the above for other subsystems you included in your application.
-
+|1. |  | | |
+|2. | | | |
+|3. | | | |
+|4. | | | |
+|5. | | | |
+|6. | | | |
 
 
 ### 2.3 User Interface Design
