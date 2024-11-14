@@ -108,15 +108,12 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 
 
 
-#### 2.2.2.2 \<Subsystem2> Routes
+#### 2.2.2.2 \<User Management> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|1. |create_s_account() |/student/register | |
+|2. |create_f_account() |/faculty/register | |
+
 Repeat the above for other subsystems you included in your application.
 
 
