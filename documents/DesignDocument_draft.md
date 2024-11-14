@@ -77,9 +77,6 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 #### 2.2.2.1 \<User Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
 |1. | POST | /users/register/ | registers a new user |
 |2. | POST | /users/login/ | authenticates and logs in user |
 |3. | GET | | |
@@ -107,15 +104,11 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |6. | | | |
 
 
-#### 2.2.2.2 \<SA Appl SS> Routes
+#### 2.2.2.2 \<Course Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. |  | | |
-|2. | | | |
-|3. | | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+|1. | POST | /course/create |creates a new course |
+|2. | POST | /course/<course_id>/edit|edit an existing course |
 
 
 ### 2.3 User Interface Design
