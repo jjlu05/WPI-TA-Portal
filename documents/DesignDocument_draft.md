@@ -103,12 +103,18 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 #### 2.2.2.1 \<User Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /users/register/ | registers a new user |
-|2. | POST | /users/login/ | authenticates and logs in user |
-|3. | GET | | |
-|4. | | | |
-|5. | | | |
-|6. | | | |
+### student
+|1. | POST | /users/student/register/ | registers a new user |
+|2. | POST | /users/student/login/ | authenticates and logs in user |
+|3. | GET | /users/student/logout	| ends a user session |
+|4. | GET | /users/student/profile | retrieves the profile information of the logged-in user |
+|5. | POST | /users/student/editprofile| edits a student's profile |
+### faculty
+|6. | POST | /users/faculty/register/ | registers a new user |
+|7. | POST | /users/faculty/login/ | authenticates and logs in user |
+|8. | GET | /users/faculty/logout	| ends a user session |
+|9. | GET | /users/faculty/profile | retrieves the profile information of the logged-in user |
+|10. | POST | /users/faculty/editprofile| edits a faculty's profile |
 
 
 
@@ -119,12 +125,12 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |2. | POST | /course/<course_id>/edit|edit an existing course |
 
 
-#### 2.2.2.2 \<SA Pos Management SS> Routes
+#### 2.2.2.3 \<SA Pos Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | | | |
-|2. | | | |
-|3. | | | |
+|1. |POST | user/faculty/courses/create SA positions | create SA positions|
+|2. |POST | user/faculty/courses/edit SA positions |edit SA positon |
+|3. |GET | user/faculty/positions|displays list of all SA positions|
 |4. | | | |
 |5. | | | |
 |6. | | | |
