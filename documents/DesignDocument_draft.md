@@ -126,8 +126,8 @@ operation it implements”.
 |1. |POST | user/faculty/courses/create SA positions | create SA positions|
 |2. |POST | user/faculty/courses/edit SA positions |edit SA positon |
 |3. |GET | user/faculty/positions|displays list of all SA positions created|
-|4. | GET | /applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
-|5. | GET | /applications/recommendations for faculty	| retrieves a list of recommended positions for each course for faculty member |
+|4. | GET | user/student/courses/applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
+|5. | GET | user/faculty/courses/applications/recommendations for faculty	| retrieves a list of recommended positions for each course for faculty member |
 
 
 #### 2.2.2.2 \<Applications Management SS> Routes
