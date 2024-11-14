@@ -82,7 +82,7 @@ Major subsystems:
 
 UML Component:
 <kbd>
-      <img src="images/UML_Database_Diagram_Draft.png"  border="2">
+      <img src="images/UML_Component_Diagram_Draft.png"  border="2">
 </kbd>
 
 
