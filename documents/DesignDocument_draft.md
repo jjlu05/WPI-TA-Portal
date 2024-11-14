@@ -138,15 +138,22 @@ operation it implements”.
 |3. | GET | /applications/{application_id} | retrieves details of a specific application for a course, position, or opportunity |
 |4. | GET | /applications/status/{applicationId} | retrieves the status of a specific application |
 |5. | POST | /applications/withdraw/{applicationId}	| withdraws a specfic application for a specified SA position |
-|6. | GET | /applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
-|1. | POST | /course/create |creates a new course |
-|2. | POST | /course/<course_id>/edit|edit an existing course |
+
 
 ### 2.3 User Interface Design
 Provide a list of the page templates you plan to create and supplement your
 description with UI sketches or screenshots. Make sure to mention which user-
 stories in your “Requirements and Use Cases" document will utilize these interfaces
 for user interaction.
+
+Page Tempates: 
+- Staff: Main page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form Create course page Edit course form
+
+- Student: Main page shows courses they can apply to, including a separate relevant courses section Separate page to view application status
+
+- Both: Login Page Profile creation page Edit Profile (Student will need more info)
+
+![image](https://github.com/user-attachments/assets/184c8986-2c77-49bd-9888-7bc69108fb76)
 
 
 
