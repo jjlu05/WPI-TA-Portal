@@ -131,11 +131,15 @@ sub-section for each subsytem and list all routes for that sub-section in a tabl
 |6. | | | |
 
 
-#### 2.2.2.2 \<Course Management SS> Routes
+#### 2.2.2.2 \<Application Management SS> Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /course/create |creates a new course |
-|2. | POST | /course/<course_id>/edit|edit an existing course |
+|1. | GET | /applications | retrieves a list of all applications submitted by the logged-in user |
+|2. | POST | /applications/submit | submits a new application for a course, position, or opportunity |
+|3. | GET | /applications/{application_id} | retrieves details of a specific application for a course, position, or opportunity |
+|4. | GET | /applications/status/{applicationId} | retrieves the status of a specific application |
+|5. | POST | /applications/withdraw/{applicationId}	| withdraws a specfic application for a specified SA position |
+|6. | GET | /applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
 
 
 ### 2.3 User Interface Design
