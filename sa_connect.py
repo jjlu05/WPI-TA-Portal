@@ -15,5 +15,4 @@ def init_db(*args, **kwargs):
     if app._got_first_request:
         db.create_all()
 
-if __name__ == "__user__":
-    app.run(debug=True)
+app.run(debug=True)

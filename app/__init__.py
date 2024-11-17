@@ -20,9 +20,9 @@ def create_app(config_class=Config):
     migrate.init_app(app,db)
     login = LoginManager()
     login.login_view = 'auth.login'
-    moment = Moment()
-    login.init_app(app)
-    moment.init_app(app)
+    # moment = Moment()
+    # login.init_app(app)
+    # moment.init_app(app)
 
     # blueprint registration
     from app.application import application_blueprint as application
