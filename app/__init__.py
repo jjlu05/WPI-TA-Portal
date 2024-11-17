@@ -16,30 +16,30 @@ def create_app(config_class=Config):
     app.static_folder = config_class.STATIC_FOLDER
     app.template_folder = config_class.TEMPLATE_FOLDER_MAIN
 
-    db.init_app(app)
-    migrate.init_app(app,db)
-    login.init_app(app)
-    moment.init_app(app)
+    # db.init_app(app)
+    # migrate.init_app(app,db)
+    # # login.init_app(app)
+    # # moment.init_app(app)
 
-    # blueprint registration
-    from app.application import main_blueprint as main
-    main.template_folder = Config.TEMPLATE_FOLDER_MAIN
-    app.register_blueprint(application)
+    # # blueprint registration
+    # from app.application import main_blueprint as main
+    # main.template_folder = Config.TEMPLATE_FOLDER_MAIN
+    # # app.register_blueprint(application)
 
-    from app.course import auth_blueprint as auth
-    auth.template_folder = Config.TEMPLATE_FOLDER_AUTH
-    app.register_blueprint(course)
+    # from app.course import auth_blueprint as auth
+    # auth.template_folder = Config.TEMPLATE_FOLDER_AUTH
+    # # app.register_blueprint(course)
 
-    from app.position import auth_blueprint as auth
-    auth.template_folder = Config.TEMPLATE_FOLDER_AUTH
-    app.register_blueprint(position)
+    # from app.position import auth_blueprint as auth
+    # auth.template_folder = Config.TEMPLATE_FOLDER_AUTH
+    # # app.register_blueprint(position)
 
-    from app.user import auth_blueprint as auth
-    auth.template_folder = Config.TEMPLATE_FOLDER_AUTH
-    app.register_blueprint(user)
+    # from app.user.templates import auth_blueprint as auth
+    # auth.template_folder = Config.TEMPLATE_FOLDER_AUTH
+    # # app.register_blueprint(user)
 
-    from app.errors import error_blueprint as errors
-    errors.template_folder = Config.TEMPLATE_FOLDER_ERRORS
-    app.register_blueprint(errors)
+    # from app.errors import error_blueprint as errors
+    # errors.template_folder = Config.TEMPLATE_FOLDER_ERRORS
+    # app.register_blueprint(errors)
 
     return app
