@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-error_blueprint = Blueprint('application', __name__)
+course_blueprint = Blueprint('course', __name__)
 
-from app.errors import errors
+from app.course import course_routes

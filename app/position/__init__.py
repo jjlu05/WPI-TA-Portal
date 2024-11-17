@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-error_blueprint = Blueprint('position', __name__)
+position_blueprint = Blueprint('position', __name__)
 
-from app.errors import errors
+from app.position import position_routes

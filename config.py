@@ -11,6 +11,8 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ROOT_PATH = basedir
     STATIC_FOLDER = os.path.join(basedir, 'app//static')
-    TEMPLATE_FOLDER_MAIN = os.path.join(basedir, 'app//main//templates')
+    TEMPLATE_FOLDER_APPLICATION = os.path.join(basedir, 'app//application//templates')
+    TEMPLATE_FOLDER_COURSE = os.path.join(basedir, 'app//course//templates')    
     TEMPLATE_FOLDER_ERRORS = os.path.join(basedir, 'app//errors//templates')
-    TEMPLATE_FOLDER_AUTH = os.path.join(basedir, 'app//auth//templates')    
+    TEMPLATE_FOLDER_POSITION = os.path.join(basedir, 'app//position//templates')    
+    TEMPLATE_FOLDER_USER = os.path.join(basedir, 'app//user//templates')    
