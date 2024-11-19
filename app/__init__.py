@@ -5,10 +5,11 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_moment import Moment
 
-
 db = SQLAlchemy()
-
 migrate = Migrate()
+login = LoginManager() 
+login.login_view = 'user.login'  
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -17,14 +18,10 @@ def create_app(config_class=Config):
     app.template_folder = config_class.TEMPLATE_FOLDER_APPLICATION
 
     db.init_app(app)
-    migrate.init_app(app,db)
-    login = LoginManager()
-    login.login_view = 'auth.login'
-    # moment = Moment()
-    # login.init_app(app)
-    # moment.init_app(app)
+    migrate.init_app(app, db)
+    login.init_app(app)
 
-    # blueprint registration
+    # Blueprint registration
     from app.application import application_blueprint as application
     application.template_folder = Config.TEMPLATE_FOLDER_APPLICATION
     app.register_blueprint(application)
