@@ -9,6 +9,8 @@ from app.user import user_blueprint as bp_user
 @bp_user.route('/index', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+
+
 @bp_user.route('/student/register', methods=['GET', 'POST'])
 def register_student():
     form = StudentRegistrationForm()
@@ -19,7 +21,8 @@ def register_student():
             email=form.email.data,
             first_name=form.first_name.data,
             last_name=form.last_name.data,
-            phone_number=form.phone_number.data
+            phone_number=form.phone_number.data,
+            wpi_id=form.wpi_id.data
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
@@ -43,7 +46,9 @@ def register_faculty():
             email=form.email.data,
             first_name=form.first_name.data,
             last_name=form.last_name.data,
-            phone_number=form.phone_number.data
+            phone_number=form.phone_number.data,
+            wpi_id=form.wpi_id.data
+
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)

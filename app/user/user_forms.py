@@ -13,6 +13,9 @@ class StudentRegistrationForm(FlaskForm):
     major = StringField('Major', validators=[DataRequired()])
     gpa = IntegerField('GPA (Optional)', validators=[Optional()])
     graduation_year = IntegerField('Graduation Year', validators=[DataRequired()])
+    wpi_id = StringField('WPI ID', validators=[DataRequired()])
+    phone_number = StringField('Phone Number', validators=[DataRequired()])
+    past_sa = StringField('Past SA', validators=[DataRequired()])
     
     submit = SubmitField('Register')
 
@@ -35,8 +38,9 @@ class FacultyRegistrationForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     department = StringField('Department', validators=[DataRequired()])
-    faculty_id = StringField('Faculty ID', validators=[DataRequired()])
-    
+    wpi_id = StringField('WPI ID', validators=[DataRequired()])
+    phone_number = StringField('Phone Number', validators=[DataRequired()])
+
     submit = SubmitField('Register')
 
     def validate_username(self, username):

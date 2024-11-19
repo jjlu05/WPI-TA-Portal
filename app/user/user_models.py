@@ -16,6 +16,7 @@ class User(db.Model):
     first_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     last_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     phone_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
+    wpi_id : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(9), nullable = False)
 
     # Relationships 
     student_profile: sqlo.Mapped['Student'] = sqlo.relationship('Student', back_populates='user', uselist=False)
@@ -34,6 +35,7 @@ class User(db.Model):
 # Student Model
 class Student(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('user.id'), primary_key=True)
+    past_sa : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     major: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     cum_gpa: sqlo.Mapped[float] = sqlo.mapped_column(sqla.Float, nullable=False)
     grad_year: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)
