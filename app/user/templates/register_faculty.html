@@ -33,6 +33,30 @@
         </div>
 
         <div class="mb-3">
+            <label for="wpi_id" class="form-label">WPI ID</label>
+            {{ form.wpi_id(class="form-control", placeholder="Enter your WPI ID") }}
+            {% if form.wpi_id.errors %}
+                <div class="text-danger">
+                    {% for error in form.wpi_id.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone #</label>
+            {{ form.phone_number(class="form-control", placeholder="Enter your Phone #") }}
+            {% if form.phone_number.errors %}
+                <div class="text-danger">
+                    {% for error in form.phone_number.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             {{ form.password(class="form-control", placeholder="Enter your password") }}
             {% if form.password.errors %}
@@ -57,11 +81,23 @@
         </div>
 
         <div class="mb-3">
-            <label for="department" class="form-label">Department</label>
-            {{ form.department(class="form-control", placeholder="Enter your department") }}
-            {% if form.department.errors %}
+            <label for="first_name" class="form-label">First Name</label>
+            {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
+            {% if form.first_name.errors %}
                 <div class="text-danger">
-                    {% for error in form.department.errors %}
+                    {% for error in form.first_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            {{ form.last_name(class="form-control", placeholder="Enter your last name") }}
+            {% if form.last_name.errors %}
+                <div class="text-danger">
+                    {% for error in form.last_name.errors %}
                         <p>{{ error }}</p>
                     {% endfor %}
                 </div>
@@ -69,11 +105,11 @@
         </div>
 
         <div class="mb-3">
-            <label for="faculty_id" class="form-label">Faculty ID</label>
-            {{ form.faculty_id(class="form-control", placeholder="Enter your faculty ID") }}
-            {% if form.faculty_id.errors %}
+            <label for="department" class="form-label">Department</label>
+            {{ form.department(class="form-control", placeholder="Enter your department") }}
+            {% if form.department.errors %}
                 <div class="text-danger">
-                    {% for error in form.faculty_id.errors %}
+                    {% for error in form.department.errors %}
                         <p>{{ error }}</p>
                     {% endfor %}
                 </div>

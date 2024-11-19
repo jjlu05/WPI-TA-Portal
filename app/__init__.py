@@ -30,10 +30,6 @@ def create_app(config_class=Config):
     course.template_folder = Config.TEMPLATE_FOLDER_COURSE
     app.register_blueprint(course)
 
-    from app.position import position_blueprint as position
-    position.template_folder = Config.TEMPLATE_FOLDER_POSITION
-    app.register_blueprint(position)
-
     from app.user import user_blueprint as user
     user.template_folder = Config.TEMPLATE_FOLDER_USER
     app.register_blueprint(user)
