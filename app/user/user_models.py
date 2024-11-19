@@ -2,20 +2,16 @@ from app import db, login
 import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
 from sqlalchemy.orm import relationship
-
+from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
-from sqlalchemy.orm import relationship
 from datetime import datetime
-# from flask_login import UserMixin
-# from app import login
-from app import db
 
-# @login.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id)) 
 from werkzeug.security import generate_password_hash, check_password_hash
 
-#from flask_login import UserMixin
+
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id)) 
 
 # Stores common fields 
 class User(db.Model):
@@ -100,7 +96,3 @@ class Course(db.Model):
     coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4), primary_key=True)
 
 
-# Define the user_loader function in the models file
-@login.user_loader
-def load_user(id):
-    return db.session.get(User, int(id))
