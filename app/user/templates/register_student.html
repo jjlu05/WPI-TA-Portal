@@ -33,6 +33,30 @@
         </div>
 
         <div class="mb-3">
+            <label for="wpi_id" class="form-label">WPI ID</label>
+            {{ form.wpi_id(class="form-control", placeholder="Enter your WPI ID") }}
+            {% if form.wpi_id.errors %}
+                <div class="text-danger">
+                    {% for error in form.wpi_id.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone #</label>
+            {{ form.phone_number(class="form-control", placeholder="Enter your Phone #") }}
+            {% if form.phone_number.errors %}
+                <div class="text-danger">
+                    {% for error in form.phone_number.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             {{ form.password(class="form-control", placeholder="Enter your password") }}
             {% if form.password.errors %}
@@ -55,6 +79,44 @@
                 </div>
             {% endif %}
         </div>
+
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
+            {% if form.first_name.errors %}
+                <div class="text-danger">
+                    {% for error in form.first_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            {{ form.last_name(class="form-control", placeholder="Enter your last name") }}
+            {% if form.last_name.errors %}
+                <div class="text-danger">
+                    {% for error in form.last_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+
+        <div class="mb-3">
+            <label for="past_sa" class="form-label">Past SA Experience</label>
+            {{ form.past_sa(class="form-control", placeholder="Enter your past SA experience") }}
+            {% if form.past_sa.errors %}
+                <div class="text-danger">
+                    {% for error in form.past_sa.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
 
         <div class="mb-3">
             <label for="major" class="form-label">Major</label>
