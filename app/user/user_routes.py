@@ -17,7 +17,7 @@ def register_student():
     form = StudentRegistrationForm()
     if form.validate_on_submit():
         # Create a new User object
-        new_user = User(
+        new_user = Student(
             username=form.username.data,
             email=form.email.data,
             first_name=form.first_name.data,
@@ -42,7 +42,7 @@ def register_faculty():
     form = FacultyRegistrationForm()
     if form.validate_on_submit():
         # Create a new User object
-        new_user = User(
+        new_user = Faculty(
             username=form.username.data,
             email=form.email.data,
             first_name=form.first_name.data,
