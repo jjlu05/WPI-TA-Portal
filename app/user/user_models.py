@@ -93,6 +93,13 @@ class SAPosition(db.Model):
         return f"<SAPosition(id={self.id}, course_section_id={self.course_section_id}, number_of_sas={self.number_of_sas})>"
 
 
+class Course(db.Model):
+    id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
+    term: sqlo.Mapped[str] = sqlo.mapped_column(primary_key=True)
+    section: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
+    coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4), primary_key=True)
+
+
 # Define the user_loader function in the models file
 @login.user_loader
 def load_user(id):

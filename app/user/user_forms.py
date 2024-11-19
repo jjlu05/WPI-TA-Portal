@@ -56,6 +56,11 @@ class FacultyRegistrationForm(FlaskForm):
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
 
+class CreateCourseForm(FlaskForm):
+    coursenum = StringField('Course Number', validators=[DataRequired()])
+    section = IntegerField('Section', validators=[DataRequired()])
+    term = StringField('Term', validators=[DataRequired()])
+    submit = SubmitField('Create')
 
 class CreateSAPositionForm(FlaskForm):
     course_section = SelectField('Course Section', choices=[], validators=[DataRequired()])
