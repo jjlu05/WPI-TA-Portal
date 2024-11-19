@@ -21,7 +21,6 @@ class User(db.Model):
     student_profile: sqlo.Mapped['Student'] = sqlo.relationship('Student', back_populates='user', uselist=False)
     faculty_profile: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='user', uselist=False)
 
-  
     def __repr__(self):
         # Excluded password_hash for security
         return f"<User(id={self.id}, username='{self.username}')>"
