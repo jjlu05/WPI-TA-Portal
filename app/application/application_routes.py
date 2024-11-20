@@ -3,10 +3,9 @@ from flask_login import login_required, current_user, login_user
 from app import db
 from app.application.application_forms import CreateSAPositionForm
 from app.application.application_models import SAPosition
-from app.user.user_models import Faculty
-from app.user import user_blueprint as bp_user
 from app.course.course_models import CourseSection
-
+from app.user import user_blueprint as bp_user
+from app.user.user_models import Faculty
 
 
 
