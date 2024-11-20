@@ -8,6 +8,13 @@ import sqlalchemy.orm as sqlo
 
 app = create_app(Config)
 
+preset_courses = [
+    "CS1011 - Intro to Programming",
+    "CS2303 - Algorithms",
+    "CS3733 - Software Engineering",
+    "CS4342 - Intro to AI"
+]
+
 @app.shell_context_processor
 def make_shell_context():
     return {'sqla': sqla, 'sqlo': sqlo, 'db': db, 'User': User, 'Student': Student, 'Faculty': Faculty}

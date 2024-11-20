@@ -1,11 +1,10 @@
 from flask import render_template, redirect, url_for, flash
-from flask_login import login_required, current_user, login_user
+from flask_login import login_required, current_user, login_user, logout_user
 from app import db
 from app.user.user_forms import StudentRegistrationForm, FacultyRegistrationForm, LoginForm
 from app.user.user_models import User, Student, Faculty
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
-
 
 @bp_user.route('/', methods=['GET', 'POST'])
 @bp_user.route('/index', methods=['GET', 'POST'])
@@ -17,6 +16,8 @@ def index():
 def register_student():
     form = StudentRegistrationForm()
     if form.validate_on_submit():
+        print("Form submitted and validated")
+
         # Create a new User object
         new_user = Student(
             username=form.username.data,
@@ -27,7 +28,8 @@ def register_student():
             wpi_id=form.wpi_id.data,
             major=form.major.data,
             grad_year=form.graduation_year.data,
-            cum_gpa=form.gpa.data
+            cum_gpa=form.gpa.data,
+            courses_served=", ".join(form.courses_served.data) 
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
@@ -37,13 +39,18 @@ def register_student():
         db.session.commit()
         
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('user.login'))  # Assuming you have a 'login' route
+        return redirect(url_for('user.login'))  
+    else:
+        print("Form validation failed")
         
     return render_template('register_student.html', form=form)
 
 
 @bp_user.route('/faculty/register', methods=['GET', 'POST'])
 def register_faculty():
+    if current_user.is_authenticated:
+        return redirect(url_for('user.index'))
+
     form = FacultyRegistrationForm()
     if form.validate_on_submit():
         # Create a new User object
@@ -64,21 +71,25 @@ def register_faculty():
         db.session.commit()
         
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('user.login'))  # Assuming you have a 'login' route
+        return redirect(url_for('user.login'))  
         
     return render_template('register_faculty.html', form=form)
 
 
 @bp_user.route('/login', methods=['GET', 'POST'])
 def login():
+    # If the user is already logged in, redirect to the index page
     if current_user.is_authenticated:
         return redirect(url_for('course.index'))
+
     form = LoginForm()
+    
     if form.validate_on_submit():
-        # Check for user from both student and faculty
+        # Check for the user in both Student and Faculty tables
         query = sqla.select(Student).where(Student.username == form.username.data)
         user = db.session.scalars(query).first()
-        if (user is None):
+        
+        if user is None:
             query = sqla.select(Faculty).where(Faculty.username == form.username.data)
             user = db.session.scalars(query).first()
         if (user is None) or (user.check_password(form.password.data) == False):
@@ -89,4 +100,9 @@ def login():
         return redirect(url_for('user.index'))
     return render_template('login.html', form=form)
 
-
+@bp_user.route('/logout', methods=['GET'])
+@login_required 
+def logout():
+    logout_user()  
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('user.index')) 

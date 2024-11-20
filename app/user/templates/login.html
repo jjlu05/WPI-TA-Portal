@@ -5,18 +5,18 @@
 {% block content %}
 <div class="container mt-5">
     <h2>User Login</h2>
-    <form method="POST" action="{{ url_for('course.index') }}">
+    <form method="POST" action="{{ url_for('user.login') }}">
         {{ form.hidden_tag() }}
         
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             {{ form.username(class="form-control", placeholder="Enter your username") }}
             {% if form.username.errors %}
-                <div class="text-danger">
+                <ul class="text-danger">
                     {% for error in form.username.errors %}
                         <p>{{ error }}</p>
                     {% endfor %}
-                </div>
+                </ul>
             {% endif %}
         </div>
 
@@ -24,11 +24,11 @@
             <label for="password" class="form-label">Password</label>
             {{ form.password(class="form-control", placeholder="Enter your password") }}
             {% if form.password.errors %}
-                <div class="text-danger">
+                <ul class="text-danger">
                     {% for error in form.password.errors %}
                         <p>{{ error }}</p>
                     {% endfor %}
-                </div>
+                </ul>
             {% endif %}
         </div>
 
@@ -38,5 +38,11 @@
             {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
+
+    <div class="mt-4">
+        <p>Don't have an account yet? </p>
+        <a href="{{ url_for('user.register_student') }}" class="btn btn-secondary">Register as Student</a>
+        <a href="{{ url_for('user.register_faculty') }}" class="btn btn-secondary">Register as Faculty</a>
+    </div>
 </div>
 {% endblock %}
