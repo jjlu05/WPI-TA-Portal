@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, TextAreaField, SelectField, SubmitField, ValidationError
 from wtforms.validators import DataRequired, NumberRange
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField
 from wtforms.validators import DataRequired, EqualTo, Email, Optional
 from app.user.user_models import User, Student, Faculty
 
@@ -38,6 +38,7 @@ class StudentRegistrationForm(FlaskForm):
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
 
+
 class FacultyRegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -66,19 +67,14 @@ class FacultyRegistrationForm(FlaskForm):
         user = Faculty.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
-        
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
-
-    submit = SubmitField('Login')
 
 class CreateCourseForm(FlaskForm):
-    course_code = StringField('Course Number', validators=[DataRequired()])
     section_number = IntegerField('Section', validators=[DataRequired()])
     term = StringField('Term', validators=[DataRequired()])
     submit = SubmitField('Create')
+    course_choices = [("test1", "CS3733"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100")]
+    
+    major = RadioField('Major', choices=course_choices, validators=[DataRequired()])
 
 class CreateSAPositionForm(FlaskForm):
     course_section = SelectField('Course Section', choices=[], validators=[DataRequired()])
