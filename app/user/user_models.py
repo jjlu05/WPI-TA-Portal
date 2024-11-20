@@ -49,8 +49,8 @@ class Student(User):
 class Faculty(User):
     department: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
 
-    # Faculty can teach multiple course sections
-    course_sections: sqlo.Mapped[list['CourseSection']] = sqlo.relationship('CourseSection', back_populates='instructor')
+    # One-to-one relationship
+    user: sqlo.Mapped['User'] = sqlo.relationship('User', back_populates='faculty_profile')
 
     def __repr__(self):
         return f"<Faculty(id={self.id}, department='{self.department}')>"
@@ -60,8 +60,9 @@ class Faculty(User):
 class CourseSection(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     course_code: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
-    section_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False)
-    instructor_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('faculty.id'), nullable=False)
+    section_number: sqlo.Mapped[int] = sqlo.mapped_column(nullable=False)
+    instructor_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('faculty.id'))
+    term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False)
 
     # Relationships
     instructor: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections')
@@ -87,12 +88,10 @@ class SAPosition(db.Model):
         return f"<SAPosition(id={self.id}, course_section_id={self.course_section_id}, number_of_sas={self.number_of_sas})>"
 
 
-# Course Model
 class Course(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
-    section: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)
-    coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
+    term: sqlo.Mapped[str] = sqlo.mapped_column(primary_key=True)
+    section: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
+    coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4), primary_key=True)
 
-    def __repr__(self):
-        return f"<Course(id={self.id}, term='{self.term}', coursenum='{self.coursenum}', section='{self.section}')>"
+

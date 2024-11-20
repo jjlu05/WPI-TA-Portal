@@ -5,8 +5,10 @@
 <h1>Create a new class</h1>
 
 <form action = "{{url_for('course.createclass')}}" method = "POST">
-    {{wtf.form_field(form.coursenum)}}
-    {{wtf.form_field(form.section)}}
+    {{ form.hidden_tag() }} 
+
+    {{wtf.form_field(form.course_code)}}
+    {{wtf.form_field(form.section_number)}}
     {{wtf.form_field(form.term)}}
 
     {{wtf.form_field(form.submit)}}
