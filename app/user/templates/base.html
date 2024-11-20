@@ -28,43 +28,42 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.register_student') }}">Student Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.register_faculty') }}">Faculty Registration</a>
-                </li>
-
-
-
                 {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('user.logout') }}">Logout</a>
-                    </li>
                     <li class="nav-item">
                         <span class="navbar-text">Welcome, {{ current_user.username }}!</span>
                     </li>
                 {% else %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('user.register_student') }}">Student Registration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('user.register_faculty') }}">Faculty Registration</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('user.login') }}">Login</a>
                     </li>
                 {% endif %}
                 
-                {% if is_faculty %}
+                {% if current_user.is_authenticated %}
+                    {% if is_faculty %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('course.createclass') }}">Create Class</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('user.create_sa_position') }}">Create SA Position</a>
+                        </li>    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('user.edit_faculty_profile') }}">Edit Profile</a>
+                        </li>               
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('user.edit_student_profile') }}">Edit Profile</a>
+                        </li>
+                    {%endif%}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('course.createclass') }}">Create Class</a>
+                        <a class="nav-link" href="{{ url_for('user.logout') }}">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('user.create_sa_position') }}">Create SA Position</a>
-                    </li>    
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('user.edit_faculty_profile') }}">Edit Profile</a>
-                    </li>               
-                {% elif is_student %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('user.edit_student_profile') }}">Edit Profile</a>
-                    </li>
-                {%endif%}
+                {% endif %}
                 
             </ul>
         </div>
