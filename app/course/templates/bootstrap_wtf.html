@@ -9,8 +9,10 @@
     {{ field.label(class='form-label') }}
     {%- for item in field %}
     <div class="form-check{% if loop.last %} mb-3{% endif %}">
+      
       {{ item(class='form-check-input') }}
       {{ item.label(class='form-check-label') }}
+    
     </div>
     {%- endfor %}
   {%- elif field.type == 'SelectField' %}

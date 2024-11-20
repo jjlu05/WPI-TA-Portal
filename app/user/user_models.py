@@ -74,7 +74,7 @@ class CourseSection(db.Model):
 
 # SA Position Model
 class SAPosition(db.Model):
-    __tablename__ = 'sa_position'  # Explicitly defines the table name
+    __tablename__ = 'sa_position' 
 
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     course_section_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course_section.id'), nullable=False)

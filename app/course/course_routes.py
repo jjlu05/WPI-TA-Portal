@@ -22,10 +22,10 @@ def createclass():
     cform = CreateCourseForm()
     if cform.validate_on_submit():
         new_class = CourseSection(
-            course_code=cform.course_code.data,
+            course_code=cform.major.data,
             section_number=cform.section_number.data,
             term=cform.term.data,
-            instructor_id=current_user.id
+            instructor_id=1
             )
     
         db.session.add(new_class)
