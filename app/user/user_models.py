@@ -9,8 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 @login.user_loader
 def load_user(user_id):
-    return Student.query.get(int(user_id)) 
-#need to add query for faculty (user.query throws error)
+    return User.query.get(int(user_id)) 
 
 # Stores common fields
 class User(db.Model, UserMixin):
