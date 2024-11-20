@@ -80,7 +80,6 @@ class CreateCourseForm(FlaskForm):
     term = StringField('Term', validators=[DataRequired()])
     submit = SubmitField('Create')
     course_choices = [("test1", "CS3733"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100")]
-    
     major = RadioField('Major', choices=course_choices, validators=[DataRequired()])
 
 class CreateSAPositionForm(FlaskForm):
