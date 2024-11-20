@@ -8,7 +8,9 @@ input.form-control {
     margin-bottom: 10px;
     transition: border-color 0.3s ease;
 }
-
+.some {
+   color:red;
+}
 .text-danger p {
     color: red;
     font-size: 0.875rem;

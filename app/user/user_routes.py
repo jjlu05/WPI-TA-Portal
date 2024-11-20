@@ -92,18 +92,12 @@ def login():
         if user is None:
             query = sqla.select(Faculty).where(Faculty.username == form.username.data)
             user = db.session.scalars(query).first()
-
-        # Check if user exists and the password matches
-        if user is None or not user.check_password(form.password.data):
-            # If either the user is not found or the password doesn't match
-            flash('Incorrect username or password.', 'error')
-            return redirect(url_for('user.login'))  # Redirect back to the login page
-
-        # Log the user in
-        login_user(user, remember=form.remember_me.data)
-        flash(f'Welcome back, {current_user.username}!', 'success')
-        return redirect(url_for('user.index'))  # Redirect to the index page after login
-    
+        if (user is None) or (user.check_password(form.password.data) == False):
+            flash('Incorrect username or password.')
+            return redirect(url_for('user.login'))
+        login_user(user, remember = form.remember_me.data)
+        flash('Welcome back, {}!'.format(current_user.username))
+        return redirect(url_for('user.index'))
     return render_template('login.html', form=form)
 
 @bp_user.route('/logout', methods=['GET'])
