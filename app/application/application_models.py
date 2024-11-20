@@ -6,6 +6,8 @@ from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from app.course.course_models import CourseSection
+
  
  
  
