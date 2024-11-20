@@ -26,7 +26,6 @@ class CourseSection(db.Model):
 
 class Course(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-<<<<<<< HEAD
     major: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10))
     coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4))
 
@@ -46,10 +45,5 @@ class CourseExperience(db.Model):
     course : sqlo.Mapped[Course] = sqlo.relationship( back_populates= 'experiences')
     user : sqlo.Mapped[Student] = sqlo.relationship( back_populates= 'experiences')
 
-=======
-    term: sqlo.Mapped[str] = sqlo.mapped_column(primary_key=True)
-    section: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4), primary_key=True)
->>>>>>> 928c89dddd649b3b19828b73614582caf17f7537
 
 
