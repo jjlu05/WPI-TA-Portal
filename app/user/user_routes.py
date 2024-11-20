@@ -85,7 +85,7 @@ def create_sa_position():
     form = CreateSAPositionForm()
 
     # Populate the course section dropdown
-    course_sections = CourseSection.query.filter_by(instructor_id=current_user.id).all()
+    course_sections = CourseSection.query.filter_by(instructor_id= Faculty.id).all()
     form.course_section.choices = [
         (str(section.id), f"{section.course_code} - {section.section_number}") 
         for section in course_sections
