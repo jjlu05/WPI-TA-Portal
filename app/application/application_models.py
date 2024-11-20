@@ -18,10 +18,16 @@ class SAPosition(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     course_section_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course_section.id'), nullable=False)
     number_of_sas: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)
-    qualifications: sqlo.Mapped[str] = sqlo.mapped_column(sqla.Text, nullable=False)
+    min_gpa: sqlo.Mapped[float] = sqlo.mapped_column(sqla.Float, nullable=False, default=0.0)  
+    min_grade: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), nullable=False, default="C")  
+    prior_experience: sqlo.Mapped[bool] = sqlo.mapped_column(sqla.Boolean, nullable=False, default=False)  
 
     # Relationship
     course_section: sqlo.Mapped['CourseSection'] = sqlo.relationship('CourseSection', back_populates='sa_positions')
 
     def __repr__(self):
-        return f"<SAPosition(id={self.id}, course_section_id={self.course_section_id}, number_of_sas={self.number_of_sas})>"
+        return (
+            f"<SAPosition(id={self.id}, course_section_id={self.course_section_id}, "
+            f"number_of_sas={self.number_of_sas}, min_gpa={self.min_gpa}, "
+            f"min_grade='{self.min_grade}', prior_experience={self.prior_experience})>"
+        )
