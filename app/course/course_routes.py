@@ -24,7 +24,8 @@ def createclass():
         new_class = CourseSection(
             course_code=cform.course_code.data,
             section_number=cform.section_number.data,
-            term=cform.term.data
+            term=cform.term.data,
+            instructor_id=current_user.id
             )
     
         db.session.add(new_class)
