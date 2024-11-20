@@ -18,6 +18,7 @@ def index():
     return render_template('index.html')
 
 @bp_course.route('/course/create', methods=['GET', 'POST'])
+@login_required
 def createclass():
     cform = CreateCourseForm()
     if cform.validate_on_submit():

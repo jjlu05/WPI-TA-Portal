@@ -9,7 +9,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 @login.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id)) 
+    # Tried querying Student and Faculty 
+    user = Student.query.get(int(user_id)) or Faculty.query.get(int(user_id))
+    return user
 
 # Stores common fields
 class User(db.Model, UserMixin):
@@ -18,7 +20,7 @@ class User(db.Model, UserMixin):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     username: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), unique=True, nullable=False)
     email: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(120), unique=True, nullable=False)
-    password_hash: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(256), nullable=False)
+    password_hash: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(256))
     first_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     last_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     phone_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
@@ -50,8 +52,9 @@ class Faculty(User):
     department: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
 
     # One-to-one relationship
-    user: sqlo.Mapped['User'] = sqlo.relationship('User', back_populates='faculty_profile')
+    # user: sqlo.Mapped['User'] = sqlo.relationship('User', back_populates='faculty_profile')
+    course_sections : sqlo.Mapped[list['CourseSection']] = sqlo.relationship('CourseSection', back_populates='instructor')
+
 
     def __repr__(self):
         return f"<Faculty(id={self.id}, department='{self.department}')>"
-
