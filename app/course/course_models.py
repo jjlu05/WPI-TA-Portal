@@ -24,17 +24,8 @@ class CourseSection(db.Model):
 
 class Course(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    term: sqlo.Mapped[str] = sqlo.mapped_column(primary_key=True)
-    section: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4), primary_key=True)
-
-
-    
-    # faculty_profile: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections') ##
-    # course: sqlo.Mapped['Course'] = sqlo.relationship('Course', back_populates='course_sections')##
-
-
-    # course_sections: sqlo.Mapped[list['CourseSection']] = sqlo.relationship('CourseSection', back_populates='course')##
+    major: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10))
+    coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4))
 
 
 
