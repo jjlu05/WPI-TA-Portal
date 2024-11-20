@@ -1,12 +1,6 @@
 from flask_wtf import FlaskForm
 
-from wtforms import IntegerField, TextAreaField, SelectField, SubmitField, ValidationError
-<<<<<<< HEAD
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField
-=======
-from wtforms.validators import DataRequired, NumberRange
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField
->>>>>>> 62a5769771160cc7ae3125721203418c20a63699
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField, TextAreaField, SelectField, alidationError
 from wtforms.validators import DataRequired, EqualTo, Email, Optional
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import Course
