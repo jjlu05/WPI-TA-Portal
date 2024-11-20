@@ -30,7 +30,7 @@ def register_student():
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
-
+    
         # Add the new user to the session and commit
         db.session.add(new_user)
         db.session.commit()
