@@ -30,7 +30,7 @@ def register_student():
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
-    
+
         # Add the new user to the session and commit
         db.session.add(new_user)
         db.session.commit()
@@ -74,32 +74,3 @@ def login():
     return render_template('login.html')
 
 
-@bp_user.route('/faculty/create', methods=['GET', 'POST'])
-@login_required
-def create_sa_position():
-    # Check if the current user is a Faculty member
-    if not isinstance(current_user, Faculty):
-        flash('You do not have permission to access this page.', 'danger')
-        return redirect(url_for('user.index'))
-
-    form = CreateSAPositionForm()
-
-    # Populate the course section dropdown
-    course_sections = CourseSection.query.filter_by(instructor_id= Faculty.id).all()
-    form.course_section.choices = [
-        (str(section.id), f"{section.course_code} - {section.section_number}") 
-        for section in course_sections
-    ]
-
-    if form.validate_on_submit():
-        sa_position = SAPosition(
-            course_section_id=int(form.course_section.data),  # Ensure integer type
-            number_of_sas=form.number_of_sas.data,
-            qualifications=form.qualifications.data,
-        )
-        db.session.add(sa_position)
-        db.session.commit()
-        flash('SA Position created successfully!', 'success')
-        return redirect(url_for('user.faculty_page'))  # fix to reflect faculty main page 
-
-    return render_template('create.html', form=form)

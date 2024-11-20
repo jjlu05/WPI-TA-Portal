@@ -15,7 +15,7 @@ from app.user.user_models import CourseSection
 @bp_course.route('/', methods=['GET'])
 @bp_course.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', title="Smile Portal")
+    return render_template('index.html')
 
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 def createclass():
