@@ -7,15 +7,15 @@ from flask_login import current_user, login_required
 
 from app.course import course_blueprint as bp_course
 from app import db
-from app.user.user_forms import CreateCourseForm
-from app.user.user_models import CourseSection
+from app.course.course_forms import CreateCourseForm
+from app.course.course_models import CourseSection
 
 
 
 @bp_course.route('/', methods=['GET'])
 @bp_course.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', title="Smile Portal")
+    return render_template('index.html')
 
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 def createclass():

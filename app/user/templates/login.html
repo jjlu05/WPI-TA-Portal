@@ -1,6 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Welcome New User!</h1>
-  <p>Login:</p>
+<div class="container mt-5">
+    <h2>User Login</h2>
+    <form method="POST" action="{{ url_for('course.index') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            {{ form.username(class="form-control", placeholder="Enter your username") }}
+            {% if form.username.errors %}
+                <div class="text-danger">
+                    {% for error in form.username.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            {{ form.password(class="form-control", placeholder="Enter your password") }}
+            {% if form.password.errors %}
+                <div class="text-danger">
+                    {% for error in form.password.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <p> {{form.remember_me()}} {{form.remember_me.label}} </p>
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+
 {% endblock %}
