@@ -6,15 +6,7 @@ from app.course.course_models import Course
 import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
 
-
 app = create_app(Config)
-
-preset_courses = [
-    "CS1011 - Intro to Programming",
-    "CS2303 - Algorithms",
-    "CS3733 - Software Engineering",
-    "CS4342 - Intro to AI"
-]
 
 @app.shell_context_processor
 def make_shell_context():
@@ -36,6 +28,7 @@ def add_courses(*args, **kwargs):
 def init_db(*args, **kwargs):
     if app._got_first_request:
         db.create_all()
+    add_courses()
 
 if __name__ == "__main__":
     app.run(debug=True)

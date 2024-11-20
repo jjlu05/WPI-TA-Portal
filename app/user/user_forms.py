@@ -28,7 +28,7 @@ class StudentRegistrationForm(FlaskForm):
     courses_served = QuerySelectMultipleField(
         "Courses Served as SA",
         query_factory=lambda: db.session.query(Course).all(), 
-        get_label=lambda course: course.name, 
+        get_label=lambda course: f"{course.major} {course.coursenum}", 
         widget=ListWidget(prefix_label=False), 
         option_widget=CheckboxInput(),  
     )
