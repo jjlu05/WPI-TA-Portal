@@ -23,7 +23,7 @@ class StudentRegistrationForm(FlaskForm):
     graduation_year = IntegerField('Graduation Year', validators=[DataRequired()])
     wpi_id = StringField('WPI ID', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired()])
-    past_sa = StringField('Past SA', validators=[DataRequired()])
+    past_sa = StringField('Past SA')
 
     courses_served = QuerySelectMultipleField(
         "Courses Served as SA",
