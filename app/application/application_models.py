@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 #SA Position Model
 class SAPosition(db.Model):
     __tablename__ = 'sa_position'  # Explicitly defines the table name
-
+    
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     course_section_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course_section.id'), nullable=False)
     number_of_sas: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)

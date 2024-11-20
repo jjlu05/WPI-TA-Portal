@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, TextAreaField, SelectField, SubmitField, ValidationError
 from wtforms.validators import DataRequired, NumberRange
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Email, Optional
 from app.user.user_models import User, Student, Faculty
 
@@ -67,6 +67,13 @@ class FacultyRegistrationForm(FlaskForm):
         user = Faculty.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
+        
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
+
+    submit = SubmitField('Login')
 
 class CreateCourseForm(FlaskForm):
     section_number = IntegerField('Section', validators=[DataRequired()])

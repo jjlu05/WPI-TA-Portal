@@ -86,7 +86,7 @@ def login():
             return redirect(url_for('user.login'))
         login_user(user, remember = form.remember_me.data)
         flash('Welcome back, {}!'.format(current_user.username))
-        return redirect(url_for('main.index'))
+        return redirect(url_for('user.index'))
     return render_template('login.html', form=form)
 
 
