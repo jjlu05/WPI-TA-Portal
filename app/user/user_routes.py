@@ -17,7 +17,7 @@ def register_student():
     form = StudentRegistrationForm()
     if form.validate_on_submit():
         # Create a new User object
-        new_user = User(
+        new_user = Student(
             username=form.username.data,
             email=form.email.data,
             first_name=form.first_name.data,
@@ -42,7 +42,7 @@ def register_faculty():
     form = FacultyRegistrationForm()
     if form.validate_on_submit():
         # Create a new User object
-        new_user = User(
+        new_user = Faculty(
             username=form.username.data,
             email=form.email.data,
             first_name=form.first_name.data,
@@ -66,7 +66,7 @@ def register_faculty():
 # Login route (no functionality yet, just placeholder)
 @bp_user.route('/login', methods=['GET', 'POST'])
 def login():
-    """User login route (you need to implement the form and authentication logic)."""
+    """User login route """
     # Placeholder route for login - no functionality yet
     return render_template('login.html')
 
@@ -95,4 +95,4 @@ def create_sa_position():
         flash('SA Position created successfully!', 'success')
         return redirect(url_for('faculty_page')) #fix this Url path for faculty page
 
-    return render_template('faculty/create.html', form=form)
+    return render_template('create.html', form=form)
