@@ -1,9 +1,10 @@
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_required, current_user, login_user
 from app import db
-from app.user.user_forms import StudentRegistrationForm, FacultyRegistrationForm, CreateSAPositionForm
+from app.user.user_forms import StudentRegistrationForm, FacultyRegistrationForm, CreateSAPositionForm, LoginForm
 from app.user.user_models import User, Student, Faculty, CourseSection, SAPosition
 from app.user import user_blueprint as bp_user
+import sqlalchemy as sqla
 
 
 @bp_user.route('/', methods=['GET', 'POST'])
@@ -40,6 +41,7 @@ def register_student():
         
     return render_template('register_student.html', form=form)
 
+
 @bp_user.route('/faculty/register', methods=['GET', 'POST'])
 def register_faculty():
     form = FacultyRegistrationForm()
@@ -66,12 +68,26 @@ def register_faculty():
         
     return render_template('register_faculty.html', form=form)
 
-# Login route (no functionality yet, just placeholder)
+
 @bp_user.route('/login', methods=['GET', 'POST'])
 def login():
-    """User login route """
-    # Placeholder route for login - no functionality yet
-    return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('course.index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        # Check for user from both student and faculty
+        query = sqla.select(Student).where(Student.username == form.username.data)
+        user = db.session.scalars(query).first()
+        if (user is None):
+            query = sqla.select(Faculty).where(Faculty.username == form.username.data)
+            user = db.session.scalars(query).first()
+        if (user is None) or (user.check_password(form.password.data) == False):
+            flash('Incorrect username or password.')
+            return redirect(url_for('user.login'))
+        login_user(user, remember = form.remember_me.data)
+        flash('Welcome back, {}!'.format(current_user.username))
+        return redirect(url_for('main.index'))
+    return render_template('login.html', form=form)
 
 
 @bp_user.route('/faculty/create', methods=['GET', 'POST'])
