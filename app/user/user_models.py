@@ -43,6 +43,9 @@ class Student(User):
     cum_gpa: sqlo.Mapped[float] = sqlo.mapped_column(sqla.Float, default=0, nullable=False)
     grad_year: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, default=0, nullable=False)
 
+    #relationship
+    experiences : sqlo.WriteOnlyMapped['CourseExperience'] = sqlo.relationship(back_populates= 'user')
+
     def __repr__(self):
         return f"<Student(id={self.id}, major='{self.major}')>"
 
@@ -51,10 +54,11 @@ class Student(User):
 class Faculty(User):
     department: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
 
-    # One-to-one relationship
     # user: sqlo.Mapped['User'] = sqlo.relationship('User', back_populates='faculty_profile')
     course_sections : sqlo.Mapped[list['CourseSection']] = sqlo.relationship('CourseSection', back_populates='instructor')
 
 
     def __repr__(self):
         return f"<Faculty(id={self.id}, department='{self.department}')>"
+
+
