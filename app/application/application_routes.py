@@ -29,17 +29,15 @@ def create_sa_position():
 
     if form.validate_on_submit():
         sa_position = SAPosition(
-            sa_position = SAPosition(
             course_section_id=form.course_section.data,
             number_of_sas=form.number_of_sas.data,
             min_gpa=form.min_gpa.data,
             min_grade=form.min_grade.data,
             prior_experience=form.prior_experience.data
         )
-        )
         db.session.add(sa_position)
         db.session.commit()
         flash('SA Position created successfully!', 'success')
-        return redirect(url_for('index.html'))  # fix to reflect faculty main page 
+        return redirect(url_for('user.index'))  # fix to reflect faculty main page 
 
     return render_template('create.html', form=form)
