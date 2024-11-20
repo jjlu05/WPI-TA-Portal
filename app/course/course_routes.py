@@ -20,8 +20,11 @@ def index():
     return render_template('index.html')
 
 @bp_course.route('/course/create', methods=['GET', 'POST'])
+@login_required
 def createclass():
-    
+    if not isinstance(current_user, Faculty):
+        flash('You do not have permission to create courses', 'danger')
+        return redirect(url_for('user.index'))
     cform = CreateCourseForm()
     if cform.validate_on_submit():
         new_class = CourseSection(
