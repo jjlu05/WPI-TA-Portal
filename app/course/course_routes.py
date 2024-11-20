@@ -9,6 +9,8 @@ from app.course import course_blueprint as bp_course
 from app import db
 from app.course.course_forms import CreateCourseForm
 from app.course.course_models import CourseSection
+from app.user.user_models import Faculty
+
 
 
 
@@ -20,6 +22,11 @@ def index():
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 @login_required
 def createclass():
+    faculty_member = Faculty.query.filter_by(id=current_user.id).first()
+
+    if not faculty_member:
+        flash('You do not have permission to create courses', 'danger')
+        return redirect(url_for('user.index'))
     cform = CreateCourseForm()
     if cform.validate_on_submit():
         new_class = CourseSection(
@@ -33,4 +40,5 @@ def createclass():
         db.session.commit()
         flash('Course "' + new_class.course_code + '" is created')
         return redirect(url_for('user.index'))
+    print(cform.errors)
     return render_template('addcourse.html', form=cform)

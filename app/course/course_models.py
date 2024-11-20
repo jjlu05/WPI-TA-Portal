@@ -22,6 +22,7 @@ class CourseSection(db.Model):
         return f"<CourseSection(id={self.id}, course_code='{self.course_code}', section_number='{self.section_number}')>"
 
 
+
 class Course(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     major: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10))
