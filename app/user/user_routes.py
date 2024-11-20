@@ -23,7 +23,10 @@ def register_student():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             phone_number=form.phone_number.data,
-            wpi_id=form.wpi_id.data
+            wpi_id=form.wpi_id.data,
+            major=form.major.data,
+            grad_year=form.graduation_year.data,
+            cum_gpa=form.gpa.data
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
@@ -48,8 +51,8 @@ def register_faculty():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             phone_number=form.phone_number.data,
-            wpi_id=form.wpi_id.data
-
+            wpi_id=form.wpi_id.data,
+            department=form.department.data
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
