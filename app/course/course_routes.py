@@ -22,7 +22,9 @@ def index():
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 @login_required
 def createclass():
-    if not isinstance(current_user, Faculty):
+    faculty_member = Faculty.query.filter_by(id=current_user.id).first()
+
+    if not faculty_member:
         flash('You do not have permission to create courses', 'danger')
         return redirect(url_for('user.index'))
     cform = CreateCourseForm()
