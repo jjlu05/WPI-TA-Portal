@@ -2,24 +2,18 @@ from app import db, login
 import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
 from sqlalchemy.orm import relationship
-
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
-from sqlalchemy.orm import relationship
-from datetime import datetime
-# from flask_login import UserMixin
-# from app import login
-from app import db
-
-# @login.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id)) 
+from flask_login import UserMixin
+from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
-#from flask_login import UserMixin
 
-# Stores common fields 
-class User(db.Model):
-    __abstract__ = True
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id)) 
+
+# Stores common fields
+class User(db.Model, UserMixin):
+    __abstract__ = True  # Specifies that this is an abstract base class
 
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     username: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), unique=True, nullable=False)
@@ -28,7 +22,7 @@ class User(db.Model):
     first_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     last_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     phone_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
-    wpi_id : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(9), nullable = False)
+    wpi_id: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(9), nullable=False)
 
     def __repr__(self):
         # Excluded password_hash for security
@@ -40,6 +34,7 @@ class User(db.Model):
     def check_password(self, password: str):
         return check_password_hash(self.password_hash, password)
 
+
 # Student Model
 class Student(User):
     major: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
@@ -49,40 +44,55 @@ class Student(User):
     def __repr__(self):
         return f"<Student(id={self.id}, major='{self.major}')>"
 
+
 # Faculty Model
 class Faculty(User):
-    department : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
+    department: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
+
+    # Faculty can teach multiple course sections
+    course_sections: sqlo.Mapped[list['CourseSection']] = sqlo.relationship('CourseSection', back_populates='instructor')
 
     def __repr__(self):
         return f"<Faculty(id={self.id}, department='{self.department}')>"
 
+
+# Course Section Model
 class CourseSection(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    # course_code: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
-    # section_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False)
-    # instructor_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('faculty.id'), nullable=False)
+    course_code: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
+    section_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False)
+    instructor_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('faculty.id'), nullable=False)
 
-    # instructor: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections')
-    # sa_positions: sqlo.Mapped[list['SAPosition']] = sqlo.relationship('SAPosition', back_populates='course_section')
+    # Relationships
+    instructor: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections')
+    sa_positions: sqlo.Mapped[list['SAPosition']] = sqlo.relationship('SAPosition', back_populates='course_section')
 
-    # def __repr__(self):
-    #     return f"<CourseSection(id={self.id}, course_code='{self.course_code}', section_number='{self.section_number}')>"
+    def __repr__(self):
+        return f"<CourseSection(id={self.id}, course_code='{self.course_code}', section_number='{self.section_number}')>"
 
+
+# SA Position Model
 class SAPosition(db.Model):
-    __tablename__ = 'sa_position'
+    __tablename__ = 'sa_position'  # Explicitly defines the table name
 
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    # course_section_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course_section.id'), nullable=False)
-    # number_of_sas: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)
-    # qualifications: sqlo.Mapped[str] = sqlo.mapped_column(sqla.Text, nullable=False)
+    course_section_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course_section.id'), nullable=False)
+    number_of_sas: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)
+    qualifications: sqlo.Mapped[str] = sqlo.mapped_column(sqla.Text, nullable=False)
 
-    # course_section: sqlo.Mapped['CourseSection'] = sqlo.relationship('CourseSection', back_populates='sa_positions')
+    # Relationship
+    course_section: sqlo.Mapped['CourseSection'] = sqlo.relationship('CourseSection', back_populates='sa_positions')
 
-    # def __repr__(self):
-    #     return f"<SAPosition(id={self.id}, course_section_id={self.course_section_id}, number_of_sas={self.number_of_sas})>"
+    def __repr__(self):
+        return f"<SAPosition(id={self.id}, course_section_id={self.course_section_id}, number_of_sas={self.number_of_sas})>"
 
 
-# Define the user_loader function in the models file
-@login.user_loader
-def load_user(id):
-    return db.session.get(User, int(id))
+# Course Model
+class Course(db.Model):
+    id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
+    term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
+    section: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)
+    coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
+
+    def __repr__(self):
+        return f"<Course(id={self.id}, term='{self.term}', coursenum='{self.coursenum}', section='{self.section}')>"
