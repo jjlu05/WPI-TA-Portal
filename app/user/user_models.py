@@ -49,8 +49,8 @@ class Student(User):
 class Faculty(User):
     department: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
 
-    # One-to-one relationship
-    user: sqlo.Mapped['User'] = sqlo.relationship('User', back_populates='faculty_profile')
+    # Faculty can teach multiple course sections
+    course_sections: sqlo.Mapped[list['CourseSection']] = sqlo.relationship('CourseSection', back_populates='instructor')
 
     def __repr__(self):
         return f"<Faculty(id={self.id}, department='{self.department}')>"
