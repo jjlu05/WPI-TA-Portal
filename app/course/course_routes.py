@@ -17,14 +17,14 @@ from app.user.user_models import Faculty
 @bp_course.route('/', methods=['GET'])
 @bp_course.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html',is_faculty=isinstance(current_user, Faculty))
 
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 @login_required
 def createclass():
     faculty_member = Faculty.query.filter_by(id=current_user.id).first()
 
-    if not faculty_member:
+    if not isinstance(current_user, Faculty):
         flash('You do not have permission to create courses', 'danger')
         return redirect(url_for('user.index'))
     cform = CreateCourseForm()
