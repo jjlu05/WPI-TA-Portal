@@ -29,7 +29,6 @@ def register_student():
             major=form.major.data,
             grad_year=form.graduation_year.data,
             cum_gpa=form.gpa.data,
-            courses_served=", ".join(form.courses_served.data) 
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
