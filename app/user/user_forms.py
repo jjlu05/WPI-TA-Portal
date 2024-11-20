@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField, TextAreaField, SelectField, ValidationError
-from wtforms.validators import DataRequired, EqualTo, Email, Optional
+from wtforms import FloatField, StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField, TextAreaField, SelectField, ValidationError
+from wtforms.validators import DataRequired, EqualTo, Email, Optional, Length
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import Course
 
@@ -95,4 +95,21 @@ class CreateCourseForm(FlaskForm):
     course_choices = [("test1", "CS3733"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100")]
     major = RadioField('Major', choices=course_choices, validators=[DataRequired()])
 
-    
+
+class StudentEditProfileForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10)])
+    major = StringField('Major', validators=[DataRequired()])
+    cum_gpa = FloatField('Cumulative GPA', validators=[DataRequired()])
+    grad_year = IntegerField('Graduation Year', validators=[DataRequired()])
+    submit = SubmitField('Update Profile')
+
+class FacultyEditProfileForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10)])
+    department = StringField('Department', validators=[DataRequired()])
+    submit = SubmitField('Update Profile')

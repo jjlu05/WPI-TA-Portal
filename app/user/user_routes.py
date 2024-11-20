@@ -1,7 +1,7 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_required, current_user, login_user, logout_user
 from app import db
-from app.user.user_forms import StudentRegistrationForm, FacultyRegistrationForm, LoginForm
+from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm
 from app.user.user_models import User, Student, Faculty
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
@@ -105,3 +105,47 @@ def logout():
     logout_user()  
     flash('You have been logged out.', 'info')
     return redirect(url_for('user.index')) 
+
+
+@bp_user.route('/student/edit-profile', methods=['GET', 'POST'])
+@login_required
+def edit_student_profile():
+    if not isinstance(current_user, Student):
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('user.index'))
+    
+    form = StudentEditProfileForm(obj=current_user)
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        current_user.phone_number = form.phone_number.data
+        current_user.major = form.major.data
+        current_user.cum_gpa = form.cum_gpa.data
+        current_user.grad_year = form.grad_year.data
+        db.session.commit()
+        flash('Student profile updated successfully!', 'success')
+        return redirect(url_for('user.index'))
+    
+    return render_template('edit_student_profile.html', form=form)
+
+# Faculty Edit Profile
+@bp_user.route('/faculty/edit-profile', methods=['GET', 'POST'])
+@login_required
+def edit_faculty_profile():
+    if not isinstance(current_user, Faculty):
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('user.index'))
+    
+    form = FacultyEditProfileForm(obj=current_user)
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        current_user.phone_number = form.phone_number.data
+        current_user.department = form.department.data
+        db.session.commit()
+        flash('Faculty profile updated successfully!', 'success')
+        return redirect(url_for('user.index'))
+    
+    return render_template('edit_faculty_profile.html', form=form)
