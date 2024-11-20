@@ -9,7 +9,7 @@ import sqlalchemy as sqla
 @bp_user.route('/', methods=['GET', 'POST'])
 @bp_user.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html',is_faculty=isinstance(current_user, Faculty))
 
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
