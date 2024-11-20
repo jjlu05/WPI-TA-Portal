@@ -38,6 +38,7 @@ class StudentRegistrationForm(FlaskForm):
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
 
+
 class FacultyRegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -66,22 +67,11 @@ class FacultyRegistrationForm(FlaskForm):
         user = Faculty.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
-        
+
+      
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
 
     submit = SubmitField('Login')
-
-class CreateCourseForm(FlaskForm):
-    course_code = StringField('Course Number', validators=[DataRequired()])
-    section_number = IntegerField('Section', validators=[DataRequired()])
-    term = StringField('Term', validators=[DataRequired()])
-    submit = SubmitField('Create')
-
-class CreateSAPositionForm(FlaskForm):
-    course_section = SelectField('Course Section', choices=[], validators=[DataRequired()])
-    number_of_sas = IntegerField('Number of SAs', validators=[DataRequired(), NumberRange(min=1)])
-    qualifications = TextAreaField('Qualifications', validators=[DataRequired()])
-    submit = SubmitField('Create SA Position')

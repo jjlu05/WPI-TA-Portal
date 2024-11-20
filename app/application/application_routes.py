@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_required, current_user, login_user
 from app import db
-from app.user.user_forms import StudentRegistrationForm, FacultyRegistrationForm, CreateSAPositionForm
-from app.user.user_models import User, Student, Faculty, CourseSection, SAPosition
+from app.application.application_forms import CreateSAPositionForm
+from app.application.application_models import SAPosition
 from app.user import user_blueprint as bp_user
 
 

@@ -7,8 +7,8 @@ from flask_login import current_user, login_required
 
 from app.course import course_blueprint as bp_course
 from app import db
-from app.user.user_forms import CreateCourseForm
-from app.user.user_models import CourseSection
+from app.course.course_forms import CreateCourseForm
+from app.course.course_models import CourseSection
 
 
 
