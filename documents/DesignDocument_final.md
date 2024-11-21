@@ -110,7 +110,7 @@ UML Component:
 
 ### 2.3 User Interface Design
 
-Page Tempates: 
+Page Templates: 
 - Staff: Index page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form. Create course page, Edit course form.
 
 - Student: Index page shows courses they can apply to, including a separate relevant courses section. Separate page to view application status
