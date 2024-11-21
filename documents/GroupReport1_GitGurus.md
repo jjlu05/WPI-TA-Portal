@@ -12,7 +12,7 @@
 ## 1. Schedule
 * What is your team's weekly schedule of meetings outside of regular class times?
 
-As a team we meet three times a week or more as needed in the evenings. We keep regular contact and are updated on the progress of the project. 
+As a team we meet three times a week or more as needed in the evenings. We keep regular contact and are updated on the progress of the project everyday.
 
 ----
 ## 2. Iteration 1 - Summary
