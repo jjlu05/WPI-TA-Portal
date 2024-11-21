@@ -32,14 +32,14 @@ Accomplishments:
     - Save edit profile changes 
 
 User Stories: 
-    - As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions.
-    - As a student, I want to login with username and password provided during create account
-    - As a student, I want to edit my profile so that I can change my personal information 
-    - As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
-    - As faculty, I want to login with username and password provided during create account
-    - As faculty, I want to add courses with open SA positions so that I can add positions.  
-    - As a faculty, I want to edit my profile so that I can change my personal information 
-    - As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.
+    - Jed and Julian: As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions.
+    - Jed and Julian: As a student, I want to login with username and password provided during create account
+    - Harleen: As a student, I want to edit my profile so that I can change my personal information 
+    - Jed and Julian: As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
+    - Jed and Julian: As faculty, I want to login with username and password provided during create account
+    - Jacob: As faculty, I want to add courses with open SA positions so that I can add positions.  
+    - Harleen: As a faculty, I want to edit my profile so that I can change my personal information 
+    - Harleen: As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.
 
 
 ----
@@ -64,6 +64,11 @@ Outcome:
 * Have you made any changes to your `product backlog` after `Iteration-1`? If so,
 please explain the changes here.
 
+- added user stories for editing profile 
+- created issues on github for editing profile feature 
+- created two new user stories 
+    - As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position.
+    - As a student, I want to have "assigned" SA positions be disabled for withdrawal so I can't withdraw from "assigned" positions.
 
 ----
 ## 5. Iteration 2 - Sprint Backlog
@@ -72,3 +77,5 @@ Include a draft of your `Iteration-2 spring backlog`.
 down the larger user stories into smaller size stories. Mention the team member(s)
 who will work on each user story.
 * Make sure to update the "issues" on your GitHub repo accordingly.
+
+- created new task issues for upcoming sprint 
