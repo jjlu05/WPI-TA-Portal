@@ -34,7 +34,6 @@ Prepared by:
 This document describes the design of the Student Assistant Recruitment System for the WPI Computer Science Department. The purpose of this system is to manage student assistant (SA) applications, position creation, and assignment to students. This document provides a detailed software design including the database model, subsystem architectures, and user interface designs. This is the first revision, and we plan to add more specific details and examples in future drafts.
 
 
-
 # 2. Software Design
 
 ## 2.1 Database Model

@@ -1,22 +1,39 @@
 
 # Project Group Report - 1
-## Team: `<Your Team Name>`
-List team members and their GitHub usernames
-* `<member1>`,`<username1>`
-* `<member2>`,`<username2>`
-* `<member3>`,`<username3>`
-* `<member4>`,`<username4>`
+## Team: `GitGurus`
+* `Harleen Kaur`,`BME and RBE`
+* `Julian Kreis`,`CS`
+* `Jed Geoghegan`,`CS & DS`
+* `Jacob Lu`,`IMGD & CS`
 ---
 **Course** : CS 3733 - Software Engineering
 **Instructor**: Sakire Arslan Ay
 ----
 ## 1. Schedule
 * What is your team's weekly schedule of meetings outside of regular class times?
+
+As a team we meet three times a week or more as needed in the evenings. We keep regular contact and are updated on the progress of the project. 
+
 ----
 ## 2. Iteration 1 - Summary
 * Include as summary of your `Iteration-1` accomplishments.
 * List the user stories completed in `Iteration-1`. Mention who worked on those
 user stories.
+
+Accomplishments:
+- Created user pages for both faculty and student
+- Created backend for storing SA position and course data
+- Creating courses and SA Positions
+- Login in feature for Student and Faculty
+- Register function for Student and Faculty
+- Log out function
+- Remember me feature for login functionality
+- Edit profile page
+- Save edit profile changes 
+
+User Stories: 
+
+
 ----
 ## 3. Iteration 1 - Sprint Retrospective
 * Include the outcome of your `Iteration-1 Scrum retrospective meetings`.
