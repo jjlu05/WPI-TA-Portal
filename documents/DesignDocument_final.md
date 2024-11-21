@@ -50,7 +50,7 @@ Classes
 
 UML Diagram:
 <kbd>
-      <img src="images/UML_Database_Diagram_Final.png"  border="2">
+      <img src="images/UML_Database_Diagram_Final.jpg"  border="2">
 </kbd>
 
 ## 2.2 Subsystems and Interfaces
