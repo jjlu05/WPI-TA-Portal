@@ -83,11 +83,9 @@ UML Component:
 |1. | POST | /student/register/ | registers a new user |
 |2. | GET | /student/profile | retrieves the profile information of the logged-in user |
 |3. | POST | /student/editprofile | edits a student's profile |
-
 |4. | POST | /faculty/register/ | registers a new user |
 |5. | GET | /faculty/profile | retrieves the profile information of the logged-in user |
 |6. | POST | /faculty/editprofile | edits a faculty's profile |
-
 |7. | POST | /login | authenticates and logs in user |
 |8. | GET | /logout | ends a user session |
 
