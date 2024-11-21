@@ -55,10 +55,6 @@ UML Diagram:
 
 ## 2.2 Subsystems and Interfaces
 ### 2.2.1 Overview
-Describe the high-level architecture of your software: i.e., the major subsystems
-and how they fit together. Provide a UML component diagram that illustrates the
-architecture of your software. Briefly mention the role of each subsystem in your
-architectural design. Please refer to the "System Level Design" lectures in Week 4.
 
 Major subsystems:
 - User Management Subsystem: ensures that both students and faculty can securely log in, access their profiles, and perform actions based on their role (student or faculty)
@@ -148,11 +144,6 @@ User Stories:
 
 
 # 3. References
-Cite your references here.
-For the papers you cite give the authors, the title of the article, the journal
-name, journal volume number, date of publication and inclusive page numbers. Giving
-only the URL for the journal is not appropriate.
-For the websites, give the title, author (if applicable) and the website URL.
 
 
 ----
