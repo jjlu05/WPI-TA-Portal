@@ -104,7 +104,7 @@ UML Component:
 |2. | GET | /faculty/positions | displays list of all SA positions created |
 |3. | POST | /faculty/<position_id>/edit | edit SA positon |
 |4. | GET | /student/positions | displays list of all available SA positions |
-|5. | GET | /student/positions/recommendations | retrieves a list of recommended positions for the student based on interest |
+|5. | GET | /student/recommendations | retrieves a list of recommended positions for the student based on interest |
 
 
 
