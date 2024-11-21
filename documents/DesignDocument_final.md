@@ -1,6 +1,7 @@
 
-# Project Design Document - draft
-## SA Connect: "Streamlining the Student Assistant Recruitment Process"
+# Project Design Document - Final
+## SA Connect: "Streamlining the Student Assistant Recruitment Process" 
+
 --------
 Prepared by:
 * `Harleen Kaur`,`BME and RBE`
@@ -26,29 +27,17 @@ Prepared by:
 | Name | Date | Changes | Version |
 | ------ | ------ | --------- | --------- |
 |Revision 1 |2024-11-15 |Initial draft | 1.0 |
-| | | | |
+|Revision 2 |2024-11-21 |Final draft |2.0 |
 
 
 # 1. Introduction
-Explain the purpose of this document. If this is a revision of an earlier document,
-please make sure to summarize what changes have been made during the revision (keep
-this discussion brief).
 
 This document describes the design of the Student Assistant Recruitment System for the WPI Computer Science Department. The purpose of this system is to manage student assistant (SA) applications, position creation, and assignment to students. This document provides a detailed software design including the database model, subsystem architectures, and user interface designs. This is the first revision, and we plan to add more specific details and examples in future drafts.
 
 
-
 # 2. Software Design
-(**Note**: For all subsections of Section-2: You should describe the design for the
-end product (completed application) - not only your iteration1 version. You will
-revise this document and add more details later.)
 
 ## 2.1 Database Model
-Provide a list of your tables (i.e., SQL Alchemy classes) in your database model
-and briefly explain the role of each table.
-Provide a UML diagram of your database model showing the associations and
-relationships among tables.
-
 
 Classes
 - User: The base class that stores common information for both students and instructors
@@ -87,91 +76,74 @@ UML Component:
 
 
 ### 2.2.2 Interfaces
-Include a detailed description of the routes your application will implement.
-* Brainstorm with your team members and identify all routes you need to implement
-for the **completed** application.
-* For each route specify its “methods”, “URL path”, and “a description of the
-operation it implements”.
-* You can use the following table template to list your route specifications.
-* Organize this section according to your subsytem decomposition, i.e., include a
-=======
 
-
-#### 2.2.2.1 \<User Management SS> Routes
+#### 2.2.2.1 User Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /users/student/register/ | registers a new user |
-|2. | POST | /users/student/login/ | authenticates and logs in user |
-|3. | GET | /users/student/logout	| ends a user session |
-|4. | GET | /users/student/profile | retrieves the profile information of the logged-in user |
-|5. | POST | /users/student/editprofile| edits a student's profile |
-|6. | POST | /users/faculty/register/ | registers a new user |
-|7. | POST | /users/faculty/login/ | authenticates and logs in user |
-|8. | GET | /users/faculty/logout	| ends a user session |
-|9. | GET | /users/faculty/profile | retrieves the profile information of the logged-in user |
-|10. | POST | /users/faculty/editprofile| edits a faculty's profile |
+|1. | POST | /student/register/ | registers a new user |
+|2. | GET | /student/profile | retrieves the profile information of the logged-in user |
+|3. | POST | /student/editprofile | edits a student's profile |
+|4. | POST | /faculty/register/ | registers a new user |
+|5. | GET | /faculty/profile | retrieves the profile information of the logged-in user |
+|6. | POST | /faculty/editprofile | edits a faculty's profile |
+|7. | POST | /login | authenticates and logs in user |
+|8. | GET | /logout | ends a user session |
 
 
-
-#### 2.2.2.2 \<Course Management SS> Routes
+#### 2.2.2.2 Course Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /course/create |creates a new course |
-|2. | POST | /course/<course_id>/edit|edit an existing course |
+|1. | POST | /course/create | creates a new course |
+|2. | POST | /course/<course_id>/edit | edit an existing course |
 
 
-#### 2.2.2.3 \<SA Pos Management SS> Routes
+#### 2.2.2.3 Application Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. |POST | user/faculty/courses/create SA positions | create SA positions|
-|2. |POST | user/faculty/courses/edit SA positions |edit SA positon |
-|3. |GET | user/faculty/positions|displays list of all SA positions created|
-|4. | GET | user/student/courses/applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
-|5. | GET | user/faculty/courses/applications/recommendations for faculty	| retrieves a list of recommended positions for each course for faculty member |
+|1. | POST | /faculty/create | create SA positions|
+|2. | GET | /faculty/positions | displays list of all SA positions created |
+|3. | POST | /faculty/<position_id>/edit | edit SA positon |
+|4. | GET | /student/positions | displays list of all available SA positions |
+|5. | GET | /student/recommendations | retrieves a list of recommended positions for the student based on interest |
 
-
-#### 2.2.2.4 \<Applications Management SS> Routes
-| | Methods | URL Path | Description |
-|:--|:------------------|:-----------|:-------------|
-|1. | POST | /course/create |creates a new course |
-|2. | POST | /course/<course_id>/edit|edit an existing course |
 
 
 ### 2.3 User Interface Design
-Provide a list of the page templates you plan to create and supplement your
-description with UI sketches or screenshots. Make sure to mention which user-
-stories in your “Requirements and Use Cases" document will utilize these interfaces
-for user interaction.
 
 Page Tempates: 
-- Staff: Main page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form Create course page Edit course form
+- Staff: Index page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form. Create course page, Edit course form.
 
-- Student: Main page shows courses they can apply to, including a separate relevant courses section Separate page to view application status
+- Student: Index page shows courses they can apply to, including a separate relevant courses section. Separate page to view application status
 
-- Both: Login Page Profile creation page Edit Profile (Student will need more info)
+- Both: Login Page, Profile creation page, Edit Profile (Student will need some info than what is stored in faculty)
 
 ![image](https://github.com/user-attachments/assets/184c8986-2c77-49bd-9888-7bc69108fb76)
 
 
 User Stories:
-
-- Student: 1-7
-- Staff: 8-12
-- Both: 1 and 8
+- Student: 3-9
+- Staff: 12-16
+- Both: 1-2, 10-11
 
 
 1. As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions.  
-2. As a student, I want to view all SA positions so that I can choose positions of interest.  
-3. As a student, I want to view a list of recommended positions so that I can find relevant opportunities.  
-4. As a student, I want to view a detailed description of a position so that I can understand the requirements for each course.  
-5. As a student, I want to apply to SA positions so that I can get a job.  
-6. As a student, I want to view the status of my applications so that I can track my SA application progress. 
-7. As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA.  
-8. As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
-9. As faculty, I want to add courses with open SA positions so that I can add positions.  
-10. As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.  
-11. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
-12. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position.  
+2. As a student, I want to login with username and password provided during create account
+3. As a student, I want to view all SA positions so that I can choose positions of interest.  
+4. As a student, I want to view a list of recommended positions so that I can find relevant opportunities.  
+5. As a student, I want to view a detailed description of a position so that I can understand the requirements for each course.  
+6. As a student, I want to apply to SA positions so that I can get a job.  
+7. As a student, I want to view the status of my applications so that I can track my SA application progress. 
+8. As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA.  
+9. As a student, I want to have "assigned" SA positions be disabled for withdrawal so I can't withdraw from "assigned" positions.
+10. As a student, I want to edit my profile so that I can change my personal information 
+11. As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
+12. As faculty, I want to login with username and password provided during create account
+13. As faculty, I want to add courses with open SA positions so that I can add positions.  
+14. As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.  
+15. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
+16. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position. 
+17. As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position. 
+18. As a faculty, I want to edit my profile so that I can change my personal information 
 
 
 
