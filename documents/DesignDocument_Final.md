@@ -77,7 +77,7 @@ UML Component:
 
 ### 2.2.2 Interfaces
 
-#### 2.2.2.1 \User Management SS Routes
+#### 2.2.2.1 User Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | POST | /student/register/ | registers a new user |
@@ -90,14 +90,14 @@ UML Component:
 |8. | GET | /logout | ends a user session |
 
 
-#### 2.2.2.2 \Course Management SS Routes
+#### 2.2.2.2 Course Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | POST | /course/create | creates a new course |
 |2. | POST | /course/<course_id>/edit | edit an existing course |
 
 
-#### 2.2.2.3 \Application Management SS Routes
+#### 2.2.2.3 Application Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | POST | /faculty/create | create SA positions|
