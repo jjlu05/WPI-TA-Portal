@@ -1,5 +1,5 @@
 
-# Project Design Document - draft
+# Project Design Document - Final
 ## SA Connect: "Streamlining the Student Assistant Recruitment Process"
 --------
 Prepared by:
@@ -26,29 +26,18 @@ Prepared by:
 | Name | Date | Changes | Version |
 | ------ | ------ | --------- | --------- |
 |Revision 1 |2024-11-15 |Initial draft | 1.0 |
-| | | | |
+|Revision 2 |2024-11-21 |Final draft |2.0 |
 
 
 # 1. Introduction
-Explain the purpose of this document. If this is a revision of an earlier document,
-please make sure to summarize what changes have been made during the revision (keep
-this discussion brief).
 
 This document describes the design of the Student Assistant Recruitment System for the WPI Computer Science Department. The purpose of this system is to manage student assistant (SA) applications, position creation, and assignment to students. This document provides a detailed software design including the database model, subsystem architectures, and user interface designs. This is the first revision, and we plan to add more specific details and examples in future drafts.
 
 
 
 # 2. Software Design
-(**Note**: For all subsections of Section-2: You should describe the design for the
-end product (completed application) - not only your iteration1 version. You will
-revise this document and add more details later.)
 
 ## 2.1 Database Model
-Provide a list of your tables (i.e., SQL Alchemy classes) in your database model
-and briefly explain the role of each table.
-Provide a UML diagram of your database model showing the associations and
-relationships among tables.
-
 
 Classes
 - User: The base class that stores common information for both students and instructors
@@ -87,17 +76,8 @@ UML Component:
 
 
 ### 2.2.2 Interfaces
-Include a detailed description of the routes your application will implement.
-* Brainstorm with your team members and identify all routes you need to implement
-for the **completed** application.
-* For each route specify its “methods”, “URL path”, and “a description of the
-operation it implements”.
-* You can use the following table template to list your route specifications.
-* Organize this section according to your subsytem decomposition, i.e., include a
-=======
 
-
-#### 2.2.2.1 \<User Management SS> Routes
+#### 2.2.2.1 \User Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | POST | /users/student/register/ | registers a new user |
@@ -113,14 +93,14 @@ operation it implements”.
 
 
 
-#### 2.2.2.2 \<Course Management SS> Routes
+#### 2.2.2.2 \Course Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | POST | /course/create |creates a new course |
 |2. | POST | /course/<course_id>/edit|edit an existing course |
 
 
-#### 2.2.2.3 \<SA Pos Management SS> Routes
+#### 2.2.2.3 \SA Pos Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. |POST | user/faculty/courses/create SA positions | create SA positions|
@@ -130,7 +110,7 @@ operation it implements”.
 |5. | GET | user/faculty/courses/applications/recommendations for faculty	| retrieves a list of recommended positions for each course for faculty member |
 
 
-#### 2.2.2.4 \<Applications Management SS> Routes
+#### 2.2.2.4 \Applications Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | POST | /course/create |creates a new course |
@@ -138,10 +118,6 @@ operation it implements”.
 
 
 ### 2.3 User Interface Design
-Provide a list of the page templates you plan to create and supplement your
-description with UI sketches or screenshots. Make sure to mention which user-
-stories in your “Requirements and Use Cases" document will utilize these interfaces
-for user interaction.
 
 Page Tempates: 
 - Staff: Main page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form Create course page Edit course form
