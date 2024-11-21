@@ -119,34 +119,37 @@ UML Component:
 ### 2.3 User Interface Design
 
 Page Tempates: 
-- Staff: Main page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form Create course page Edit course form
+- Staff: Index page shows courses they've created, can open dropdown under each course that shows applicants and applicant info. Each course also has an edit button to go to an edit course form. Create course page, Edit course form.
 
-- Student: Main page shows courses they can apply to, including a separate relevant courses section Separate page to view application status
+- Student: Index page shows courses they can apply to, including a separate relevant courses section. Separate page to view application status
 
-- Both: Login Page Profile creation page Edit Profile (Student will need more info)
+- Both: Login Page, Profile creation page, Edit Profile (Student will need some info than what is stored in faculty)
 
 ![image](https://github.com/user-attachments/assets/184c8986-2c77-49bd-9888-7bc69108fb76)
 
 
 User Stories:
-
-- Student: 1-7
-- Staff: 8-12
-- Both: 1 and 8
+- Student: 3-9
+- Staff: 12-16
+- Both: 1-2, 10-11
 
 
 1. As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions.  
-2. As a student, I want to view all SA positions so that I can choose positions of interest.  
-3. As a student, I want to view a list of recommended positions so that I can find relevant opportunities.  
-4. As a student, I want to view a detailed description of a position so that I can understand the requirements for each course.  
-5. As a student, I want to apply to SA positions so that I can get a job.  
-6. As a student, I want to view the status of my applications so that I can track my SA application progress. 
-7. As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA.  
-8. As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
-9. As faculty, I want to add courses with open SA positions so that I can add positions.  
-10. As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.  
-11. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
-12. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position.  
+2. As a student, I want to login with username and password provided during create account
+3. As a student, I want to view all SA positions so that I can choose positions of interest.  
+4. As a student, I want to view a list of recommended positions so that I can find relevant opportunities.  
+5. As a student, I want to view a detailed description of a position so that I can understand the requirements for each course.  
+6. As a student, I want to apply to SA positions so that I can get a job.  
+7. As a student, I want to view the status of my applications so that I can track my SA application progress. 
+8. As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA.  
+9. As a student, I want to have "assigned" SA positions be disabled for withdrawal so I can't withdraw from "assigned" positions.
+10. As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
+11. As faculty, I want to login with username and password provided during create account
+12. As faculty, I want to add courses with open SA positions so that I can add positions.  
+13. As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.  
+14. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
+15. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position. 
+16. As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position. 
 
 
 
