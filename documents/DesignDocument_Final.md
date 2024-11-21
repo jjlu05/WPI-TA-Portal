@@ -144,13 +144,15 @@ User Stories:
 7. As a student, I want to view the status of my applications so that I can track my SA application progress. 
 8. As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA.  
 9. As a student, I want to have "assigned" SA positions be disabled for withdrawal so I can't withdraw from "assigned" positions.
-10. As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
-11. As faculty, I want to login with username and password provided during create account
-12. As faculty, I want to add courses with open SA positions so that I can add positions.  
-13. As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.  
-14. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
-15. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position. 
-16. As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position. 
+10. As a student, I want to edit my profile so that I can change my personal information 
+11. As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
+12. As faculty, I want to login with username and password provided during create account
+13. As faculty, I want to add courses with open SA positions so that I can add positions.  
+14. As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.  
+15. As faculty, I want to view student applications so that I can review qualifications and hire applicants.  
+16. As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position. 
+17. As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position. 
+18. As a faculty, I want to edit my profile so that I can change my personal information 
 
 
 

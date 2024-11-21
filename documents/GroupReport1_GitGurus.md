@@ -21,17 +21,25 @@ As a team we meet three times a week or more as needed in the evenings. We keep 
 user stories.
 
 Accomplishments:
-- Created user pages for both faculty and student
-- Created backend for storing SA position and course data
-- Creating courses and SA Positions
-- Login in feature for Student and Faculty
-- Register function for Student and Faculty
-- Log out function
-- Remember me feature for login functionality
-- Edit profile page
-- Save edit profile changes 
+    - Created user pages for both faculty and student
+    - Created backend for storing SA position and course data
+    - Creating courses and SA Positions
+    - Login in feature for Student and Faculty
+    - Register function for Student and Faculty
+    - Log out function
+    - Remember me feature for login functionality
+    - Edit profile page
+    - Save edit profile changes 
 
 User Stories: 
+    - As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions.
+    - As a student, I want to login with username and password provided during create account
+    - As a student, I want to edit my profile so that I can change my personal information 
+    - As faculty, I want to create an account using my WPI credentials so that I can log in and hire students. 
+    - As faculty, I want to login with username and password provided during create account
+    - As faculty, I want to add courses with open SA positions so that I can add positions.  
+    - As a faculty, I want to edit my profile so that I can change my personal information 
+    - As faculty, I want to add open SA positions for my courses so that I can begin the hiring process.
 
 
 ----
@@ -39,10 +47,24 @@ User Stories:
 * Include the outcome of your `Iteration-1 Scrum retrospective meetings`.
 * Mention the changes the team will be doing to improve itself as a result of the
 Scrum reflections.
+
+Outcome: 
+    - Team worked well overall on the project 
+    - Team agreed that imporvements include:
+        - starting earlier for deadlines 
+        - pushing more often and sooner to share progress with others 
+        - ensure merge conflicts are managed properly 
+    - Things that went well 
+        - dealing with errors was swift 
+        - Individual errors were brought to team and everyone helped to resolve issues 
+        - assigned tickets in a fair manner and organized completion of work well  
+
 ----
 ## 4. Product Backlog refinement
 * Have you made any changes to your `product backlog` after `Iteration-1`? If so,
 please explain the changes here.
+
+
 ----
 ## 5. Iteration 2 - Sprint Backlog
 Include a draft of your `Iteration-2 spring backlog`.
