@@ -1,9 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, TextAreaField, SelectField, SubmitField, ValidationError
-from wtforms.validators import DataRequired, NumberRange
-from wtforms import StringField, PasswordField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, EqualTo, Email, Optional
+
+from wtforms import FloatField, StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField, TextAreaField, SelectField, ValidationError
+from wtforms.validators import DataRequired, EqualTo, Email, Optional, Length
 from app.user.user_models import User, Student, Faculty
+from app.course.course_models import Course
+
+from wtforms_sqlalchemy.fields import QuerySelectMultipleField
+from wtforms.widgets import ListWidget, CheckboxInput
+
+from app import db
 
 
 class StudentRegistrationForm(FlaskForm):
@@ -18,7 +23,15 @@ class StudentRegistrationForm(FlaskForm):
     graduation_year = IntegerField('Graduation Year', validators=[DataRequired()])
     wpi_id = StringField('WPI ID', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired()])
-    past_sa = StringField('Past SA', validators=[DataRequired()])
+    past_sa = StringField('Past SA')
+
+    courses_served = QuerySelectMultipleField(
+        "Courses Served as SA",
+        query_factory=lambda: db.session.query(Course).all(), 
+        get_label=lambda course: f"{course.major} {course.coursenum}", 
+        widget=ListWidget(prefix_label=False), 
+        option_widget=CheckboxInput(),  
+    )
     
     submit = SubmitField('Register')
 
@@ -67,15 +80,36 @@ class FacultyRegistrationForm(FlaskForm):
         user = Faculty.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
+        
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
+
+    submit = SubmitField('Login')
 
 class CreateCourseForm(FlaskForm):
-    coursenum = StringField('Course Number', validators=[DataRequired()])
-    section = IntegerField('Section', validators=[DataRequired()])
+    section_number = IntegerField('Section', validators=[DataRequired()])
     term = StringField('Term', validators=[DataRequired()])
     submit = SubmitField('Create')
+    course_choices = [("test1", "CS3733"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100")]
+    major = RadioField('Major', choices=course_choices, validators=[DataRequired()])
 
-class CreateSAPositionForm(FlaskForm):
-    course_section = SelectField('Course Section', choices=[], validators=[DataRequired()])
-    number_of_sas = IntegerField('Number of SAs', validators=[DataRequired(), NumberRange(min=1)])
-    qualifications = TextAreaField('Qualifications', validators=[DataRequired()])
-    submit = SubmitField('Create SA Position')
+
+class StudentEditProfileForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10)])
+    major = StringField('Major', validators=[DataRequired()])
+    cum_gpa = FloatField('Cumulative GPA', validators=[DataRequired()])
+    grad_year = IntegerField('Graduation Year', validators=[DataRequired()])
+    submit = SubmitField('Update Profile')
+
+class FacultyEditProfileForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10)])
+    department = StringField('Department', validators=[DataRequired()])
+    submit = SubmitField('Update Profile')

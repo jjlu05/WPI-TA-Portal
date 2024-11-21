@@ -1,21 +1,23 @@
-from flask import render_template, redirect, url_for, flash
-from flask_login import login_required, current_user, login_user
+from flask import render_template, redirect, request, url_for, flash
+from flask_login import login_required, current_user, login_user, logout_user
 from app import db
-from app.user.user_forms import StudentRegistrationForm, FacultyRegistrationForm, CreateSAPositionForm
-from app.user.user_models import User, Student, Faculty, CourseSection, SAPosition
+from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm
+from app.user.user_models import User, Student, Faculty
 from app.user import user_blueprint as bp_user
-
+import sqlalchemy as sqla
 
 @bp_user.route('/', methods=['GET', 'POST'])
 @bp_user.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html',is_faculty=isinstance(current_user, Faculty))
 
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
 def register_student():
     form = StudentRegistrationForm()
     if form.validate_on_submit():
+        print("Form submitted and validated")
+
         # Create a new User object
         new_user = Student(
             username=form.username.data,
@@ -26,7 +28,7 @@ def register_student():
             wpi_id=form.wpi_id.data,
             major=form.major.data,
             grad_year=form.graduation_year.data,
-            cum_gpa=form.gpa.data
+            cum_gpa=form.gpa.data,
         )
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
@@ -36,12 +38,18 @@ def register_student():
         db.session.commit()
         
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('user.login'))  # Assuming you have a 'login' route
+        return redirect(url_for('user.login'))  
+    else:
+        print("Form validation failed")
         
     return render_template('register_student.html', form=form)
 
+
 @bp_user.route('/faculty/register', methods=['GET', 'POST'])
 def register_faculty():
+    if current_user.is_authenticated:
+        return redirect(url_for('user.index'))
+
     form = FacultyRegistrationForm()
     if form.validate_on_submit():
         # Create a new User object
@@ -62,44 +70,82 @@ def register_faculty():
         db.session.commit()
         
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('user.login'))  # Assuming you have a 'login' route
+        return redirect(url_for('user.login'))  
         
     return render_template('register_faculty.html', form=form)
 
-# Login route (no functionality yet, just placeholder)
+
 @bp_user.route('/login', methods=['GET', 'POST'])
 def login():
-    """User login route """
-    # Placeholder route for login - no functionality yet
-    return render_template('login.html')
+    # If the user is already logged in, redirect to the index page
+    if current_user.is_authenticated:
+        return redirect(url_for('course.index'))
 
-
-@bp_user.route('/faculty/create', methods=['GET', 'POST'])
-@login_required
-def create_sa_position():
-    # Check if the current user is a Faculty member
-    if not isinstance(current_user, Faculty):
-        flash('You do not have permission to access this page.', 'danger')
-        return redirect(url_for('user.index'))
-
-    form = CreateSAPositionForm()
-
-    # Populate the course section dropdown
-    course_sections = CourseSection.query.filter_by(instructor_id=current_user.id).all()
-    form.course_section.choices = [
-        (str(section.id), f"{section.course_code} - {section.section_number}") 
-        for section in course_sections
-    ]
-
+    form = LoginForm()
+    
     if form.validate_on_submit():
-        sa_position = SAPosition(
-            course_section_id=int(form.course_section.data),  # Ensure integer type
-            number_of_sas=form.number_of_sas.data,
-            qualifications=form.qualifications.data,
-        )
-        db.session.add(sa_position)
-        db.session.commit()
-        flash('SA Position created successfully!', 'success')
-        return redirect(url_for('user.faculty_page'))  # fix to reflect faculty main page 
+        # Check for the user in both Student and Faculty tables
+        query = sqla.select(Student).where(Student.username == form.username.data)
+        user = db.session.scalars(query).first()
+        
+        if user is None:
+            query = sqla.select(Faculty).where(Faculty.username == form.username.data)
+            user = db.session.scalars(query).first()
+        if (user is None) or (user.check_password(form.password.data) == False):
+            flash('Incorrect username or password.')
+            return redirect(url_for('user.login'))
+        login_user(user, remember = form.remember_me.data)
+        flash('Welcome back, {}!'.format(current_user.username))
+        return redirect(url_for('user.index'))
+    return render_template('login.html', form=form)
 
-    return render_template('create.html', form=form)
+@bp_user.route('/logout', methods=['GET'])
+@login_required 
+def logout():
+    logout_user()  
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('user.index')) 
+
+
+@bp_user.route('/student/edit-profile', methods=['GET', 'POST'])
+@login_required
+def edit_student_profile():
+    if not isinstance(current_user, Student):
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('user.index'))
+    
+    form = StudentEditProfileForm(obj=current_user)
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        current_user.phone_number = form.phone_number.data
+        current_user.major = form.major.data
+        current_user.cum_gpa = form.cum_gpa.data
+        current_user.grad_year = form.grad_year.data
+        db.session.commit()
+        flash('Student profile updated successfully!', 'success')
+        return redirect(url_for('user.index'))
+    
+    return render_template('edit_student_profile.html', form=form)
+
+# Faculty Edit Profile
+@bp_user.route('/faculty/edit-profile', methods=['GET', 'POST'])
+@login_required
+def edit_faculty_profile():
+    if not isinstance(current_user, Faculty):
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('user.index'))
+    
+    form = FacultyEditProfileForm(obj=current_user)
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        current_user.phone_number = form.phone_number.data
+        current_user.department = form.department.data
+        db.session.commit()
+        flash('Faculty profile updated successfully!', 'success')
+        return redirect(url_for('user.index'))
+    
+    return render_template('edit_faculty_profile.html', form=form)

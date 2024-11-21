@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Create SA Position</h2>
+
+    <form method="POST" action="{{ url_for('user.create_sa_position') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="course_section">{{ form.course_section.label }}</label>
+            {{ form.course_section(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="number_of_sas">{{ form.number_of_sas.label }}</label>
+            {{ form.number_of_sas(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="min_gpa">{{ form.min_gpa.label }}</label>
+            {{ form.min_gpa(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="min_grade">{{ form.min_grade.label }}</label>
+            {{ form.min_grade(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="prior_experience">{{ form.prior_experience.label }}</label>
+            {{ form.prior_experience() }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

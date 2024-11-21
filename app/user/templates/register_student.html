@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{% block title %}Student Registration{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="container mt-5">
@@ -104,13 +102,12 @@
             {% endif %}
         </div>
 
-
-        <div class="mb-3">
-            <label for="past_sa" class="form-label">Past SA Experience</label>
-            {{ form.past_sa(class="form-control", placeholder="Enter your past SA experience") }}
-            {% if form.past_sa.errors %}
+        <div class="form-group">
+            <label for="courses_served" class="form-label">Courses Served</label>
+            {{ form.courses_served(class="form-control", placeholder="Enter your past SA courses") }}
+            {% if form.courses_served.errors %}
                 <div class="text-danger">
-                    {% for error in form.past_sa.errors %}
+                    {% for error in form.courses_served.errors %}
                         <p>{{ error }}</p>
                     {% endfor %}
                 </div>

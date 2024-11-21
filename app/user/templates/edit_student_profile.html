@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Edit Student Profile{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Edit Student Profile</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.first_name.label }} {{ form.first_name(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.last_name.label }} {{ form.last_name(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.email.label }} {{ form.email(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.phone_number.label }} {{ form.phone_number(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.major.label }} {{ form.major(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.cum_gpa.label }} {{ form.cum_gpa(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.grad_year.label }} {{ form.grad_year(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+    </form>
+</div>
+{% endblock %}
