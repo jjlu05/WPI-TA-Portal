@@ -80,41 +80,34 @@ UML Component:
 #### 2.2.2.1 \User Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /users/student/register/ | registers a new user |
-|2. | POST | /users/student/login/ | authenticates and logs in user |
-|3. | GET | /users/student/logout	| ends a user session |
-|4. | GET | /users/student/profile | retrieves the profile information of the logged-in user |
-|5. | POST | /users/student/editprofile| edits a student's profile |
-|6. | POST | /users/faculty/register/ | registers a new user |
-|7. | POST | /users/faculty/login/ | authenticates and logs in user |
-|8. | GET | /users/faculty/logout	| ends a user session |
-|9. | GET | /users/faculty/profile | retrieves the profile information of the logged-in user |
-|10. | POST | /users/faculty/editprofile| edits a faculty's profile |
+|1. | POST | /student/register/ | registers a new user |
+|2. | GET | /student/profile | retrieves the profile information of the logged-in user |
+|3. | POST | /student/editprofile | edits a student's profile |
 
+|4. | POST | /faculty/register/ | registers a new user |
+|5. | GET | /faculty/profile | retrieves the profile information of the logged-in user |
+|6. | POST | /faculty/editprofile | edits a faculty's profile |
+
+|7. | POST | /login | authenticates and logs in user |
+|8. | GET | /logout | ends a user session |
 
 
 #### 2.2.2.2 \Course Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /course/create |creates a new course |
-|2. | POST | /course/<course_id>/edit|edit an existing course |
+|1. | POST | /course/create | creates a new course |
+|2. | POST | /course/<course_id>/edit | edit an existing course |
 
 
-#### 2.2.2.3 \SA Pos Management SS Routes
+#### 2.2.2.3 \Application Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. |POST | user/faculty/courses/create SA positions | create SA positions|
-|2. |POST | user/faculty/courses/edit SA positions |edit SA positon |
-|3. |GET | user/faculty/positions|displays list of all SA positions created|
-|4. | GET | user/student/courses/applications/recommendations	| retrieves a list of recommended positions for the student based on interest |
-|5. | GET | user/faculty/courses/applications/recommendations for faculty	| retrieves a list of recommended positions for each course for faculty member |
+|1. | POST | /faculty/create | create SA positions|
+|2. | GET | /faculty/positions | displays list of all SA positions created |
+|3. | POST | /faculty/<position_id>/edit | edit SA positon |
+|4. | GET | /student/positions | displays list of all available SA positions |
+|5. | GET | /student/positions/recommendations | retrieves a list of recommended positions for the student based on interest |
 
-
-#### 2.2.2.4 \Applications Management SS Routes
-| | Methods | URL Path | Description |
-|:--|:------------------|:-----------|:-------------|
-|1. | POST | /course/create |creates a new course |
-|2. | POST | /course/<course_id>/edit|edit an existing course |
 
 
 ### 2.3 User Interface Design
