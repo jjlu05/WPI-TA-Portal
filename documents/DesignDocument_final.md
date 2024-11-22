@@ -77,10 +77,10 @@ UML Component:
 #### 2.2.2.1 User Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /student/register/ | registers a new user |
+|1. | POST | /student/register | registers a new user |
 |2. | GET | /student/profile | retrieves the profile information of the logged-in user |
 |3. | POST | /student/editprofile | edits a student's profile |
-|4. | POST | /faculty/register/ | registers a new user |
+|4. | POST | /faculty/register | registers a new user |
 |5. | GET | /faculty/profile | retrieves the profile information of the logged-in user |
 |6. | POST | /faculty/editprofile | edits a faculty's profile |
 |7. | POST | /login | authenticates and logs in user |
@@ -136,6 +136,8 @@ Page Templates:
       <img src ="images/StudentHomePage.png" border="2"  width="30%" height="30%"/>
       <img src ="images/StudentORFacultyRegister1.png" border="2"  width="30%" height="30%"/>
 </kbd>
+
+
 
 
 User Stories:
