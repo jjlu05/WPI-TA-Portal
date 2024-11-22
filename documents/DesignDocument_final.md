@@ -122,7 +122,7 @@ Page Templates:
 <img src="https://github.com/user-attachments/assets/cbeb7cf5-929a-47e8-b08a-6402574f4e06" width="100" />
 
 <kbd>
-      <img src="images/StudentEditProfile.png"  border="2" width="200" height="150">
+      <img src="images/StudentEditProfile.png"  border="2" width="20%" height="20%">
       <img src ="images/StudentHomePage.png" border="2">
       <img src ="images/StudentORFacultyRegister.png" border="2">
       <img src ="images/StudentORFacultyRegister1.png" border="2">
