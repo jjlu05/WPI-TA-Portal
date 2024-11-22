@@ -121,6 +121,8 @@ Page Templates:
       <img src ="images/StudentRegister.png" border="2">
       <img src ="images/StudentViewApplications.png" border="2">
 </kbd>
+![image](https://github.com/user-attachments/assets/184c8986-2c77-49bd-9888-7bc69108fb76)
+![image](document/images/AddACourse.png)
 
 
 User Stories:
