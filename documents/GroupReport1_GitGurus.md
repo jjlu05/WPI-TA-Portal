@@ -70,10 +70,10 @@ who will work on each user story.
 * Make sure to update the "issues" on your GitHub repo accordingly.
 
 User Stories:
-- As faculty, I want to view student applications so that I can review qualifications and hire applicants. 
-- As a student, I want to apply to SA positions so that I can get a job. 
-- As a student, I want to view a detailed description of a position so that I can understand the requirements for each course. 
-- As a student, I want to view all SA positions so that I can choose positions of interest. 
+- As faculty, I want to view student applications so that I can review qualifications and hire applicants. - Jacob
+- As a student, I want to apply to SA positions so that I can get a job. - Harleen
+- As a student, I want to view a detailed description of a position so that I can understand the requirements for each course. - Harleen 
+- As a student, I want to view all SA positions so that I can choose positions of interest. - Jed and Jacob
 
 - created new task issues for upcoming sprint 
     - Github Tickets Created:
