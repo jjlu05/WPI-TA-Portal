@@ -93,7 +93,7 @@ UML Component:
 |2. | POST | /course/<course_id>/edit | edit an existing course |
 
 
-#### 2.2.2.3 Application Management SS Routes
+#### 2.2.2.3 Application & Position Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
 |1. | POST | /faculty/create | create SA positions|
