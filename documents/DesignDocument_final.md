@@ -114,7 +114,7 @@ Page Templates:
 
 - Both: Login Page, Profile creation page, Edit Profile (Student will need some info than what is stored in faculty)
 
-Faculty Page Components:
+#### Faculty Page Components:
 <kbd>
 <img src="https://github.com/user-attachments/assets/47366ec4-f4f9-4007-b0e0-5a3220603247" width="30%" height="30%" />
 <img src="https://github.com/user-attachments/assets/10757cf0-4f6c-48ff-b667-e87863604dc2"  width="30%" height="30%" />
@@ -124,7 +124,7 @@ Faculty Page Components:
 
 </kbd>
 
-Student Page Components:
+#### Student Page Components:
 <kbd>
 <img src ="images/StudentRegister.png" border="2"  width="30%" height="30%"/>
 <img src="https://github.com/user-attachments/assets/6f4dc52a-c7e3-4b5c-8cb7-97068427f875"  width="30%" height="30%"/>
