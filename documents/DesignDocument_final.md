@@ -115,7 +115,7 @@ Page Templates:
 
 ![image](https://github.com/user-attachments/assets/184c8986-2c77-49bd-9888-7bc69108fb76)
 
-
+documents/images/AddACourse.png
 User Stories:
 - Student: 3-9
 - Staff: 12-16
