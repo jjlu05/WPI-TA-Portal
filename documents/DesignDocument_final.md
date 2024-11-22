@@ -114,7 +114,7 @@ Page Templates:
 - Both: Login Page, Profile creation page, Edit Profile (Student will need some info than what is stored in faculty)
 
 <kbd>
-      <img src="images/StudentEditProfile.png"  border="2">
+      <img src="images/StudentEditProfile.png"  border="20">
       <img src ="images/StudentHomePage.png" border="2">
       <img src ="images/StudentORFacultyRegister.png" border="2">
       <img src ="images/StudentORFacultyRegister1.png" border="2">
