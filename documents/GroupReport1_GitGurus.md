@@ -69,4 +69,7 @@ down the larger user stories into smaller size stories. Mention the team member(
 who will work on each user story.
 * Make sure to update the "issues" on your GitHub repo accordingly.
 
-- created new task issues for upcoming sprint 
+- As faculty, I want to view student applications so that I can review qualifications and hire applicants.
+- As a student, I want to apply to SA positions so that I can get a job.
+- As a student, I want to view a detailed description of a position so that I can understand the requirements for each course.
+- As a student, I want to view all SA positions so that I can choose positions of interest. 
