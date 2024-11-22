@@ -3,13 +3,35 @@ from flask_login import login_required, current_user, login_user, logout_user
 from app import db
 from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm
 from app.user.user_models import User, Student, Faculty
+from app.course.course_models import CourseExperience, CourseSection
+from app.application.application_models import SAPosition
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
 
 @bp_user.route('/', methods=['GET', 'POST'])
 @bp_user.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html',is_faculty=isinstance(current_user, Faculty))
+    isStudent=False
+    listOfRelevantPos= []
+    facultyCourses = []
+    SAPosCourses = []
+    if isinstance(current_user, Student):
+        isStudent=True
+        studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+
+        for c in studentCourses:
+            for SAPos in SAPosCourses:
+                if c==SAPos.course_section_id.course_id:#still need course and course section relationship
+                    listOfRelevantPos.append(SAPos)
+                    SAPosCourses.remove(SAPos)
+
+    
+    if isinstance(current_user, Faculty):
+        facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
+
+
+    return render_template('index.html',facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
 
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
@@ -107,7 +129,7 @@ def logout():
     return redirect(url_for('user.index')) 
 
 
-@bp_user.route('/student/edit-profile', methods=['GET', 'POST'])
+@bp_user.route('/student/editprofile', methods=['GET', 'POST'])
 @login_required
 def edit_student_profile():
     if not isinstance(current_user, Student):
@@ -124,17 +146,17 @@ def edit_student_profile():
         current_user.cum_gpa = form.cum_gpa.data
         current_user.grad_year = form.grad_year.data
         db.session.commit()
-        flash('Student profile updated successfully!', 'success')
+        flash('Student profile updated successfully!')
         return redirect(url_for('user.index'))
     
     return render_template('edit_student_profile.html', form=form)
 
 # Faculty Edit Profile
-@bp_user.route('/faculty/edit-profile', methods=['GET', 'POST'])
+@bp_user.route('/faculty/editprofile', methods=['GET', 'POST'])
 @login_required
 def edit_faculty_profile():
     if not isinstance(current_user, Faculty):
-        flash("Unauthorized access", "danger")
+        flash("Unauthorized access")
         return redirect(url_for('user.index'))
     
     form = FacultyEditProfileForm(obj=current_user)
@@ -145,7 +167,7 @@ def edit_faculty_profile():
         current_user.phone_number = form.phone_number.data
         current_user.department = form.department.data
         db.session.commit()
-        flash('Faculty profile updated successfully!', 'success')
+        flash('Faculty profile updated successfully!')
         return redirect(url_for('user.index'))
     
     return render_template('edit_faculty_profile.html', form=form)
