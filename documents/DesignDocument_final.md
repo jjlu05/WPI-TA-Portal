@@ -112,14 +112,14 @@ Page Templates:
 - Student: Index page shows courses they can apply to, including a separate relevant courses section. Separate page to view application status
 
 - Both: Login Page, Profile creation page, Edit Profile (Student will need some info than what is stored in faculty)
-![image](https://github.com/user-attachments/assets/6f4dc52a-c7e3-4b5c-8cb7-97068427f875)
-![image](https://github.com/user-attachments/assets/e3f09db2-9b9d-4d14-a853-ad86e6411747)
-![image](https://github.com/user-attachments/assets/ae879f50-06f3-4adb-a3cc-a6139180ef94)
-![image](https://github.com/user-attachments/assets/47366ec4-f4f9-4007-b0e0-5a3220603247)
-![image](https://github.com/user-attachments/assets/08b423c1-fc5c-4a85-a5ee-85b115122cf9)
-![image](https://github.com/user-attachments/assets/10757cf0-4f6c-48ff-b667-e87863604dc2)
-![image](https://github.com/user-attachments/assets/2f2f9c28-6d4f-46ac-807d-e1d388fef04e)
-![image](https://github.com/user-attachments/assets/cbeb7cf5-929a-47e8-b08a-6402574f4e06)
+<img src="https://github.com/user-attachments/assets/6f4dc52a-c7e3-4b5c-8cb7-97068427f875" width="100" />
+<img src="https://github.com/user-attachments/assets/e3f09db2-9b9d-4d14-a853-ad86e6411747" width="100" />
+<img src="https://github.com/user-attachments/assets/ae879f50-06f3-4adb-a3cc-a6139180ef94" width="100" />
+<img src="https://github.com/user-attachments/assets/47366ec4-f4f9-4007-b0e0-5a3220603247" width="100" />
+<img src="https://github.com/user-attachments/assets/08b423c1-fc5c-4a85-a5ee-85b115122cf9" width="100" />
+<img src="https://github.com/user-attachments/assets/10757cf0-4f6c-48ff-b667-e87863604dc2" width="100" />
+<img src="https://github.com/user-attachments/assets/2f2f9c28-6d4f-46ac-807d-e1d388fef04e" width="100" />
+<img src="https://github.com/user-attachments/assets/cbeb7cf5-929a-47e8-b08a-6402574f4e06" width="100" />
 
 <kbd>
       <img src="images/StudentEditProfile.png"  border="20">
