@@ -40,13 +40,14 @@ This document describes the design of the Student Assistant Recruitment System f
 ## 2.1 Database Model
 
 Classes
-- User: The base class that stores common information for both students and instructors
-- Student: stores information specific to students
-- Faculty: stores information specific to faculty
-- Course Offering: stores course offering details
-- Course Experience: stores data about a student's previous experience in a course
-- SA Position: stores details of available SA positions
-- SA Application: stores details of SA applications
+- User: The parent class to Student and Faculty. Includes information that is needed for both students and faculty, that being their id, username, password_hash, first_name, last_name, wpi_id, email, and phone_number. Also contains functions that will be used by both the Student and Faculty class, those being set_password() and check_password().
+- Student: A child class of User, stores information specific to students, that information being their major, cum_gpa, and grad_year.
+- Faculty: A child class of User, tores information specific to faculty, that being their department.
+- Course: Stores the data of a course, that being its id, major, and coursenum.
+- Course Section: Stores the information for course sections. This includes the course_id for the course the Course Section is a section of, the instructor_id of the user that created the course section, the section_number of the course section, and the term the course section is held in.
+- Course Experience: Stores data about a student's previous experience in a course. Stores the userid of the student that created it, the courseid of the course that the student is recording their experience in, the grade the student had in the the course, whether or not the student has_taken the course, and whether or not the student has been_sa for the course.
+- SA Position: Stores details of available SA positions which includes the course_section_id of the course that the SA Position is for, the number_of_sas that can be assigned to the position, as well as the min_gpa and min_grade required of the applicants and whether or not the applicant needs prior_experience in the course.
+- SA Application: Stores details of SA applications including the position_id of the position the application is for, the student_id of the student that created the application, the grade the student got when they took the course, the year_term_course for the year and term they took the course, and the year_team_apply for the year and term they are applying for SAship.
 
 UML Diagram:
 <kbd>
