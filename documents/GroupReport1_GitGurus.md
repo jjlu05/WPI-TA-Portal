@@ -63,10 +63,19 @@ Outcome:
 
 ----
 ## 5. Iteration 2 - Sprint Backlog
-Include a draft of your `Iteration-2 spring backlog`.
-* List the user stories you plan to complete in `Iteration-2`. Make sure to break
-down the larger user stories into smaller size stories. Mention the team member(s)
-who will work on each user story.
-* Make sure to update the "issues" on your GitHub repo accordingly.
+
+User Stories:
+- As faculty, I want to view student applications so that I can review qualifications and hire applicants. - Jacob
+- As a student, I want to apply to SA positions so that I can get a job. - Harleen
+- As a student, I want to view a detailed description of a position so that I can understand the requirements for each course. - Harleen 
+- As a student, I want to view all SA positions so that I can choose positions of interest. - Jed and Jacob
 
 - created new task issues for upcoming sprint 
+    - Github Tickets Created:
+        - #47 [implementation] Faculty can view applicants for courses - Jacob
+        - #46 [implementation] Apply for SA positions - Harleen
+        - #45 [implementation] SA Position Details - Harleen
+        - #44 Relate added CourseSections with Courses - Julian
+        - #43 [Implementation] Student index page to show available SA positions - Jed and Jacob
+        - #42 [Implementation] Bootstrap styling for base and forms - Jed and Julian 
+        - #48 [Implementation] Save submitted user experience in courses - Julian
