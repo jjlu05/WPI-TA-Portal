@@ -118,6 +118,7 @@ Faculty Page Components:
 <kbd>
 <img src="https://github.com/user-attachments/assets/47366ec4-f4f9-4007-b0e0-5a3220603247" width="30%" height="30%" />
 <img src="https://github.com/user-attachments/assets/10757cf0-4f6c-48ff-b667-e87863604dc2"  width="30%" height="30%" />
+<img src="https://github.com/user-attachments/assets/e3f09db2-9b9d-4d14-a853-ad86e6411747"  width="30%" height="30%" />
 <img src ="images/StudentORFacultyRegister.png" border="2"  width="30%" height="30%"/>
 
 
@@ -125,8 +126,8 @@ Faculty Page Components:
 
 Student Page Components:
 <kbd>
+<img src ="images/StudentRegister.png" border="2"  width="30%" height="30%"/>
 <img src="https://github.com/user-attachments/assets/6f4dc52a-c7e3-4b5c-8cb7-97068427f875"  width="30%" height="30%"/>
-<img src="https://github.com/user-attachments/assets/e3f09db2-9b9d-4d14-a853-ad86e6411747"  width="30%" height="30%" />
 <img src="https://github.com/user-attachments/assets/ae879f50-06f3-4adb-a3cc-a6139180ef94"  width="30%" height="30%" />
 
 <img src="https://github.com/user-attachments/assets/2f2f9c28-6d4f-46ac-807d-e1d388fef04e"  width="30%" height="30%"/>
@@ -134,7 +135,6 @@ Student Page Components:
       <img src="images/StudentEditProfile.png"  border="2" width="30%" height="30%"/>
       <img src ="images/StudentHomePage.png" border="2"  width="30%" height="30%"/>
       <img src ="images/StudentORFacultyRegister1.png" border="2"  width="30%" height="30%"/>
-      <img src ="images/StudentRegister.png" border="2"  width="30%" height="30%"/>
 </kbd>
 
 
