@@ -114,8 +114,9 @@ Page Templates:
 - Both: Login Page, Profile creation page, Edit Profile (Student will need some info than what is stored in faculty)
 
 ![image](https://github.com/user-attachments/assets/184c8986-2c77-49bd-9888-7bc69108fb76)
+![image](document/images/AddACourse.png)
 
-documents/images/AddACourse.png
+
 User Stories:
 - Student: 3-9
 - Staff: 12-16
