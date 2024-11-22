@@ -142,8 +142,8 @@ Page Templates:
 
 User Stories:
 - Student: 3-9
-- Staff: 12-16
-- Both: 1-2, 10-11
+- Staff: 13-17
+- Both: 1-2, 10-12, 18
 
 
 1. As a student, I want to create an account using my WPI credentials so that I can log in an apply for SA positions.  
