@@ -63,11 +63,6 @@ Outcome:
 
 ----
 ## 5. Iteration 2 - Sprint Backlog
-Include a draft of your `Iteration-2 spring backlog`.
-* List the user stories you plan to complete in `Iteration-2`. Make sure to break
-down the larger user stories into smaller size stories. Mention the team member(s)
-who will work on each user story.
-* Make sure to update the "issues" on your GitHub repo accordingly.
 
 User Stories:
 - As faculty, I want to view student applications so that I can review qualifications and hire applicants. - Jacob
