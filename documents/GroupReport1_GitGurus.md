@@ -78,3 +78,4 @@ User Stories:
         - #44 Relate added CourseSections with Courses - Julian
         - #43 [Implementation] Student index page to show available SA positions - Jed and Jacob
         - #42 [Implementation] Bootstrap styling for base and forms - Jed and Julian 
+        - #48 [Implementation] Save submitted user experience in courses - Julian
