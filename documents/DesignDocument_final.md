@@ -21,7 +21,7 @@ Prepared by:
 - [2.2.2 Interfaces](#222-interfaces)
 - [2.3 User Interface Design](#23-view-and-user-interface-design)
 - [3. References](#3-references)
-- [Appendix: Grading Rubric](#appendix-grading-rubric)
+
 <a name="revision-history"> </a>
 ### Document Revision History
 | Name | Date | Changes | Version |
@@ -62,9 +62,7 @@ Major subsystems:
 
 - Course Management Subsystem: responsible for managing course details, including course names, sections, and terms. It ensures that SA positions are linked to the correct course and course section.
 
-- SA Position Management Subsystem: responsible for managing the creation, modification, and removal of student assistant (SA) positions. Faculty members can create SA positions by associating them with specific courses and defining the number of positions available.
-
-- SA Application Management Subsystem: responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
+- SA Position and Management Subsystem: responsible for managing the creation, modification, and removal of student assistant (SA) positions. Faculty members can create SA positions by associating them with specific courses and defining the number of positions available. It will also be responsible for managing the student application process for SA positions. It enables students to apply for positions, track their application statuses, and withdraw applications.
 
 UML Component:
 <kbd>
@@ -77,29 +75,29 @@ UML Component:
 #### 2.2.2.1 User Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /student/register | registers a new user |
+|1. | GET, POST | /student/register | registers a new user |
 |2. | GET | /student/profile | retrieves the profile information of the logged-in user |
-|3. | POST | /student/editprofile | edits a student's profile |
-|4. | POST | /faculty/register | registers a new user |
+|3. | GET, POST | /student/editprofile | edits a student's profile |
+|4. | GET, POST | /faculty/register | registers a new user |
 |5. | GET | /faculty/profile | retrieves the profile information of the logged-in user |
-|6. | POST | /faculty/editprofile | edits a faculty's profile |
-|7. | POST | /login | authenticates and logs in user |
+|6. | GET, POST | /faculty/editprofile | edits a faculty's profile |
+|7. | GET, POST | /login | authenticates and logs in user |
 |8. | GET | /logout | ends a user session |
 
 
 #### 2.2.2.2 Course Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /course/create | creates a new course |
-|2. | POST | /course/<course_id>/edit | edit an existing course |
+|1. | GET, POST | /course/create | creates a new course |
+|2. | GET, POST | /course/<course_id>/edit | edit an existing course |
 
 
 #### 2.2.2.3 Application & Position Management SS Routes
 | | Methods | URL Path | Description |
 |:--|:------------------|:-----------|:-------------|
-|1. | POST | /faculty/create | create SA positions|
+|1. | GET, POST | /faculty/create | create SA positions|
 |2. | GET | /faculty/positions | displays list of all SA positions created |
-|3. | POST | /faculty/<position_id>/edit | edit SA positon |
+|3. | GET, POST | /faculty/<position_id>/edit | edit SA positon |
 |4. | GET | /student/positions | displays list of all available SA positions |
 |5. | GET | /student/recommendations | retrieves a list of recommended positions for the student based on interest |
 
