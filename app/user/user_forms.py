@@ -22,7 +22,7 @@ class StudentRegistrationForm(FlaskForm):
     gpa = IntegerField('GPA (Optional)', validators=[Optional()])
     graduation_year = IntegerField('Graduation Year', validators=[DataRequired()])
     wpi_id = StringField('WPI ID', validators=[DataRequired()])
-    phone_number = StringField('Phone Number', validators=[DataRequired()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10)])
     past_sa = StringField('Past SA')
 
     courses_served = QuerySelectMultipleField(
@@ -61,7 +61,7 @@ class FacultyRegistrationForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     department = StringField('Department', validators=[DataRequired()])
     wpi_id = StringField('WPI ID', validators=[DataRequired()])
-    phone_number = StringField('Phone Number', validators=[DataRequired()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10)])
 
     submit = SubmitField('Register')
 
@@ -105,6 +105,7 @@ class StudentEditProfileForm(FlaskForm):
     cum_gpa = FloatField('Cumulative GPA', validators=[DataRequired()])
     grad_year = IntegerField('Graduation Year', validators=[DataRequired()])
     submit = SubmitField('Update Profile')
+
 
 class FacultyEditProfileForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])

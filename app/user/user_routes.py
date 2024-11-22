@@ -129,7 +129,7 @@ def logout():
     return redirect(url_for('user.index')) 
 
 
-@bp_user.route('/student/edit-profile', methods=['GET', 'POST'])
+@bp_user.route('/student/editprofile', methods=['GET', 'POST'])
 @login_required
 def edit_student_profile():
     if not isinstance(current_user, Student):
@@ -146,17 +146,17 @@ def edit_student_profile():
         current_user.cum_gpa = form.cum_gpa.data
         current_user.grad_year = form.grad_year.data
         db.session.commit()
-        flash('Student profile updated successfully!', 'success')
+        flash('Student profile updated successfully!')
         return redirect(url_for('user.index'))
     
     return render_template('edit_student_profile.html', form=form)
 
 # Faculty Edit Profile
-@bp_user.route('/faculty/edit-profile', methods=['GET', 'POST'])
+@bp_user.route('/faculty/editprofile', methods=['GET', 'POST'])
 @login_required
 def edit_faculty_profile():
     if not isinstance(current_user, Faculty):
-        flash("Unauthorized access", "danger")
+        flash("Unauthorized access")
         return redirect(url_for('user.index'))
     
     form = FacultyEditProfileForm(obj=current_user)
@@ -167,7 +167,7 @@ def edit_faculty_profile():
         current_user.phone_number = form.phone_number.data
         current_user.department = form.department.data
         db.session.commit()
-        flash('Faculty profile updated successfully!', 'success')
+        flash('Faculty profile updated successfully!')
         return redirect(url_for('user.index'))
     
     return render_template('edit_faculty_profile.html', form=form)
