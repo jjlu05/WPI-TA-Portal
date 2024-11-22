@@ -18,7 +18,7 @@ class CourseSection(db.Model):
     # Relationships
     instructor: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections')
     sa_positions: sqlo.Mapped[list['SAPosition']] = sqlo.relationship('SAPosition', back_populates='course_section')
-
+    
     def __repr__(self):
         return f"<CourseSection(id={self.id}, course_code='{self.course_code}', section_number='{self.section_number}')>"
 

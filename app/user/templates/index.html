@@ -1,6 +1,65 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Welcome to the Home Page</h1>
-  <p>This is the home page content.</p>
+  
+  
+  {% if isStudent %}
+  <h1>Welcome {{current_user.first_name}}</h1>
+
+    <h2>Open SA Positions</h2>
+    <h3>Relevant Positions</h3>
+
+    {% if listOfRelevantPos %}
+      <ul>
+        {% for pos in listOfRelevantPos %}
+          <li>
+            Course ID: {{ pos.course_section.course_id }},
+            Minimum GPA: {{ pos.min_gpa }},
+            Minimum Grade: {{ pos.min_grade }}
+            Experience: {{ pos.prior_experience }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No relevant positions found.</p>
+
+
+    <h3>Other Open Positions</h3>
+    {% for pos in SAPosCourses %}
+    <li>
+      Course ID: {{ pos.course_section.course_id }},
+      Minimum GPA: {{ pos.min_gpa }},
+      Minimum Grade: {{ pos.min_grade }}
+      Experience: {{ pos.prior_experience }}
+    </li>
+  {% endfor %}
+    {% endif %}
+  
+  
+
+  {% elif is_faculty %}
+  <h1>Welcome Instructor {{current_user.last_name}}</h1>
+
+    <h2>Your Courses</h2>
+   
+
+    {% if facultyCourses %}
+      <ul>
+        {% for course in facultyCourses %}
+          <li>
+            {{course.course_code}} - {{course.section_number}}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No relevant positions found.</p>
+    {% endif %}
+  
+    
+  {% else %}
+  <h1>Welcome User</h1>
+  <h3>Please Log In</h3>
+  {% endif %}
+
+
 {% endblock %}

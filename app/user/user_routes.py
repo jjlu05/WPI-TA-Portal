@@ -3,13 +3,35 @@ from flask_login import login_required, current_user, login_user, logout_user
 from app import db
 from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm
 from app.user.user_models import User, Student, Faculty
+from app.course.course_models import CourseExperience, CourseSection
+from app.application.application_models import SAPosition
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
 
 @bp_user.route('/', methods=['GET', 'POST'])
 @bp_user.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html',is_faculty=isinstance(current_user, Faculty))
+    isStudent=False
+    listOfRelevantPos= []
+    facultyCourses = []
+    SAPosCourses = []
+    if isinstance(current_user, Student):
+        isStudent=True
+        studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+
+        for c in studentCourses:
+            for SAPos in SAPosCourses:
+                if c==SAPos.course_section_id.course_id:#still need course and course section relationship
+                    listOfRelevantPos.append(SAPos)
+                    SAPosCourses.remove(SAPos)
+
+    
+    if isinstance(current_user, Faculty):
+        facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
+
+
+    return render_template('index.html',facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
 
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
