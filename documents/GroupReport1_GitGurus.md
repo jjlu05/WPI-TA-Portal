@@ -10,15 +10,11 @@
 **Instructor**: Sakire Arslan Ay
 ----
 ## 1. Schedule
-* What is your team's weekly schedule of meetings outside of regular class times?
 
-As a team we meet three times a week or more as needed in the evenings. We keep regular contact and are updated on the progress of the project. 
+As a team we meet three times a week or more as needed in the evenings. We keep regular contact and are updated on the progress of the project everyday.
 
 ----
 ## 2. Iteration 1 - Summary
-* Include as summary of your `Iteration-1` accomplishments.
-* List the user stories completed in `Iteration-1`. Mention who worked on those
-user stories.
 
 Accomplishments:
     - Created user pages for both faculty and student
@@ -44,9 +40,6 @@ User Stories:
 
 ----
 ## 3. Iteration 1 - Sprint Retrospective
-* Include the outcome of your `Iteration-1 Scrum retrospective meetings`.
-* Mention the changes the team will be doing to improve itself as a result of the
-Scrum reflections.
 
 Outcome: 
     - Team worked well overall on the project 
@@ -61,12 +54,10 @@ Outcome:
 
 ----
 ## 4. Product Backlog refinement
-* Have you made any changes to your `product backlog` after `Iteration-1`? If so,
-please explain the changes here.
 
-- added user stories for editing profile 
-- created issues on github for editing profile feature 
-- created two new user stories 
+- Added user stories for editing profile 
+- Created issues on github for editing profile feature 
+- Created two new user stories 
     - As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position.
     - As a student, I want to have "assigned" SA positions be disabled for withdrawal so I can't withdraw from "assigned" positions.
 
