@@ -47,7 +47,7 @@
       <ul>
         {% for course in facultyCourses %}
           <li>
-            {{course.course_code}} - {{course.section_number}}
+            {{course.course.major}} {{course.course.coursenum}}-{{course.section_number}} {{course.term}}
           </li>
         {% endfor %}
       </ul>

@@ -53,16 +53,16 @@ def createclass():
     cform = CreateCourseForm()
     if cform.validate_on_submit():
         new_class = CourseSection(
-            course_code=cform.major.data,
-            section_number=cform.section_number.data,
-            term=cform.term.data,
-            instructor_id=current_user.id)
-            #course_id = db.session.scalars(sqla.select(Course.id).where(func.substring(cform.major.data, 2, 5) == Course.id)).first())
+        course = cform.course_choices.data,
+        section_number=cform.section_number.data,
+        term=cform.term.data,
+        instructor_id=current_user.id)
+        #course_id = db.session.scalars(sqla.select(Course.id).where(func.substring(cform.major.data, 2, 5) == Course.id)).first())
         
     
         db.session.add(new_class)
         db.session.commit()
-        flash('Course "' + new_class.course_code + '" is created')
+        flash('Course "' + new_class.course.major + " " + new_class.course.coursenum + '" is created')
         return redirect(url_for('user.index'))
     print(cform.errors)
     return render_template('addcourse.html', form=cform)

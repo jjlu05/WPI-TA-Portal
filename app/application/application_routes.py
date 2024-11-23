@@ -23,7 +23,7 @@ def create_sa_position():
     # Populate the course section dropdown
     course_sections = CourseSection.query.filter_by(instructor_id= Faculty.id).all()
     form.course_section.choices = [
-        (str(section.id), f"{section.course_code} - {section.section_number}") 
+        (str(section.id), f"{section.course.major} {section.course.coursenum} - {section.section_number}") 
         for section in course_sections
     ]
 
