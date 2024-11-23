@@ -10,17 +10,18 @@ from app.user.user_models import Student
 # Course Section Model
 class CourseSection(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    course_code: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
-    section_number: sqlo.Mapped[int] = sqlo.mapped_column(nullable=False)
+    section_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(3), nullable=False)
     instructor_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('faculty.id'))
+    course_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course.id'))
     term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False)
 
     # Relationships
     instructor: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections')
     sa_positions: sqlo.Mapped[list['SAPosition']] = sqlo.relationship('SAPosition', back_populates='course_section')
-    
+    course: sqlo.Mapped['Course'] = sqlo.relationship('Course', back_populates='course_sections')
+
     def __repr__(self):
-        return f"<CourseSection(id={self.id}, course_code='{self.course_code}', section_number='{self.section_number}')>"
+        return f"<CourseSection(id={self.id}, course='{self.course}', section_number='{self.section_number}')>"
 
 
 
@@ -31,6 +32,7 @@ class Course(db.Model):
 
     #relationship
     experiences : sqlo.WriteOnlyMapped['CourseExperience'] = sqlo.relationship(back_populates= 'course')
+    course_sections : sqlo.WriteOnlyMapped['CourseSection'] = sqlo.relationship(back_populates= 'course')
 
 # Course Experience Model
 class CourseExperience(db.Model):

@@ -19,7 +19,12 @@ def add_courses(*args, **kwargs):
           {'major':'DS','coursenum':'4432'},
           {'major':'RBE','coursenum':'2010'},
           {'major':'ME','coursenum':'2221'}, 
-          {'major':'MA','coursenum': '3031'}  ]
+          {'major':'MA','coursenum': '3031'},
+          {'major':'CS','coursenum':'2303'},
+          {'major':'CS','coursenum':'3733'},
+          {'major':'CS','coursenum':'3013'},
+          {'major':'DS','coursenum':'4441'}, 
+          {'major':'MA','coursenum': '1024'}  ]
         for c in courses:
             db.session.add(Course(major = c['major'], coursenum = c['coursenum']))
         db.session.commit()
