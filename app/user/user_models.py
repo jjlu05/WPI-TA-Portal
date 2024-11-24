@@ -10,7 +10,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 @login.user_loader
 def load_user(user_id):
     # Tried querying Student and Faculty 
-    user = Student.query.get(int(user_id)) or Faculty.query.get(int(user_id))
+    #user = Student.query.get(int(user_id)) or Faculty.query.get(int(user_id))
+    user = Student.query.filter_by(username=user_id).first() or Faculty.query.filter_by(username=user_id).first()
     return user
 
 # Stores common fields
@@ -35,6 +36,10 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password: str):
         return check_password_hash(self.password_hash, password)
+    
+    # change id to username since user_id overlaps between Student and Faculty tables
+    def get_id(self):
+        return self.username
 
 
 # Student Model
