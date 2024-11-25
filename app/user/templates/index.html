@@ -4,7 +4,7 @@
   
   
   {% if isStudent %}
-  <h1>Welcome {{current_user.first_name}}</h1>
+  <h1>Welcome <span class="username">{{ current_user.first_name }}</span>!</h1>
 
     <h2>Open SA Positions</h2>
     <h3>Relevant Positions</h3>
@@ -40,7 +40,7 @@
   
 
   {% elif is_faculty %}
-  <h1>Welcome Instructor {{current_user.last_name}}</h1>
+  <h1>Welcome Instructor <span class="username">{{ current_user.last_name }}</span>!</h1>
 
     <h2>Your Courses</h2>
    
