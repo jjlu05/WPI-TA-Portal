@@ -5,6 +5,7 @@ from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, 
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import CourseExperience, CourseSection
 from app.application.application_models import SAPosition
+from app.course.course_models import Course, CourseExperience
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
 
@@ -55,9 +56,22 @@ def register_student():
         # Set the password using the set_password method
         new_user.set_password(form.password.data)
 
-        # Add the new user to the session and commit
+        # Add the new user to the session
         db.session.add(new_user)
+
+        # Create experience table for student
+        courses = db.session.scalars(sqla.select(Course)).all()
+        for c in courses:
+            db.session.add(CourseExperience(course_id = c.id, user_id = new_user.id))
         db.session.commit()
+
+        # Record the courses the user selected
+        for c in form.courses_served.data:
+            experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
+            experience.been_sa = True
+        db.session.commit()
+
+
         
         flash('Registration successful! Please log in.', 'success')
         return redirect(url_for('user.login'))  
@@ -145,9 +159,28 @@ def edit_student_profile():
         current_user.major = form.major.data
         current_user.cum_gpa = form.cum_gpa.data
         current_user.grad_year = form.grad_year.data
+
+        # Record the courses the user selected
+        experiences = CourseExperience.query.filter_by(user = current_user).all()
+        for e in experiences:
+            e.has_taken = False
+            e.been_sa = False
+            e.grade = "NT"
+            e.term_taken = "0000Z"
+        for c in form.courses_served.data:
+            experience = CourseExperience.query.filter_by(course = c, user = current_user).first()
+            experience.been_sa = True
+
         db.session.commit()
         flash('Student profile updated successfully!')
         return redirect(url_for('user.index'))
+    
+    if request.method == 'GET':
+        # populate form data from db
+        experiences = CourseExperience.query.filter_by(user = current_user).all()
+        for e in experiences:
+            if e.been_sa:
+                form.courses_served.data.append(e.course)
     
     return render_template('edit_student_profile.html', form=form)
 

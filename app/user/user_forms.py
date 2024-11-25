@@ -23,16 +23,13 @@ class StudentRegistrationForm(FlaskForm):
     graduation_year = IntegerField('Graduation Year', validators=[DataRequired()])
     wpi_id = StringField('WPI ID', validators=[DataRequired()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10)])
-    past_sa = StringField('Past SA')
-
     courses_served = QuerySelectMultipleField(
         "Courses Served as SA",
-        query_factory=lambda: db.session.query(Course).all(), 
+        query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
         get_label=lambda course: f"{course.major} {course.coursenum}", 
         widget=ListWidget(prefix_label=False), 
         option_widget=CheckboxInput(),  
     )
-    
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -104,6 +101,13 @@ class StudentEditProfileForm(FlaskForm):
     major = StringField('Major', validators=[DataRequired()])
     cum_gpa = FloatField('Cumulative GPA', validators=[DataRequired()])
     grad_year = IntegerField('Graduation Year', validators=[DataRequired()])
+    courses_served = QuerySelectMultipleField(
+        "Courses Served as SA",
+        query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
+        get_label=lambda course: f"{course.major} {course.coursenum}", 
+        widget=ListWidget(prefix_label=False), 
+        option_widget=CheckboxInput(),  
+    )
     submit = SubmitField('Update Profile')
 
 

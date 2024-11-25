@@ -26,14 +26,14 @@ def index():
     SAPosCourses = []
     if isinstance(current_user, Student):
         isStudent=True
-        studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+        # studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
-        for c in studentCourses:
-            for SAPos in SAPosCourses:
-                if c==SAPos.course_section_id.course_id:#still need course and course section relationship
-                    listOfRelevantPos.append(SAPos)
-                    SAPosCourses.remove(SAPos)
+        # for c in studentCourses:
+        #     for SAPos in SAPosCourses:
+        #         if c==SAPos.course_section_id.course_id:#still need course and course section relationship
+        #             listOfRelevantPos.append(SAPos)
+        #             SAPosCourses.remove(SAPos)
 
     
     if isinstance(current_user, Faculty):

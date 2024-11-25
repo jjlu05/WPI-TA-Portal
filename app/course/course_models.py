@@ -36,16 +36,20 @@ class Course(db.Model):
 
 # Course Experience Model
 class CourseExperience(db.Model):
-    id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    courseid : sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey(Course.id), index = True)
-    userid : sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey(Student.id), index = True)
-    has_taken : sqlo.Mapped[bool] = sqlo.mapped_column()
-    been_sa : sqlo.Mapped[bool] = sqlo.mapped_column()
-    grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2))
+    course_id : sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey(Course.id), primary_key=True)
+    user_id : sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey(Student.id), primary_key=True)
+    has_taken : sqlo.Mapped[bool] = sqlo.mapped_column(default=False)
+    been_sa : sqlo.Mapped[bool] = sqlo.mapped_column(default=False)
+    grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), default="NA")
+    term_taken : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), default="0000Z")
 
     # relationships
     course : sqlo.Mapped[Course] = sqlo.relationship( back_populates= 'experiences')
     user : sqlo.Mapped[Student] = sqlo.relationship( back_populates= 'experiences')
 
+    def get_student(self):
+            return self.student_enrolled
 
+    def get_course(self):
+        return self.course_enrolled
 
