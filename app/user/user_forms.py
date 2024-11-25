@@ -30,6 +30,13 @@ class StudentRegistrationForm(FlaskForm):
         widget=ListWidget(prefix_label=False), 
         option_widget=CheckboxInput(),  
     )
+    courses_taken = QuerySelectMultipleField(
+        "Courses Taken",
+        query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
+        get_label=lambda course: f"{course.major} {course.coursenum}", 
+        widget=ListWidget(prefix_label=False), 
+        option_widget=CheckboxInput(),  
+    )
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -103,6 +110,13 @@ class StudentEditProfileForm(FlaskForm):
     grad_year = IntegerField('Graduation Year', validators=[DataRequired()])
     courses_served = QuerySelectMultipleField(
         "Courses Served as SA",
+        query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
+        get_label=lambda course: f"{course.major} {course.coursenum}", 
+        widget=ListWidget(prefix_label=False), 
+        option_widget=CheckboxInput(),  
+    )
+    courses_taken = QuerySelectMultipleField(
+        "Courses Taken",
         query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
         get_label=lambda course: f"{course.major} {course.coursenum}", 
         widget=ListWidget(prefix_label=False), 

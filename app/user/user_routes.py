@@ -69,6 +69,9 @@ def register_student():
         for c in form.courses_served.data:
             experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
             experience.been_sa = True
+        for c in form.courses_taken.data:
+            experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
+            experience.has_taken = True
         db.session.commit()
 
 
@@ -122,8 +125,7 @@ def login():
     if form.validate_on_submit():
         # Check for the user in both Student and Faculty tables
         query = sqla.select(Student).where(Student.username == form.username.data)
-        user = db.session.scalars(query).first()
-        
+        user = db.session.scalars(query).first()       
         if user is None:
             query = sqla.select(Faculty).where(Faculty.username == form.username.data)
             user = db.session.scalars(query).first()
@@ -165,15 +167,16 @@ def edit_student_profile():
         for e in experiences:
             e.has_taken = False
             e.been_sa = False
-            e.grade = "NT"
-            e.term_taken = "0000Z"
         for c in form.courses_served.data:
             experience = CourseExperience.query.filter_by(course = c, user = current_user).first()
             experience.been_sa = True
+        for c in form.courses_taken.data:
+            experience = CourseExperience.query.filter_by(course = c, user = current_user).first()
+            experience.has_taken = True
 
         db.session.commit()
         flash('Student profile updated successfully!')
-        return redirect(url_for('user.index'))
+        return redirect(url_for('user.edit_student_profile'))
     
     if request.method == 'GET':
         # populate form data from db
@@ -181,6 +184,8 @@ def edit_student_profile():
         for e in experiences:
             if e.been_sa:
                 form.courses_served.data.append(e.course)
+            if e.has_taken:
+                form.courses_taken.data.append(e.course)
     
     return render_template('edit_student_profile.html', form=form)
 
@@ -201,6 +206,6 @@ def edit_faculty_profile():
         current_user.department = form.department.data
         db.session.commit()
         flash('Faculty profile updated successfully!')
-        return redirect(url_for('user.index'))
+        return redirect(url_for('user.edit_faculty_profile'))
     
     return render_template('edit_faculty_profile.html', form=form)
