@@ -16,3 +16,8 @@ input.form-control {
     font-size: 0.875rem;
 }
 
+.username {
+    color: red;
+    font-weight: bold;
+}
+
