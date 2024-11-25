@@ -13,3 +13,10 @@ class CreateSAPositionForm(FlaskForm):
     prior_experience = BooleanField('Requires Prior SA Experience')
     
     submit = SubmitField('Create SA Position')
+
+class ApplyForSAPosition(FlaskForm):
+    test = IntegerField()
+    grade = SelectField('Grade Earned', choices=[], validators=[DataRequired()])
+    year_term_course = StringField('Year and term you took the course(i.e "2023B" or "N/A")', validators=[DataRequired()])
+    year_term_apply = StringField('Year and term you are applying for SAship', validators=[DataRequired()])
+    submit = SubmitField('Apply For SA Position')

@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_required, current_user, login_user
 from app import db
-from app.application.application_forms import CreateSAPositionForm
-from app.application.application_models import SAPosition
+from app.application.application_forms import CreateSAPositionForm, ApplyForSAPosition
+from app.application.application_models import SAPosition, SAApplication
 from app.user.user_models import Faculty
 from app.user import user_blueprint as bp_user
 from app.course.course_models import CourseSection
@@ -41,3 +41,37 @@ def create_sa_position():
         return redirect(url_for('user.index'))  # fix to reflect faculty main page 
 
     return render_template('create.html', form=form)
+
+
+
+
+
+
+
+@bp_user.route('/student/apply/<int:pos_id>', methods=['GET', 'POST'])
+@login_required
+def apply(pos_id):
+    # Check if the current user is a Faculty member
+    if isinstance(current_user, Faculty):
+        flash('You do not have permission to access this page.', 'danger')
+        return redirect(url_for('user.index'))
+
+    form = ApplyForSAPosition()
+    form.test.data = pos_id
+    pos = SAPosition.query.get(pos_id)  
+
+    form.grade.choices=['A','B','C']
+    if form.validate_on_submit():
+        sa_Application = SAApplication(
+            student_id = current_user.id,
+            position_id = form.test.data,
+            grade=form.grade.data,
+            year_term_course = form.year_term_course.data,
+            year_term_apply = form.year_term_apply.data
+        )
+        db.session.add(sa_Application)
+        db.session.commit()
+        flash('SA Application successful!', 'success')
+        return redirect(url_for('user.index'))  
+
+    return render_template('applicationForm.html', form=form, pos=pos)

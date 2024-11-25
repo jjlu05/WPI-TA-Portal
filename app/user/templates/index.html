@@ -31,6 +31,8 @@
       Minimum GPA: {{ pos.min_gpa }},
       Minimum Grade: {{ pos.min_grade }}
       Experience: {{ pos.prior_experience }}
+      <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-secondary">Apply For SA Position</a>
+
     </li>
   {% endfor %}
     {% endif %}

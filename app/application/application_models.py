@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from app.user.user_models import Student
 from app.course.course_models import CourseSection
 
  
@@ -23,6 +23,8 @@ class SAPosition(db.Model):
     prior_experience: sqlo.Mapped[bool] = sqlo.mapped_column(sqla.Boolean, nullable=False, default=False)  
 
     # Relationship
+    saApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship('SAApplication', back_populates='saPosition')
+
     course_section: sqlo.Mapped['CourseSection'] = sqlo.relationship('CourseSection', back_populates='sa_positions')
 
     def __repr__(self):
@@ -30,4 +32,23 @@ class SAPosition(db.Model):
             f"<SAPosition(id={self.id}, course_section_id={self.course_section_id}, "
             f"number_of_sas={self.number_of_sas}, min_gpa={self.min_gpa}, "
             f"min_grade='{self.min_grade}', prior_experience={self.prior_experience})>"
+        )
+    
+
+class SAApplication(db.Model):    
+    id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
+    position_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('sa_position.id'), nullable=False)
+    student_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('student.id'), nullable=False)
+    grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), nullable=False, default="C")  
+
+    year_term_course : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False, default="2020A")  
+    year_term_apply : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False, default="2020B")  
+
+    saPosition: sqlo.Mapped['SAPosition'] = sqlo.relationship('SAPosition', back_populates='saApplications')
+    student: sqlo.Mapped['Student'] = sqlo.relationship('Student', back_populates='studentSAApplications')
+
+   
+    def __repr__(self):
+        return (
+
         )

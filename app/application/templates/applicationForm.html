@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Apply For SA Position</h2>
+
+    <form method="POST" action="{{ url_for('user.apply', pos_id=pos.id)  }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="grade_received">{{ form.grade.label }}</label>
+            {{ form.grade(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="yt_course">{{ form.year_term_course.label }}</label>
+            {{ form.year_term_course(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="yt_apply">{{ form.year_term_apply.label }}</label>
+            {{ form.year_term_apply(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}
