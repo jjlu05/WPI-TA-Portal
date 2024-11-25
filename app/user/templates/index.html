@@ -27,7 +27,7 @@
     <h3>Other Open Positions</h3>
     {% for pos in SAPosCourses %}
     <li>
-      Course ID: {{ pos.course_section.course_id }},
+      Course ID: {{ pos.course_section.course.major+pos.course_section.course.coursenum }},
       Minimum GPA: {{ pos.min_gpa }},
       Minimum Grade: {{ pos.min_grade }}
       Experience: {{ pos.prior_experience }}
