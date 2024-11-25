@@ -2,7 +2,7 @@
 {% import 'bootstrap_wtf.html' as wtf %}
 
 {% block content %}
-<h1>Create a new class</h1>
+<h1 class="text-primary fw-bold border-bottom pb-2 mb-4">Create a new class</h1>
 
 <form action = "{{url_for('course.createclass')}}" method = "POST">
     {{ form.hidden_tag() }} 

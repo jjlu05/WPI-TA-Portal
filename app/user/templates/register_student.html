@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Student Registration</h2>
+    <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Student Registration</h2>
     <form method="POST" action="{{ url_for('user.register_student') }}">
         {{ form.hidden_tag() }}
         

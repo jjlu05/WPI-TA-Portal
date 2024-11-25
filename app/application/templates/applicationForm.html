@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Apply For SA Position</h2>
+    <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Apply For SA Position</h2>
 
     <form method="POST" action="{{ url_for('user.apply', pos_id=pos.id)  }}">
         {{ form.hidden_tag() }}
