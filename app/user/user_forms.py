@@ -82,7 +82,7 @@ class FacultyRegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message="Passwords must match.")])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
-    department = StringField('Department', validators=[DataRequired()])
+    department = SelectField('Department', choices=form_options.departments)
     wpi_id = StringField('WPI ID', validators=[DataRequired(), Length(min=9, max=9), is_numeric])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10), is_numeric])
 
@@ -166,7 +166,7 @@ class FacultyEditProfileForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10), is_numeric])
-    department = StringField('Department', validators=[DataRequired()])
+    department = SelectField('Department', choices=form_options.departments)
     submit = SubmitField('Update Profile')
 
     def validate_email(self, email):
