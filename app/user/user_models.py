@@ -7,7 +7,10 @@ from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
+<<<<<<< HEAD
 majors = ["CS", "DS", "MA", "ME", "RBE"]
+=======
+>>>>>>> f988e5253da9a82b98cdb1f0b8b4aafd675ca9cf
 
 @login.user_loader
 def load_user(user_id):

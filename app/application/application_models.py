@@ -3,10 +3,11 @@ import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, Date
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.user.user_models import Student
 from app.course.course_models import CourseSection
+from datetime import date
 
  
  
@@ -21,6 +22,7 @@ class SAPosition(db.Model):
     min_gpa: sqlo.Mapped[float] = sqlo.mapped_column(sqla.Float, nullable=False, default=0.0)  
     min_grade: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), nullable=False, default="C")  
     prior_experience: sqlo.Mapped[bool] = sqlo.mapped_column(sqla.Boolean, nullable=False, default=False)  
+    current_date : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable = False)
 
     # Relationship
     saApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship('SAApplication', back_populates='saPosition')
