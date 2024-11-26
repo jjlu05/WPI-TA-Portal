@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
 
 from wtforms import FloatField, StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField, TextAreaField, SelectField, ValidationError
-from wtforms.validators import DataRequired, EqualTo, Email, Optional, Length
+from wtforms.validators import DataRequired, EqualTo, Email, Optional, Length, NumberRange
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import Course
-
 from wtforms_sqlalchemy.fields import QuerySelectMultipleField
 from wtforms.widgets import ListWidget, CheckboxInput
+from app.static import form_options
 
 from app import db
 
@@ -21,9 +21,9 @@ class StudentRegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message="Passwords must match.")])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
-    major = StringField('Major', validators=[DataRequired()])
-    gpa = FloatField('GPA (Optional)', validators=[Optional()])
-    graduation_year = IntegerField('Graduation Year', validators=[DataRequired()])
+    major = SelectField('Major', choices=form_options.majors)
+    gpa = FloatField('GPA (Optional)', validators=[Optional(), NumberRange(min=0.0, max=4.0)])
+    graduation_year = SelectField('Graduation Year', choices=form_options.grad_years)
     wpi_id = StringField('WPI ID', validators=[DataRequired(), Length(min=9, max=9), is_numeric])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10), is_numeric])
     courses_served = QuerySelectMultipleField(
@@ -133,9 +133,9 @@ class StudentEditProfileForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10), is_numeric])
-    major = StringField('Major', validators=[DataRequired()])
-    cum_gpa = FloatField('Cumulative GPA', validators=[DataRequired()])
-    grad_year = IntegerField('Graduation Year', validators=[DataRequired()])
+    major = SelectField('Major', choices=form_options.majors)
+    cum_gpa = FloatField('Cumulative GPA', validators=[Optional(), NumberRange(min=0.0, max=4.0)])
+    grad_year = SelectField('Graduation Year', choices=form_options.grad_years)
     courses_served = QuerySelectMultipleField(
         "Courses Served as SA",
         query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
@@ -152,14 +152,6 @@ class StudentEditProfileForm(FlaskForm):
     )
     submit = SubmitField('Update Profile')
 
-    def validate_username(self, username):
-        user = Student.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('Username already exists. Please choose a different username.')
-        user = Faculty.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('Username already exists. Please choose a different username.')
-
     def validate_email(self, email):
         user = Student.query.filter_by(email=email.data).first()
         if user:
@@ -167,22 +159,6 @@ class StudentEditProfileForm(FlaskForm):
         user = Faculty.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
-        
-    def validate_phone_number(self, phone_number):
-        user = Student.query.filter_by(phone_number=phone_number.data).first()
-        if user:
-            raise ValidationError('Phone number already exists. Please choose a different phone number.')
-        user = Faculty.query.filter_by(phone_number=phone_number.data).first()
-        if user:
-            raise ValidationError('Phone number already exists. Please choose a different phone number.')
-
-    def validate_wpi_id(self, wpi_id):
-        user = Student.query.filter_by(wpi_id=wpi_id.data).first()
-        if user:
-            raise ValidationError('WPI ID is already registered. Please use a different WPI ID.')
-        user = Faculty.query.filter_by(wpi_id=wpi_id.data).first()
-        if user:
-            raise ValidationError('WPI ID is already registered. Please use a different WPI ID.')
 
 
 class FacultyEditProfileForm(FlaskForm):
@@ -193,14 +169,6 @@ class FacultyEditProfileForm(FlaskForm):
     department = StringField('Department', validators=[DataRequired()])
     submit = SubmitField('Update Profile')
 
-    def validate_username(self, username):
-        user = Student.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('Username already exists. Please choose a different username.')
-        user = Faculty.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('Username already exists. Please choose a different username.')
-
     def validate_email(self, email):
         user = Student.query.filter_by(email=email.data).first()
         if user:
@@ -208,19 +176,3 @@ class FacultyEditProfileForm(FlaskForm):
         user = Faculty.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
-        
-    def validate_phone_number(self, phone_number):
-        user = Student.query.filter_by(phone_number=phone_number.data).first()
-        if user:
-            raise ValidationError('Phone number already exists. Please choose a different phone number.')
-        user = Faculty.query.filter_by(phone_number=phone_number.data).first()
-        if user:
-            raise ValidationError('Phone number already exists. Please choose a different phone number.')
-
-    def validate_wpi_id(self, wpi_id):
-        user = Student.query.filter_by(wpi_id=wpi_id.data).first()
-        if user:
-            raise ValidationError('WPI ID is already registered. Please use a different WPI ID.')
-        user = Faculty.query.filter_by(wpi_id=wpi_id.data).first()
-        if user:
-            raise ValidationError('WPI ID is already registered. Please use a different WPI ID.')

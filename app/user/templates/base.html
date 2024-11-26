@@ -41,10 +41,10 @@
                 {% if current_user.is_authenticated %}
                     <li class="nav-item">
                         <span class="navbar-text me-3">
-                            {% if isStudent %}
-                                Welcome, <span class="username">{{ current_user.first_name }}</span>!
-                            {% elif is_faculty %}
+                            {% if is_faculty %}
                                 Welcome, Instructor <span class="username">{{ current_user.last_name }}</span>!
+                            {% else %}
+                                Welcome, <span class="username">{{ current_user.first_name }}</span>!
                             {% endif %}
                         </span>
                     </li>   

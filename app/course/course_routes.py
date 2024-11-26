@@ -53,9 +53,16 @@ def createclass():
         return redirect(url_for('user.index'))
     cform = CreateCourseForm()
     if cform.validate_on_submit():
+        section_num = 1
+        # If no section number input, find first available section number
+        if cform.section_number.data is None:
+            while not CourseSection.query.filter_by(section_number = section_num, term = cform.term.data, course = cform.course_choices.data).first() is None:
+                section_num += 1
+        else:
+            section_num = cform.section_number.data
         new_class = CourseSection(
         course = cform.course_choices.data,
-        section_number=cform.section_number.data,
+        section_number=section_num,
         term=cform.term.data,
         instructor_id=current_user.id)
         #course_id = db.session.scalars(sqla.select(Course.id).where(func.substring(cform.major.data, 2, 5) == Course.id)).first())
@@ -66,4 +73,4 @@ def createclass():
         flash('Course "' + new_class.course.major + " " + new_class.course.coursenum + '" is created')
         return redirect(url_for('user.index'))
     print(cform.errors)
-    return render_template('addcourse.html', form=cform)
+    return render_template('addcourse.html', form=cform, is_faculty=True)

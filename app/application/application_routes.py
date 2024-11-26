@@ -42,7 +42,7 @@ def create_sa_position():
         flash('SA Position created successfully!', 'success')
         return redirect(url_for('user.index'))  # fix to reflect faculty main page 
 
-    return render_template('create.html', form=form)
+    return render_template('create.html', form=form, is_faculty=True)
 
 
 
