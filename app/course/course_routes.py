@@ -26,7 +26,7 @@ def index():
     SAPosCourses = []
     if isinstance(current_user, Student):
         isStudent=True
-        # studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+        #studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
         # for c in studentCourses:
@@ -38,6 +38,7 @@ def index():
     
     if isinstance(current_user, Faculty):
         facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
+        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
 
     return render_template('index.html',facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)

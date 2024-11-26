@@ -62,7 +62,38 @@
       {% else %}
         <p>No relevant positions found.</p>
       {% endif %}
+
+      <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Your SA Positions</h2>
+    {% if SAPosCourses%}
+      {%for pos in SAPosCourses %}
+      <h6 class="text-primary fw-bold border-bottom pb-2 mb-4">
+      <div><li><h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
+        <p class="card-text">
+            <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
+            <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+            <strong>Experience:</strong> {%if pos.prior_experience%} Required {%else%} Not Required{% endif%}</li>
+          </div>
+        </h2>
+      {%endfor%}
+    {%else %}
+    No SA Positions Created
+    {%endif%}
     
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+      
       
     {% else %}
     <h1 class="text-primary fw-bold mb-4">Welcome User!</h1>
