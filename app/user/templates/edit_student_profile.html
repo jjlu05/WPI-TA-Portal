@@ -20,8 +20,15 @@
         <div class="mb-3">
             {{ form.major.label }} {{ form.major(class="form-control") }}
         </div>
-        <div class="mb-3">
+        <div class="form-group">
             {{ form.cum_gpa.label }} {{ form.cum_gpa(class="form-control") }}
+            {% if form.cum_gpa.errors %}
+                <div class="text-danger">
+                    {% for error in form.cum_gpa.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
         <div class="mb-3">
             {{ form.grad_year.label }} {{ form.grad_year(class="form-control") }}
