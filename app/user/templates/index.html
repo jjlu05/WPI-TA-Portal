@@ -16,6 +16,7 @@
               Minimum GPA: {{ pos.min_gpa }},
               Minimum Grade: {{ pos.min_grade }}
               Experience: {{ pos.prior_experience }}
+              Date Posted: {{ pos.course_section.date }}
             </li>
           {% endfor %}
         </ul>
@@ -35,7 +36,10 @@
                     <p class="card-text">
                         <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                         <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                        <strong>Experience:</strong> {{ pos.prior_experience }}
+                        <strong>Date Posted:</strong> {{ pos.current_date }}<br>
+
+                        <strong>Experience:</strong> {%if pos.prior_experience%} Required {%else%} Not Required{% endif%}</li>
+
                     </p>
                     <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-primary">Apply</a>
                 </div>
@@ -71,7 +75,10 @@
         <p class="card-text">
             <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
             <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+            <strong>Date Posted:</strong> {{ pos.current_date }}<br>
+
             <strong>Experience:</strong> {%if pos.prior_experience%} Required {%else%} Not Required{% endif%}</li>
+
           </div>
         </h2>
       {%endfor%}
