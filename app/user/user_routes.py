@@ -29,11 +29,25 @@ def index():
 
     
     if isinstance(current_user, Faculty):
-        facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
+        # Retrieve courses and sections managed by the faculty
+        facultyCourses = db.session.scalars(
+            sqla.select(CourseSection).where(CourseSection.instructor_id == current_user.id)).all()
 
+        # Get IDs of the faculty's course sections
+        faculty_section_ids = [section.id for section in facultyCourses]
 
-    return render_template('index.html',facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
+        # Fetch SA positions associated with these course sections
+        SAPosCourses = db.session.scalars(sqla.select(SAPosition).where(SAPosition.course_section_id.in_(faculty_section_ids))).all()
 
+        return render_template(
+                                'index.html',
+                                facultyCourses=facultyCourses,
+                                current_user=current_user,
+                                isStudent=isStudent,
+                                is_faculty=isinstance(current_user, Faculty),
+                                listOfRelevantPos=listOfRelevantPos,
+                                SAPosCourses=SAPosCourses
+                            )
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
 def register_student():
@@ -82,6 +96,7 @@ def register_student():
         print("Form validation failed")
         
     return render_template('register_student.html', form=form)
+    
 
 @bp_user.route('/faculty/register', methods=['GET', 'POST'])
 def register_faculty():
@@ -206,4 +221,4 @@ def edit_faculty_profile():
         flash('Faculty profile updated successfully!')
         return redirect(url_for('user.edit_faculty_profile'))
     
-    return render_template('edit_faculty_profile.html', form=form)
+    return render_template('edit_faculty_profile.html', form=form, is_faculty=True)

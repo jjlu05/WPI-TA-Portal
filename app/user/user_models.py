@@ -1,3 +1,4 @@
+from typing import Optional
 from app import db, login
 import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
@@ -22,7 +23,7 @@ class User(db.Model, UserMixin):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
     username: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), unique=True, nullable=False)
     email: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(120), unique=True, nullable=False)
-    password_hash: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(256))
+    password_hash: sqlo.Mapped[Optional[str]] = sqlo.mapped_column(sqla.String(256))
     first_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     last_name: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), nullable=False)
     phone_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable=False)
@@ -51,7 +52,7 @@ class Student(User):
 
     #relationship
     experiences : sqlo.WriteOnlyMapped['CourseExperience'] = sqlo.relationship(back_populates= 'user')
-    studentSAApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship( back_populates='student')
+    studentSAApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship('SAApplication', back_populates='student')
 
     def __repr__(self):
         return f"<Student(id={self.id}, major='{self.major}')>"
@@ -67,5 +68,3 @@ class Faculty(User):
 
     def __repr__(self):
         return f"<Faculty(id={self.id}, department='{self.department}')>"
-
-

@@ -1,34 +1,59 @@
 {% extends "base.html" %}
+
 {% block title %}Edit Student Profile{% endblock %}
+
 {% block content %}
 <div class="container">
     <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Edit Student Profile</h2>
+
     <!-- Made it a card -->
     <div class="card shadow-lg border-primary">
         <div class="card-body">
             <form method="POST">
                 {{ form.hidden_tag() }}
+
                 <div class="mb-3">
-                    {{ form.first_name.label }} {{ form.first_name(class="form-control") }}
+                    {{ form.first_name.label }} 
+                    {{ form.first_name(class="form-control") }}
                 </div>
+
                 <div class="mb-3">
-                    {{ form.last_name.label }} {{ form.last_name(class="form-control") }}
-                  </div>
-                <div class="mb-3">
-                    {{ form.email.label }} {{ form.email(class="form-control") }}
+                    {{ form.last_name.label }} 
+                    {{ form.last_name(class="form-control") }}
                 </div>
+
                 <div class="mb-3">
-                    {{ form.phone_number.label }} {{ form.phone_number(class="form-control") }}
+                    {{ form.email.label }} 
+                    {{ form.email(class="form-control") }}
                 </div>
+
                 <div class="mb-3">
-                    {{ form.major.label }} {{ form.major(class="form-control") }}
+                    {{ form.phone_number.label }} 
+                    {{ form.phone_number(class="form-control") }}
                 </div>
+
                 <div class="mb-3">
-                    {{ form.cum_gpa.label }} {{ form.cum_gpa(class="form-control") }}
+                    {{ form.major.label }} 
+                    {{ form.major(class="form-control") }}
                 </div>
+
+                <div class="form-group">
+                    {{ form.cum_gpa.label }} 
+                    {{ form.cum_gpa(class="form-control") }}
+                    {% if form.cum_gpa.errors %}
+                        <div class="text-danger">
+                            {% for error in form.cum_gpa.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
                 <div class="mb-3">
-                    {{ form.grad_year.label }} {{ form.grad_year(class="form-control") }}
+                    {{ form.grad_year.label }} 
+                    {{ form.grad_year(class="form-control") }}
                 </div>
+
                 <div class="form-group">
                     <label for="courses_served" class="form-label">Courses Served as SA</label>
                     {{ form.courses_served(class="form-control", placeholder="Enter your past SA courses") }}
@@ -40,19 +65,22 @@
                         </div>
                     {% endif %}
                 </div>
+
                 <div class="form-group">
                     <label for="courses_taken" class="form-label">Courses Taken</label>
                     {{ form.courses_taken(class="form-control") }}
                     {% if form.courses_taken.errors %}
                         <div class="text-danger">
-                            {% for error in form.courses_served.errors %}
+                            {% for error in form.courses_taken.errors %}
                                 <p>{{ error }}</p>
                             {% endfor %}
                         </div>
                     {% endif %}
                 </div>
+
                 <p>Please enter more information about the courses you've taken.</p>
                 <p><em>(Future implementation will ask for grade and term.)</em></p>
+
                 <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
             </form>
         </div>

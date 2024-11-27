@@ -26,7 +26,7 @@ def index():
     SAPosCourses = []
     if isinstance(current_user, Student):
         isStudent=True
-        # studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+        #studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
         # for c in studentCourses:
@@ -38,6 +38,7 @@ def index():
     
     if isinstance(current_user, Faculty):
         facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
+        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
 
     return render_template('index.html',facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
@@ -52,9 +53,16 @@ def createclass():
         return redirect(url_for('user.index'))
     cform = CreateCourseForm()
     if cform.validate_on_submit():
+        section_num = 1
+        # If no section number input, find first available section number
+        if cform.section_number.data is None:
+            while not CourseSection.query.filter_by(section_number = section_num, term = cform.term.data, course = cform.course_choices.data).first() is None:
+                section_num += 1
+        else:
+            section_num = cform.section_number.data
         new_class = CourseSection(
         course = cform.course_choices.data,
-        section_number=cform.section_number.data,
+        section_number=section_num,
         term=cform.term.data,
         instructor_id=current_user.id)
         #course_id = db.session.scalars(sqla.select(Course.id).where(func.substring(cform.major.data, 2, 5) == Course.id)).first())
@@ -65,4 +73,4 @@ def createclass():
         flash('Course "' + new_class.course.major + " " + new_class.course.coursenum + '" is created')
         return redirect(url_for('user.index'))
     print(cform.errors)
-    return render_template('addcourse.html', form=cform)
+    return render_template('addcourse.html', form=cform, is_faculty=True)

@@ -3,6 +3,7 @@ from config import Config
 from app import create_app, db
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import Course
+from app.static import form_options
 import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
 
@@ -15,17 +16,7 @@ def make_shell_context():
 def add_courses(*args, **kwargs):
     query = sqla.select(Course)
     if db.session.scalars(query).first() is None:
-        courses = [{'major':'CS','coursenum':'1101'},
-          {'major':'DS','coursenum':'4432'},
-          {'major':'RBE','coursenum':'2010'},
-          {'major':'ME','coursenum':'2221'}, 
-          {'major':'MA','coursenum': '3031'},
-          {'major':'CS','coursenum':'2303'},
-          {'major':'CS','coursenum':'3733'},
-          {'major':'CS','coursenum':'3013'},
-          {'major':'DS','coursenum':'4441'}, 
-          {'major':'MA','coursenum': '1024'}  ]
-        for c in courses:
+        for c in form_options.courses:
             db.session.add(Course(major = c['major'], coursenum = c['coursenum']))
         db.session.commit()
 
