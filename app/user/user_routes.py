@@ -222,3 +222,5 @@ def edit_faculty_profile():
         return redirect(url_for('user.edit_faculty_profile'))
     
     return render_template('edit_faculty_profile.html', form=form, is_faculty=True)
+
+
