@@ -127,6 +127,7 @@ def register_faculty():
         
     return render_template('register_faculty.html', form=form)
 
+
 @bp_user.route('/login', methods=['GET', 'POST'])
 def login():
     # If the user is already logged in, redirect to the index page
@@ -222,5 +223,3 @@ def edit_faculty_profile():
         return redirect(url_for('user.edit_faculty_profile'))
     
     return render_template('edit_faculty_profile.html', form=form, is_faculty=True)
-
-

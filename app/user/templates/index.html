@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+  
+  
   {% if isStudent %}
+
     <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Open SA Positions</h2>
     <h3 class="text-primary fw-bold border-bottom pb-2 mb-4">Relevant Positions</h3>
 
@@ -11,88 +14,102 @@
           <li>
             Course ID: {{ pos.course_section.course_id }},
             Minimum GPA: {{ pos.min_gpa }},
-            Minimum Grade: {{ pos.min_grade }},
-            Experience: {{ pos.prior_experience }},
+            Minimum Grade: {{ pos.min_grade }}
+            Experience: {{ pos.prior_experience }}
             Date Posted: {{ pos.course_section.date }}
           </li>
         {% endfor %}
-      {% endif %}
-  
+      </ul>
+    {% else %}
+      <p>No relevant positions found.</p>
+
 
     <h3 class="text-primary fw-bold border-bottom pb-2 mb-4">Other Open Positions</h3>
     <!-- To format two on smaller screens, and 3 on medium screens and bigger-->
     <div class="row row-cols-2 row-cols-md-3 g-4">
       {% for pos in SAPosCourses %}
-        <div class="col-md-4 mb-3">
-          <!-- Used cards instead of just plain bullet points for a more intuitive design -->
+      <div class="col-md-4 mb-3">
+        <!-- Used cards instead of just plain bullet points for a way more intuitive design -->
           <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
-              <p class="card-text">
-                <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
-                <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                <strong>Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
-              </p>
-              <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-primary">Apply</a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
+              <div class="card-body">
+                  <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
+                  <p class="card-text">
+                      <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
+                      <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+                      <strong>Date Posted:</strong> {{ pos.current_date }}<br>
 
+                      <strong>Experience:</strong> {%if pos.prior_experience%} Required {%else%} Not Required{% endif%}</li>
+
+                  </p>
+                  <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-primary">Apply</a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  
+  
 
   {% elif is_faculty %}
-    <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Your Courses</h2>
+
+    <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Your Courses</h2>
+  
 
     {% if facultyCourses %}
-      <div class="row row-cols-2 row-cols-md-3 g-4">
+      <ul>
         {% for course in facultyCourses %}
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ course.course.major }} {{ course.course.coursenum }}</h5>
-                <p class="card-text">
-                  <strong>Section:</strong> {{ course.section_number }}<br>
-                  <strong>Term:</strong> {{ course.term }}
-                </p>
-              </div>
-            </div>
-          </div>
+          <li>
+            {{course.course.major}} {{course.course.coursenum}}-{{course.section_number}} {{course.term}}
+          </li>
         {% endfor %}
-      </div>
+      </ul>
     {% else %}
       <p>No relevant positions found.</p>
     {% endif %}
 
     <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Your SA Positions</h2>
-    {% if SAPosCourses %}
-      <div class="row row-cols-2 row-cols-md-3 g-4">
-        {% for pos in SAPosCourses %}
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
-                <p class="card-text">
-                  <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
-                  <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                  <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                  <strong>Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
-                </p>
-                <!-- Button to view applications -->
-          <a href="{{ url_for('user.view_applications', pos_id=pos.id) }}" class="btn btn-primary">
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>No SA positions created.</p>
-    {% endif %}
+  {% if SAPosCourses%}
+    {%for pos in SAPosCourses %}
+    <h6 class="text-primary fw-bold border-bottom pb-2 mb-4">
+    <div><li><h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
+      <p class="card-text">
+          <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
+          <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+          <strong>Date Posted:</strong> {{ pos.current_date }}<br>
+
+          <strong>Experience:</strong> {%if pos.prior_experience%} Required {%else%} Not Required{% endif%}</li>
+      </p>
+        <!-- Button to view applications -->
+        <a href="{{ url_for('user.view_applications', pos_id=pos.id) }}" class="btn btn-primary">
+          View Applications
+        </a>
+        </div>
+      </h2>
+    {%endfor%}
+  {%else %}
+  No SA Positions Created
+  {%endif%}
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
 
     
+    
   {% else %}
-    <h1 class="text-primary fw-bold mb-4">Welcome User!</h1>
-    <h3>Please Log In</h3>
+  <h1 class="text-primary fw-bold mb-4">Welcome User!</h1>
+  <h3>Please Log In</h3>
   {% endif %}
+
+
 {% endblock %}
