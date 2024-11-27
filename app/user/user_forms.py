@@ -92,14 +92,6 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
-class CreateCourseForm(FlaskForm):
-    section_number = IntegerField('Section', validators=[DataRequired()])
-    term = StringField('Term', validators=[DataRequired()])
-    submit = SubmitField('Create')
-    course_choices = [("test1", "CS3733"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100"), ("test2", "CS3431"), ("test3", "HI4100")]
-    major = RadioField('Major', choices=course_choices, validators=[DataRequired()])
-
-
 class StudentEditProfileForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])

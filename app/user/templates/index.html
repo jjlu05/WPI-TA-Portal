@@ -48,26 +48,33 @@
 
     {% elif is_faculty %}
 
-      <h2 class="text-primary fw-bold border-bottom pb-2 mb-4">Your Courses</h2>
-    
+      <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Your Courses</h2>
 
       {% if facultyCourses %}
-        <ul>
-          {% for course in facultyCourses %}
-            <li>
-              {{course.course.major}} {{course.course.coursenum}}-{{course.section_number}} {{course.term}}
-            </li>
-          {% endfor %}
-        </ul>
+      <div class="row row-cols-2 row-cols-md-3 g-4">
+        {% for course in facultyCourses %}
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ course.course.major }} {{ course.course.coursenum }}</h5>
+              <p class="card-text">
+                <strong>Section:</strong> {{ course.section_number }}<br>
+                <strong>Term:</strong> {{ course.term }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
       {% else %}
         <p>No relevant positions found.</p>
       {% endif %}
-    
-      
-    {% else %}
-    <h1 class="text-primary fw-bold mb-4">Welcome User!</h1>
-    <h3>Please Log In</h3>
-    {% endif %}
+        
+          
+      {% else %}
+      <h1 class="text-primary fw-bold mb-4">Welcome User!</h1>
+      <h3>Please Log In</h3>
+      {% endif %}
 
 
   {% endblock %}

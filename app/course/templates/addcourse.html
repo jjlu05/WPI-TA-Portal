@@ -3,26 +3,29 @@
 
 {% block content %}
 <h1 class="text-primary fw-bold border-bottom pb-2 mb-4">Create a new class</h1>
-
-<form action = "{{url_for('course.createclass')}}" method = "POST">
-    {{ form.hidden_tag() }} 
-
-
-    
-    {{wtf.form_field(form.course_choices)}}
+<!-- Made it a card -->
+<div class="card shadow-lg border-primary">
+    <div class="card-body">
+        <form action = "{{url_for('course.createclass')}}" method = "POST">
+            {{ form.hidden_tag() }} 
 
 
-    
-
-    {{wtf.form_field(form.section_number)}}
-    {{wtf.form_field(form.term)}}
-
-    {{wtf.form_field(form.submit)}}
+            
+            {{wtf.form_field(form.course_choices)}}
 
 
+            
+
+            {{wtf.form_field(form.section_number)}}
+            {{wtf.form_field(form.term)}}
+
+            {{wtf.form_field(form.submit)}}
 
 
 
-</form>
 
+
+        </form>
+    </div>
+</div>
 {% endblock %}

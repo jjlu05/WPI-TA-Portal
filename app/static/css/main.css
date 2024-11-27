@@ -21,3 +21,6 @@ input.form-control {
     font-weight: bold;
 }
 
+.card-crimson {
+    border: 2px solid crimson;
+  }
