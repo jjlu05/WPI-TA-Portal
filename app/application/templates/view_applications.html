@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Applications for {{ sa_position.course_section.course.major }} {{ sa_position.course_section.course.coursenum }} - Section {{ sa_position.course_section.section_number }}</h1>
+    <p>Position Requirements: Min GPA {{ sa_position.min_gpa }}, Min Grade {{ sa_position.min_grade }}, Prior Experience {{ 'Yes' if sa_position.prior_experience else 'No' }}</p>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Grade</th>
+                <th>Year & Term (Course)</th>
+                <th>Year & Term (Applying)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+                <tr>
+                    <td>{{ application.student.first_name }} {{ application.student.last_name }}</td>
+                    <td>{{ application.grade }}</td>
+                    <td>{{ application.year_term_course }}</td>
+                    <td>{{ application.year_term_apply }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not applications %}
+        <p>No applications have been submitted for this position.</p>
+    {% endif %}
+{% endblock %}

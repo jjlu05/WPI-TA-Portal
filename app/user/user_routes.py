@@ -29,12 +29,25 @@ def index():
 
     
     if isinstance(current_user, Faculty):
-        facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
-        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+        # Retrieve courses and sections managed by the faculty
+        facultyCourses = db.session.scalars(
+            sqla.select(CourseSection).where(CourseSection.instructor_id == current_user.id)).all()
 
+        # Get IDs of the faculty's course sections
+        faculty_section_ids = [section.id for section in facultyCourses]
 
-    return render_template('index.html',facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
+        # Fetch SA positions associated with these course sections
+        SAPosCourses = db.session.scalars(sqla.select(SAPosition).where(SAPosition.course_section_id.in_(faculty_section_ids))).all()
 
+        return render_template(
+                                'index.html',
+                                facultyCourses=facultyCourses,
+                                current_user=current_user,
+                                isStudent=isStudent,
+                                is_faculty=isinstance(current_user, Faculty),
+                                listOfRelevantPos=listOfRelevantPos,
+                                SAPosCourses=SAPosCourses
+                            )
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
 def register_student():
@@ -84,15 +97,6 @@ def register_student():
         
     return render_template('register_student.html', form=form)
     
-# # Student Profile Route
-# @bp_user.route('/student/profile', methods=['GET'])
-# @login_required
-# def student_profile():
-#     if isinstance(current_user, Student):
-#         return render_template('student_profile.html', current_user=current_user)
-#     flash('Unauthorized access. Please log in as a student.')
-#     return redirect(url_for('user.login'))
-
 
 @bp_user.route('/faculty/register', methods=['GET', 'POST'])
 def register_faculty():
@@ -124,15 +128,6 @@ def register_faculty():
     return render_template('register_faculty.html', form=form)
 
 
-# # Faculty Profile Route
-# @bp_user.route('/faculty/profile', methods=['GET'])
-# @login_required
-# def faculty_profile():
-#     if isinstance(current_user, Faculty):
-#         return render_template('faculty_profile.html', current_user=current_user)
-#     flash('Unauthorized access. Please log in as a faculty member.')
-#     return redirect(url_for('user.login'))
-
 @bp_user.route('/login', methods=['GET', 'POST'])
 def login():
     # If the user is already logged in, redirect to the index page
@@ -155,39 +150,6 @@ def login():
         flash('Welcome back, {}!'.format(current_user.username))
         return redirect(url_for('user.index'))
     return render_template('login.html', form=form)
-
-# # Login for if using different pages
-# @bp_user.route('/login', methods=['GET', 'POST'])
-# def login():
-#     # If the user is already logged in, redirect to their profile based on user type
-#     if current_user.is_authenticated:
-#         if isinstance(current_user, Student):
-#             return redirect(url_for('user.student_profile'))
-#         elif isinstance(current_user, Faculty):
-#             return redirect(url_for('user.faculty_profile'))
-
-#     form = LoginForm()
-    
-#     if form.validate_on_submit():
-#         # Check for student 
-#         student = db.session.execute(sqla.select(Student).where(Student.username == form.username.data)).scalar()
-#         if student and student.check_password(form.password.data):
-#             login_user(student, remember=form.remember_me.data)
-#             flash('Welcome back, Student!')
-#             return redirect(url_for('user.student_profile')) 
-        
-#         # Check for faculty 
-#         faculty = db.session.execute(sqla.select(Faculty).where(Faculty.username == form.username.data)).scalar()
-#         if faculty and faculty.check_password(form.password.data):
-#             login_user(faculty, remember=form.remember_me.data)
-#             flash('Welcome back, Faculty!')
-#             return redirect(url_for('user.faculty_profile')) 
-        
-#         flash('Invalid username or password.')
-#         return redirect(url_for('user.login'))  # Stay on login page if invalid credentials
-
-#     return render_template('login.html', form=form)
-
 
 @bp_user.route('/logout', methods=['GET'])
 @login_required 

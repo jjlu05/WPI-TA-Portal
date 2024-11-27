@@ -50,7 +50,7 @@ class Student(User):
 
     #relationship
     experiences : sqlo.WriteOnlyMapped['CourseExperience'] = sqlo.relationship(back_populates= 'user')
-    studentSAApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship( back_populates='student')
+    studentSAApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship('SAApplication', back_populates='student')
 
     def __repr__(self):
         return f"<Student(id={self.id}, major='{self.major}')>"

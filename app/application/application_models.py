@@ -52,5 +52,6 @@ class SAApplication(db.Model):
    
     def __repr__(self):
         return (
-
+            f"<SAApplication(id={self.id}, student_id={self.student_id}, position_id={self.position_id}, "
+            f"grade='{self.grade}', year_term_course='{self.year_term_course}', year_term_apply='{self.year_term_apply}')>"
         )
