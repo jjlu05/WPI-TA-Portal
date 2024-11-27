@@ -78,7 +78,11 @@
             <strong>Date Posted:</strong> {{ pos.current_date }}<br>
 
             <strong>Experience:</strong> {%if pos.prior_experience%} Required {%else%} Not Required{% endif%}</li>
-
+        </p>
+          <!-- Button to view applications -->
+          <a href="{{ url_for('user.view_applications', pos_id=pos.id) }}" class="btn btn-primary">
+            View Applications
+          </a>
           </div>
         </h2>
       {%endfor%}
