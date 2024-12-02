@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 @login.user_loader
 def load_user(user_id):
     # Tried querying Student and Faculty 
@@ -50,7 +51,7 @@ class Student(User):
 
     #relationship
     experiences : sqlo.WriteOnlyMapped['CourseExperience'] = sqlo.relationship(back_populates= 'user')
-    studentSAApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship('SAApplication', back_populates='student')
+    studentSAApplications: sqlo.Mapped[list['SAApplication']] = sqlo.relationship('SAApplication', back_populates='student')
 
     def __repr__(self):
         return f"<Student(id={self.id}, major='{self.major}')>"

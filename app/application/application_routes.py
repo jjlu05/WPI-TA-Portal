@@ -9,6 +9,7 @@ from app.course.course_models import CourseSection
 from datetime import date, datetime
 from datetime import timezone 
 import datetime 
+import sqlalchemy.orm as sqlo
 
 
 
@@ -88,7 +89,12 @@ def view_applications(pos_id):
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
 
+    applications = db.session.query(SAApplication).options(
+        sqlo.joinedload(SAApplication.student)
+    ).filter(SAApplication.position_id == sa_position.id).all()
 
-    applications = sa_position.saApplications
-
-    return render_template('view_applications.html',sa_position=sa_position, saApplications=applications, is_faculty=True)
+    return render_template(
+        'view_applications.html',
+        sa_position=sa_position,
+        applications=applications
+    )
