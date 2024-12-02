@@ -4,7 +4,7 @@ from wtforms import IntegerField, TextAreaField, SelectField, SubmitField, Valid
 from wtforms.validators import DataRequired, NumberRange
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField
 from wtforms_sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired, EqualTo, Email, Optional
+from wtforms.validators import DataRequired, EqualTo, Email, Optional, Length
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import Course, CourseSection
 from app.static import form_options
@@ -18,8 +18,8 @@ def is_numeric(form, field):
 
 
 class CreateCourseForm(FlaskForm):
-    section_number = StringField('Section (leave empty to auto-assign section number)', 
-                                 validators=[Optional(), NumberRange(min=1, max=999), is_numeric])
+    section_number = StringField('Section (Optional: Section number will be auto-assigned if left empty)', 
+                                 validators=[Optional(), Length(min=0, max=3), is_numeric])
     term = SelectField("Term", choices=form_options.future_class_terms)
     submit = SubmitField('Create')
 
