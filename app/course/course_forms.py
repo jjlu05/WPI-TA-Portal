@@ -12,14 +12,11 @@ import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
 from sqlalchemy import cast, Integer
  
-def is_numeric(form, field):
-    if not field.data.isdigit():
-        raise ValidationError('Field can only contain numeric characters.')
 
 
 class CreateCourseForm(FlaskForm):
-    section_number = StringField('Section (Optional: Section number will be auto-assigned if left empty)', 
-                                 validators=[Optional(), Length(min=0, max=3), is_numeric])
+    section_number = IntegerField('Section (Optional: Section number will be auto-assigned if left empty)', 
+                                 validators=[Optional(), NumberRange(min=0, max=999)])
     term = SelectField("Term", choices=form_options.future_class_terms)
     submit = SubmitField('Create')
 
@@ -30,20 +27,6 @@ class CreateCourseForm(FlaskForm):
     )
 
     def validate_section_number(self, section_number):
-        if section_number.data:
-            try:
-                section_number_int = int(section_number.data)
-            except ValueError:
-                raise ValidationError('Section number must be a valid integer.')
-            
-            if section_number_int < 1 or section_number_int > 999:
-                raise ValidationError('Section number must be between 1 and 999.')
-            
-            course_offering = CourseSection.query.filter_by(
-                section_number=section_number_int, 
-                term=self.term.data, 
-                course=self.course_choices.data
-            ).first()
-
-            if course_offering:
-                raise ValidationError('Course with the same section number already exists in this term.')
+        course_offering = CourseSection.query.filter_by(section_number = section_number.data, term = self.term.data, course = self.course_choices.data).first()
+        if not course_offering is None:
+            raise ValidationError('Course with the same section number already exists in this term.')
