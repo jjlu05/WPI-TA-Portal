@@ -89,12 +89,41 @@ def view_applications(pos_id):
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
 
-    applications = db.session.query(SAApplication).options(
-        sqlo.joinedload(SAApplication.student)
-    ).filter(SAApplication.position_id == sa_position.id).all()
+    applications = db.session.query(
+        SAApplication,
+        db.session.query(SAApplication)
+        .filter(SAApplication.student_id == SAApplication.student_id, SAApplication.is_assigned == True)
+        .exists().label('is_already_hired')
+    ).filter(SAApplication.position_id == pos_id).all()
+
 
     return render_template(
         'view_applications.html',
         sa_position=sa_position,
         applications=applications
     )
+
+
+@bp_user.route('/faculty/approve_application/<int:app_id>', methods=['POST'])
+@login_required
+def approve_application(app_id):
+    if not isinstance(current_user, Faculty):
+        flash("Access denied: Only faculty members can approve applications.", "danger")
+        return redirect(url_for('user.index'))
+
+    application = SAApplication.query.get_or_404(app_id)
+
+    if application.saPosition.course_section.instructor_id != current_user.id:
+        flash("Access denied: You do not manage this position.", "danger")
+        return redirect(url_for('user.index'))
+
+    if application.is_assigned:
+        flash("Application cannot be approved: Student is already assigned to another position.", "danger")
+        return redirect(url_for('user.view_applications', pos_id=application.position_id))
+
+    
+    application.is_assigned = True
+    db.session.commit()
+    flash("Application approved successfully!", "success")
+    return redirect(url_for('user.view_applications', pos_id=application.position_id))
+

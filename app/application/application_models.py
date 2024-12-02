@@ -44,7 +44,9 @@ class SAApplication(db.Model):
     grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), nullable=False, default="C")  
 
     year_term_course : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(6), nullable=False, default="2020A")  
-    year_term_apply : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(6), nullable=False, default="2020B")  
+    year_term_apply : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(6), nullable=False, default="2020B")
+
+    is_assigned: sqlo.Mapped[bool] = sqlo.mapped_column(sqla.Boolean, default=False)
 
     saPosition: sqlo.Mapped['SAPosition'] = sqlo.relationship('SAPosition', back_populates='saApplications')
     student: sqlo.Mapped['Student'] = sqlo.relationship('Student', back_populates='studentSAApplications')

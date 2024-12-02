@@ -14,14 +14,28 @@
             </tr>
         </thead>
         <tbody>
-            {% for application in applications %}
-                <tr>
-                    <td>{{ application.student.first_name }} {{ application.student.last_name }}</td>
-                    <td>{{ application.grade }}</td>
-                    <td>{{ application.year_term_course }}</td>
-                    <td>{{ application.year_term_apply }}</td>
-                </tr>
-            {% endfor %}
+            {% for application, is_already_hired in applications %}
+            <tr>
+                <td>{{ application.student.first_name }} {{ application.student.last_name }}</td>
+                <td>{{ application.grade }}</td>
+                <td>{{ application.year_term_course }}</td>
+                <td>{{ application.year_term_apply }}</td>
+                <td>
+                    {% if is_already_hired %}
+                        <span class="text-danger">Already Hired</span>
+                    {% else %}
+                        <span class="text-success">Available</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if is_already_hired %}
+                        <button class="btn btn-secondary" disabled>Approve</button>
+                    {% else %}
+                        <a href="{{ url_for('user.approve_application', app_id=application.id) }}" class="btn btn-primary">Approve</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
         {% if not applications %}
