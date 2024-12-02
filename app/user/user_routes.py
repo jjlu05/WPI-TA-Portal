@@ -159,7 +159,7 @@ def logout():
     return redirect(url_for('user.index')) 
 
 
-@bp_user.route('/student/editprofile', methods=['GET', 'POST'])
+@bp_user.route('/student/edit-profile', methods=['GET', 'POST'])
 @login_required
 def edit_student_profile():
     if not isinstance(current_user, Student):
@@ -204,7 +204,7 @@ def edit_student_profile():
     return render_template('edit_student_profile.html', form=form)
 
 # Faculty Edit Profile
-@bp_user.route('/faculty/editprofile', methods=['GET', 'POST'])
+@bp_user.route('/faculty/edit-profile', methods=['GET', 'POST'])
 @login_required
 def edit_faculty_profile():
     if not isinstance(current_user, Faculty):

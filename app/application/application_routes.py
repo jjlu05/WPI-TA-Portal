@@ -75,7 +75,7 @@ def apply(pos_id):
     return render_template('applicationForm.html', form=form, pos=pos)
 
 
-@bp_user.route('/faculty/view_applications/<int:pos_id>', methods=['GET'])
+@bp_user.route('/faculty/view-applications/<int:pos_id>', methods=['GET'])
 @login_required
 def view_applications(pos_id):
     if not isinstance(current_user, Faculty):
@@ -91,4 +91,4 @@ def view_applications(pos_id):
 
     applications = sa_position.saApplications
 
-    return render_template('view_applications.html',sa_position=sa_position, saApplications=applications)
+    return render_template('view_applications.html',sa_position=sa_position, saApplications=applications, is_faculty=True)
