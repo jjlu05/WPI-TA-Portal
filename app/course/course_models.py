@@ -13,7 +13,7 @@ class CourseSection(db.Model):
     section_number: sqlo.Mapped[int] = sqlo.mapped_column(nullable=False)
     instructor_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('faculty.id'))
     course_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course.id'))
-    term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(6), nullable=False)
+    term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(7), nullable=False)
 
     # Relationships
     instructor: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections')
@@ -44,7 +44,7 @@ class CourseExperience(db.Model):
     has_taken : sqlo.Mapped[bool] = sqlo.mapped_column(default=False)
     been_sa : sqlo.Mapped[bool] = sqlo.mapped_column(default=False)
     grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), default="")
-    term_taken : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), default="")
+    term_taken : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(7), default="")
 
     # relationships
     course : sqlo.Mapped[Course] = sqlo.relationship( back_populates= 'experiences')
