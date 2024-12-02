@@ -6,7 +6,7 @@ from app.application.application_models import SAPosition, SAApplication
 from app.user.user_models import Faculty
 from app.user import user_blueprint as bp_user
 from app.course.course_models import CourseSection
-from datetime import date
+from datetime import date, datetime
 
 
 
@@ -32,7 +32,8 @@ def create_sa_position():
             min_gpa=form.min_gpa.data,
             min_grade=form.min_grade.data,
             prior_experience=form.prior_experience.data,
-            current_date = date.today()
+            current_date = datetime.now(datetime.timezone.utc).date()
+
         )
         db.session.add(sa_position)
         db.session.commit()
