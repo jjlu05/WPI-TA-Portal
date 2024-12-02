@@ -2,12 +2,12 @@ import os
 from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-# load_dotenv(os.path.join(basedir, '.env'))
+load_dotenv(os.path.join(basedir, '.env'))
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'sa_connect.db')
+        'postgresql+psycopg2://postgres:postgres@softeng-gitgurus-new.c5q8au2w6ml3.us-east-1.rds.amazonaws.com/postgres'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ROOT_PATH = basedir
     STATIC_FOLDER = os.path.join(basedir, 'app//static')

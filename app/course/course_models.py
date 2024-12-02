@@ -10,10 +10,10 @@ from app.user.user_models import Student
 # Course Section Model
 class CourseSection(db.Model):
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    section_number: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(3), nullable=False)
+    section_number: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False) 
     instructor_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('faculty.id'))
     course_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course.id'))
-    term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(5), nullable=False)
+    term: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(6), nullable=False)
 
     # Relationships
     instructor: sqlo.Mapped['Faculty'] = sqlo.relationship('Faculty', back_populates='course_sections')

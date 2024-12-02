@@ -10,6 +10,8 @@ from app.course.course_models import Course, CourseSection
 from app.static import form_options
 import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
+from sqlalchemy import cast, Integer
+ 
 
 class CreateCourseForm(FlaskForm):
     section_number = IntegerField('Section (leave empty to auto-assign section number)', validators=[Optional(), NumberRange(min=1, max=999)])
@@ -20,7 +22,7 @@ class CreateCourseForm(FlaskForm):
         query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
         get_label=lambda course: f"{course.major} {course.coursenum}",
     )
-
+  
     def validate_section_number(self, section_number):
         course_offering = CourseSection.query.filter_by(section_number = section_number.data, term = self.term.data, course = self.course_choices.data).first()
         if not course_offering is None:

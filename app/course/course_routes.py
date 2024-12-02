@@ -52,6 +52,8 @@ def createclass():
         flash('You do not have permission to create courses', 'danger')
         return redirect(url_for('user.index'))
     cform = CreateCourseForm()
+
+    
     if cform.validate_on_submit():
         section_num = 1
         # If no section number input, find first available section number
