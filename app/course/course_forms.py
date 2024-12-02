@@ -18,7 +18,7 @@ def is_numeric(form, field):
 
 
 class CreateCourseForm(FlaskForm):
-    section_number = StringField('Section (Optional: can leave empty to auto-assign section number)', 
+    section_number = StringField('Section (Optional: Section number will be auto-assigned if left empty)', 
                                  validators=[Optional(), Length(min=0, max=3), is_numeric])
     term = SelectField("Term", choices=form_options.future_class_terms)
     submit = SubmitField('Create')
