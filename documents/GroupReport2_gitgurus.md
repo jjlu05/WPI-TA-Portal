@@ -75,7 +75,7 @@ who will work on each user story.
 
 * created new task issues for upcoming sprint 
     * Github Tickets Created:
-        * Implement Azure SSO for Login ([#66](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/66)) - Jed
+        * [Implementation] Azure SSO for Login ([#66](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/66)) - Jed
         * [Implementation] Finish up front-end edits ([#68](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/68)) - Jed 
         * [Implementation] Store student qualifications ([#70](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/70)) - Julian
         * [Implementation] Faculty member approving/selecting student applicants for an SAship position they created ([#71](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/71)) - Harleen
@@ -84,3 +84,4 @@ who will work on each user story.
         * [Implementation] Student can withdraw their application to a position(unless they've already been approved) ([#73](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/73)) - Jacob
         * [Implementation] viewing status of application as a student ([#75](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/75)) - Harleen
         * [Implementation] faculty ability to view the qualifications of each student ([#69](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/69)) - Jed
+        * [Implementation] Ensure each student only assigned to one position ([#77](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/77)) - Jed
