@@ -52,6 +52,10 @@ Outcome:
 * Have you made any changes to your `product backlog` after `Iteration-2`? If so,
 please explain the changes here.
 
+* added issues for:
+    * AWS and postgres integration ([#54](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/54))
+    * carding all forms ([#56](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/56))
+    * adding datetime where applicable ([#57](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/57))
 
 ----
 ## 4. Iteration 3 - Sprint Backlog
