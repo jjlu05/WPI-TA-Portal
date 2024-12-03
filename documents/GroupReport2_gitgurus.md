@@ -71,7 +71,7 @@ who will work on each user story.
     * As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position. - Jed
     * As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA. - Jacob
     * As a student, I want to view the status of my applications so that I can track my SA application progress. - Harleen 
-    * As a student, I want to see what SA positions match my qualifications and have these positions listed separately under "Recommended SA Positions" - Julian and Jacob
+    * As a student, I want to see what SA positions match my qualifications and have these positions listed separately under "Recommended SA Positions" - Julian and Jed
 
 * created new task issues for upcoming sprint 
     * Github Tickets Created:
