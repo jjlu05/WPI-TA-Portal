@@ -1,11 +1,10 @@
 
 # Project Group Report - 2
-## Team: `<Your Team Name>`
-List team members and their GitHub usernames
-* `<member1>`,`<username1>`
-* `<member2>`,`<username2>`
-* `<member3>`,`<username3>`
-* `<member4>`,`<username4>`
+## Team: `GitGurus`
+* `Harleen Kaur`,`BME and RBE`
+* `Julian Kreis`,`CS`
+* `Jed Geoghegan`,`CS & DS`
+* `Jacob Lu`,`IMGD & CS`
 ---
 **Course** : CS 3733 - Software Engineering
 **Instructor**: Sakire Arslan Ay
@@ -14,15 +13,45 @@ List team members and their GitHub usernames
 * Include a summary of your `Iteration-2` accomplishments.
 * List the user stories completed in `Iteration-2`. Mention who worked on those
 user stories.
+
+We completed all the basic functionality required for iteration 2: 
+    - students can apply for positions 
+    - students can view positions made by the faculty user including position details 
+    - the faculty user can now view applications that are submitted by students
+    - aws is deployed for the app
+    - added bootstrap styling for forms and pages 
+    - added datetime where applicable for the application 
+
+Completed User Stories:
+    - As faculty, I want to view student applications so that I can review qualifications and hire applicants - Harleen
+    - As a student, I want to apply to SA positions so that I can get a job. - Jacob
+    - As a student, I want to view a detailed description of a position so that I can understand the requirements for each course. - Harleen
+    - As a student, I want to view all SA positions so that I can choose positions of interest. - Jacob and Jed 
+
+
 ----
 ## 2. Iteration 2 - Sprint Retrospective
 * Include the outcome of your `Iteration-2 Scrum retrospective meetings`.
 * Mention the changes the team will be doing to improve itself as a result of the
 Scrum reflections.
+
+Outcome: 
+    - Team worked well overall on the project 
+    - Team agreed that imporvements include:
+        - pushing more often and sooner to share progress with others 
+        - ensure merge conflicts are managed properly 
+    - Things that went well 
+        - started working on assignment earlier 
+        - Individual errors were brought to team and everyone helped to resolve issues 
+        - assigned tickets in a fair manner and organized completion of work well  
+        - communication was clear and ensured everyone was updated as tasks were completed 
+
 ----
 ## 3. Product Backlog refinement
 * Have you made any changes to your `product backlog` after `Iteration-2`? If so,
 please explain the changes here.
+
+
 ----
 ## 4. Iteration 3 - Sprint Backlog
 Include a draft of your `Iteration-3 sprint backlog`.
