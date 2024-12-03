@@ -75,12 +75,12 @@ who will work on each user story.
 
 * created new task issues for upcoming sprint 
     * Github Tickets Created:
-        * Implement Azure SSO for Login ([#66](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/66))
-        * [Implementation] Finish up front-end edits ([#68](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/68))
-        * [Implementation] Store student qualifications 
-        * [Implementation] Faculty member approving/selecting student applicants for an SAship position they created
-        * [Implementation] Created recommended section and algorithm
-        * [Implementation] refine student profile for student application
-        * [Implementation] Student can withdraw their application to a position(unless they've already been approved)
-        * [Implementation] viewing status of application as a student 
-        * [Implementation] faculty ability to view the qualifications of each student ([#69](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/69)) 
+        * Implement Azure SSO for Login ([#66](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/66)) - Jed
+        * [Implementation] Finish up front-end edits ([#68](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/68)) - Jed 
+        * [Implementation] Store student qualifications ([#70](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/70)) - Julian
+        * [Implementation] Faculty member approving/selecting student applicants for an SAship position they created ([#71](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/71)) - Harleen
+        * [Implementation] Created recommended section and algorithm ([#72](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/72)) - Julian
+        * [Implementation] refine student profile for student application ([#74](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/74)) - Harleen
+        * [Implementation] Student can withdraw their application to a position(unless they've already been approved) ([#73](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/73)) - Jacob
+        * [Implementation] viewing status of application as a student ([#75](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/75)) - Harleen
+        * [Implementation] faculty ability to view the qualifications of each student ([#69](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/69)) - Jed
