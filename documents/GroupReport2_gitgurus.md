@@ -64,3 +64,13 @@ Include a draft of your `Iteration-3 sprint backlog`.
 down the larger user stories into smaller size stories. Mention the team member(s)
 who will work on each user story.
 * Make sure to update the "issues" on your GitHub repo accordingly.
+
+* User Stories:
+    * As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position.
+    * As a student, I want to have "assigned" SA positions be disabled for withdrawal so I can't withdraw from "assigned" positions.
+    * As faculty, I want to assign SA positions based on student applications and qualifications, ensuring each student is only assigned to a single position. 
+    * As a student, I want to withdraw my application for a SA position so that I can change my decision to be a SA. 
+    * As a student, I want to view the status of my applications so that I can track my SA application progress.
+
+* created new task issues for upcoming sprint 
+    * Github Tickets Created:
