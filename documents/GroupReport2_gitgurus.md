@@ -10,9 +10,6 @@
 **Instructor**: Sakire Arslan Ay
 ----
 ## 1. Iteration 2 - Summary
-* Include a summary of your `Iteration-2` accomplishments.
-* List the user stories completed in `Iteration-2`. Mention who worked on those
-user stories.
 
 We completed all the basic functionality required for iteration 2: 
 * students can apply for positions 
@@ -32,9 +29,6 @@ Completed User Stories:
 
 ----
 ## 2. Iteration 2 - Sprint Retrospective
-* Include the outcome of your `Iteration-2 Scrum retrospective meetings`.
-* Mention the changes the team will be doing to improve itself as a result of the
-Scrum reflections.
 
 Outcome: 
 * Team worked well overall on the project 
@@ -49,8 +43,6 @@ Outcome:
 
 ----
 ## 3. Product Backlog refinement
-* Have you made any changes to your `product backlog` after `Iteration-2`? If so,
-please explain the changes here.
 
 * added issues for:
     * AWS and postgres integration ([#54](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/54))
@@ -59,11 +51,6 @@ please explain the changes here.
 
 ----
 ## 4. Iteration 3 - Sprint Backlog
-Include a draft of your `Iteration-3 sprint backlog`.
-* List the user stories you plan to complete in `Iteration-3`. Make sure to break
-down the larger user stories into smaller size stories. Mention the team member(s)
-who will work on each user story.
-* Make sure to update the "issues" on your GitHub repo accordingly.
 
 * User Stories:
     * As faculty, after interviewing a student, I would like to update the status of their application from “Pending” to "Assigned" so that I can hire them for the position. - Harleen 
@@ -83,6 +70,6 @@ who will work on each user story.
         * [Implementation] refine student profile for student application ([#74](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/74)) - Harleen
         * [Implementation] Student can withdraw their application to a position(unless they've already been approved) ([#73](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/73)) - Jacob
         * [Implementation] viewing status of application as a student ([#75](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/75)) - Harleen
-        * [Implementation] faculty ability to view the qualifications of each student ([#69](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/69)) - Jed
+        * [Implementation] faculty ability to view the qualifications of each student ([#69](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/69)) - Jed and Jacob
         * [Implementation] SA applications should autofill with previously stored data when possible ([#76](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/76)) - Julian
         * [Implementation] Ensure each student only assigned to one position ([#77](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/77)) - Jed
