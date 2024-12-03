@@ -84,5 +84,5 @@ who will work on each user story.
         * [Implementation] Student can withdraw their application to a position(unless they've already been approved) ([#73](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/73)) - Jacob
         * [Implementation] viewing status of application as a student ([#75](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/75)) - Harleen
         * [Implementation] faculty ability to view the qualifications of each student ([#69](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/69)) - Jed
-        * [Implementation] SA applications should autofill with previously stored data when possible ([#76](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/76) - Julian
+        * [Implementation] SA applications should autofill with previously stored data when possible ([#76](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/76)) - Julian
         * [Implementation] Ensure each student only assigned to one position ([#77](https://github.com/WPI-CS3733-2024B/termproject-gitgurus/issues/77)) - Jed
