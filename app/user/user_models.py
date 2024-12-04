@@ -50,7 +50,7 @@ class Student(User):
     grad_year: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, default=0, nullable=False)
 
     #relationship
-    experiences : sqlo.WriteOnlyMapped['CourseExperience'] = sqlo.relationship(back_populates= 'user')
+    experiences : sqlo.Mapped[list['CourseExperience']] = sqlo.relationship('CourseExperience', back_populates= 'user')
     studentSAApplications: sqlo.Mapped[list['SAApplication']] = sqlo.relationship('SAApplication', back_populates='student')
 
     def __repr__(self):

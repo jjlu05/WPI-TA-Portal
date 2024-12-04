@@ -155,15 +155,24 @@
 
                 <div class="form-group">
                     <label for="courses_taken" class="form-label">Courses Taken</label>
+                    {% set count = 0%}
                     {{ form.courses_taken(class="form-control") }}
+                    
+                    {{form.grades()}}
                     {% if form.courses_taken.errors %}
                         <div class="text-danger">
                             {% for error in form.courses_served.errors %}
+                           
                                 <p>{{ error }}</p>
                             {% endfor %}
                         </div>
                     {% endif %}
                 </div>
+
+
+                
+                
+                    
 
                 <div class="mb-3">
                     {{ form.submit(class="btn btn-primary") }}

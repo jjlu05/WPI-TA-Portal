@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 
-from wtforms import FloatField, StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField, TextAreaField, SelectField, ValidationError
+from wtforms import FloatField, StringField, PasswordField, SubmitField, IntegerField, RadioField, BooleanField, TextAreaField, SelectField, ValidationError, FieldList, FormField
 from wtforms.validators import DataRequired, EqualTo, Email, Optional, Length, NumberRange
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import Course
@@ -14,6 +14,12 @@ def is_numeric(form, field):
     if not field.data.isdigit():
         raise ValidationError('Field can only contain numeric characters.')
 
+
+class GradeForm(FlaskForm):
+    gradeReceived = RadioField(
+    "Grade Received",
+    choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('NR', 'NR')]
+)
 class StudentRegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -39,8 +45,12 @@ class StudentRegistrationForm(FlaskForm):
         get_label=lambda course: f"{course.major} {course.coursenum}", 
         widget=ListWidget(prefix_label=False), 
         option_widget=CheckboxInput(),  
-    )
+    ) 
+    grades = FieldList(FormField(GradeForm),"Test", min_entries=10)
+
     submit = SubmitField('Register')
+
+    
 
     def validate_username(self, username):
         user = Student.query.filter_by(username=username.data).first()
