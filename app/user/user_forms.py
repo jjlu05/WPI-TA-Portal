@@ -135,6 +135,20 @@ class StudentEditProfileForm(FlaskForm):
     major = SelectField('Major', choices=form_options.majors)
     cum_gpa = FloatField('Cumulative GPA', validators=[Optional(), NumberRange(min=0.0, max=4.0)])
     grad_year = SelectField('Graduation Year', choices=form_options.grad_years)
+    courses_served = QuerySelectMultipleField(
+        "Courses Served as SA", 
+        query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
+        get_label=lambda course: f"{course.major} {course.coursenum}", 
+        widget=ListWidget(prefix_label=False), 
+        option_widget=CheckboxInput(),  
+    )
+    courses_taken = QuerySelectMultipleField(
+        "Courses Taken",
+        query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
+        get_label=lambda course: f"{course.major} {course.coursenum}", 
+        widget=ListWidget(prefix_label=False), 
+        option_widget=CheckboxInput(),  
+    )
     submit = SubmitField('Update Profile')
 
     def validate_email(self, email):
