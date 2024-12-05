@@ -180,7 +180,9 @@ def edit_student_profile():
         flash('Student profile updated successfully!')
         return redirect(url_for('user.edit_student_profile'))
     
-    return render_template('edit_student_profile.html', form=form)
+    return render_template('edit_student_profile.html', form=form, courses=db.session
+                           .query(CourseExperience).filter(CourseExperience.user == current_user, sqla.or_(CourseExperience.has_taken, CourseExperience.been_sa))
+                           .join(CourseSection.course).order_by(CourseExperience.been_sa.desc(), CourseExperience.has_taken, Course.major, Course.coursenum).all())
 
 # Faculty Edit Profile
 @bp_user.route('/faculty/edit-profile', methods=['GET', 'POST'])
