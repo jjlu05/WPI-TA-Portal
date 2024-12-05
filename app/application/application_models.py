@@ -43,8 +43,8 @@ class SAApplication(db.Model):
     student_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('student.id'), nullable=False)
     grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), nullable=False, default="C")  
 
-    year_term_course : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(6), nullable=False, default="2020A")  
-    year_term_apply : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(6), nullable=False, default="2020B")
+    year_term_course : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(7), nullable=False, default="2020A")  
+    year_term_apply : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(7), nullable=False, default="2020B")
 
     is_assigned: sqlo.Mapped[bool] = sqlo.mapped_column(sqla.Boolean, default=False)
 

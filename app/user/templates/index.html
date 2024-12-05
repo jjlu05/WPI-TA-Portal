@@ -34,7 +34,7 @@
                 <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                 <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
                 <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                <strong>Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
               </p>
               <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-primary">Apply</a>
             </div>
@@ -78,7 +78,7 @@
                   <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                   <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
                   <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                  <strong>Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                  <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
                 </p>
                 <!-- Button to view applications -->
                 <a href="{{ url_for('user.view_applications', pos_id=pos.id) }}" class="btn btn-primary">

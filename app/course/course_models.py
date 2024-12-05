@@ -22,6 +22,12 @@ class CourseSection(db.Model):
 
     def __repr__(self):
         return f"<CourseSection(id={self.id}, course='{self.course}', section_number='{self.section_number}')>"
+    
+    def get_major(self):
+        return self.course.major
+    
+    def get_coursenum(self):
+        return self.course.coursenum
 
 
 

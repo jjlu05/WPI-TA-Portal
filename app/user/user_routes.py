@@ -176,30 +176,9 @@ def edit_student_profile():
         current_user.cum_gpa = form.cum_gpa.data
         current_user.grad_year = form.grad_year.data
 
-        # Record the courses the user selected
-        experiences = CourseExperience.query.filter_by(user = current_user).all()
-        for e in experiences:
-            e.has_taken = False
-            e.been_sa = False
-        for c in form.courses_served.data:
-            experience = CourseExperience.query.filter_by(course = c, user = current_user).first()
-            experience.been_sa = True
-        for c in form.courses_taken.data:
-            experience = CourseExperience.query.filter_by(course = c, user = current_user).first()
-            experience.has_taken = True
-
         db.session.commit()
         flash('Student profile updated successfully!')
         return redirect(url_for('user.edit_student_profile'))
-    
-    if request.method == 'GET':
-        # populate form data from db
-        experiences = CourseExperience.query.filter_by(user = current_user).all()
-        for e in experiences:
-            if e.been_sa:
-                form.courses_served.data.append(e.course)
-            if e.has_taken:
-                form.courses_taken.data.append(e.course)
     
     return render_template('edit_student_profile.html', form=form)
 
