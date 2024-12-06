@@ -201,7 +201,7 @@ def edit_student_profile():
         flash('Student profile updated successfully!')
         if request.form['submit_button'] == 'scroll':
             return redirect(url_for('user.edit_student_profile', _anchor='courses_card'))
-        return redirect(url_for('user.edit_student_profile'))
+        return redirect(url_for('user.edit_student_profile', _anchor='profile_card'))
 
     if request.method == 'GET':
         # populate form data from db
