@@ -5,7 +5,7 @@ from app.application.application_forms import CreateSAPositionForm, ApplyForSAPo
 from app.application.application_models import SAPosition, SAApplication
 from app.user.user_models import Faculty
 from app.user import user_blueprint as bp_user
-from app.course.course_models import CourseSection
+from app.course.course_models import CourseSection, Course
 from datetime import date, datetime
 from datetime import timezone 
 import datetime 
@@ -24,8 +24,8 @@ def create_sa_position():
     form = CreateSAPositionForm()
 
     # Populate the course section dropdown
-    course_sections = CourseSection.query.filter_by(instructor_id=current_user.id).all()
-    form.course_section.choices = [(str(section.id), f"{section.course.major} {section.course.coursenum} - {section.section_number}") for section in course_sections]
+    course_sections = CourseSection.query.filter_by(instructor_id=current_user.id).join(CourseSection.course).order_by(Course.major, Course.coursenum, CourseSection.term, CourseSection.section_number).all()
+    form.course_section.choices = [(str(section.id), f"{section.course.major} {section.course.coursenum} - {section.section_number} - {section.term}") for section in course_sections]
 
     if form.validate_on_submit():
         sa_position = SAPosition(

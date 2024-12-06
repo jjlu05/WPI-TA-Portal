@@ -1,6 +1,6 @@
 from app import db
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, TextAreaField, SelectField, SubmitField, ValidationError
+from wtforms import IntegerField, BooleanField, TextAreaField, SelectField, SubmitField, ValidationError
 from wtforms.validators import DataRequired, NumberRange
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, RadioField
 from wtforms_sqlalchemy.fields import QuerySelectField
@@ -30,3 +30,8 @@ class CreateCourseForm(FlaskForm):
         course_offering = CourseSection.query.filter_by(section_number = section_number.data, term = self.term.data, course = self.course_choices.data).first()
         if not course_offering is None:
             raise ValidationError('Course with the same section number already exists in this term.')
+        
+class EditCourseExperience(FlaskForm):
+    has_taken = BooleanField("")
+    taken_term = SelectField("Term Taken", choices=form_options.past_class_terms)
+    grade = SelectField("Grade", choices=form_options.grades)

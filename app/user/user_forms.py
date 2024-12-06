@@ -146,7 +146,7 @@ class StudentEditProfileForm(FlaskForm):
     cum_gpa = FloatField('Cumulative GPA', validators=[Optional(), NumberRange(min=0.0, max=4.0)])
     grad_year = SelectField('Graduation Year', choices=form_options.grad_years)
     courses_served = QuerySelectMultipleField(
-        "Courses Served as SA",
+        "Courses Served as SA", 
         query_factory=lambda: db.session.query(Course).order_by(Course.major, Course.coursenum).all(), 
         get_label=lambda course: f"{course.major} {course.coursenum}", 
         widget=ListWidget(prefix_label=False), 
@@ -163,12 +163,19 @@ class StudentEditProfileForm(FlaskForm):
 
     def validate_email(self, email):
         user = Student.query.filter_by(email=email.data).first()
-        if user:
+        if user and not user.email == email.data:
             raise ValidationError('Email is already registered. Please use a different email address.')
         user = Faculty.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
 
+
+class EditCourseExperience(FlaskForm):
+    been_sa = BooleanField("SA'd Course")
+    has_taken = BooleanField("Taken Course")
+    term_taken = SelectField("Term Taken", choices=form_options.past_class_terms)
+    grade = SelectField("Grade", choices=form_options.grades)
+    submit = SubmitField('Save')
 
 class FacultyEditProfileForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
@@ -183,5 +190,5 @@ class FacultyEditProfileForm(FlaskForm):
         if user:
             raise ValidationError('Email is already registered. Please use a different email address.')
         user = Faculty.query.filter_by(email=email.data).first()
-        if user:
+        if user and not user.email == email.data:
             raise ValidationError('Email is already registered. Please use a different email address.')

@@ -22,6 +22,12 @@ class CourseSection(db.Model):
 
     def __repr__(self):
         return f"<CourseSection(id={self.id}, course='{self.course}', section_number='{self.section_number}')>"
+    
+    def get_major(self):
+        return self.course.major
+    
+    def get_coursenum(self):
+        return self.course.coursenum
 
 
 
@@ -33,6 +39,7 @@ class Course(db.Model):
     #relationship
     experiences : sqlo.Mapped['CourseExperience'] = sqlo.relationship(back_populates= 'course')
     course_sections : sqlo.WriteOnlyMapped['CourseSection'] = sqlo.relationship(back_populates= 'course')
+
     def __repr__(self):
         return f"<Course(id={self.id}, major='{self.major}', coursenum='{self.coursenum}')>"
     
@@ -43,8 +50,8 @@ class CourseExperience(db.Model):
     user_id : sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey(Student.id), primary_key=True)
     has_taken : sqlo.Mapped[bool] = sqlo.mapped_column(default=False)
     been_sa : sqlo.Mapped[bool] = sqlo.mapped_column(default=False)
-    grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), default="")
-    term_taken : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(7), default="")
+    grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), default="?")
+    term_taken : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(7), default="?")
 
     # relationships
     course : sqlo.Mapped[Course] = sqlo.relationship( back_populates= 'experiences')

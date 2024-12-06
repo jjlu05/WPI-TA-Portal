@@ -6,11 +6,11 @@
 <div class="container">
     <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Edit Student Profile</h2>
 
-    <!-- Made it a card -->
-    <div class="card shadow-lg border-primary">
-        <div class="card-body">
-            <form method="POST">
-                {{ form.hidden_tag() }}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <!-- Made it a card -->
+        <div class="card shadow-lg border-primary">
+            <div class="card-body">
 
                 <div class="mb-3">
                     {{ form.first_name.label }} 
@@ -54,9 +54,54 @@
                     {{ form.grad_year(class="form-control") }}
                 </div>
 
+                <button type="submit" name="submit_button" value = "nothing" class="btn btn-primary">{{ form.submit.label }}</button>
+                
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Made it a card -->
+        <div id="courses_card" class="card shadow-lg border-primary">
+            <div class="card-body">
+                <h3 class="text-primary fw-bold border-bottom border-dark pb-2 mb-2">My Courses</h3>
+
+                <div class="row row-cols-2 row-cols-md-3 g-3">
+                    {% for c in courses %}
+                      <div class="col-md-4 mb-3">
+                        <div class="card border-tertiary">
+                          <div class="card-body">
+                            <h5 class="card-title">
+                                {{c.course.major}} {{c.course.coursenum}}
+                                {% if c.been_sa %}
+                                    <span style="color: green">Former SA</span> <br>
+                                {% endif %}
+                            </h5>
+                            <p class="card-text">
+                                
+                                {% if c.has_taken %}
+                                    Grade: {{c.grade}} <br>
+                                    Term Taken: {{c.term_taken}} <br>
+                                {% else %}
+                                    Not Taken <br>   <!-- empty char ensures uniform card size -->
+                                {% endif %}
+                            </p>
+                            <!-- Button to view applications -->
+                            <a href="{{ url_for('user.edit_experience', course_id=c.course.id) }}" class="btn btn-primary">
+                                Edit
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                <br>
+
+                <h5 class="text-tertiary fw-bold pb-2 mb-0">Add Courses</h5>
                 <div class="form-group">
                     <label for="courses_served" class="form-label">Courses Served as SA</label>
-                    {{ form.courses_served(class="form-control", placeholder="Enter your past SA courses") }}
+                    {{ form.courses_served(class="form-control") }}
                     {% if form.courses_served.errors %}
                         <div class="text-danger">
                             {% for error in form.courses_served.errors %}
@@ -71,19 +116,24 @@
                     {{ form.courses_taken(class="form-control") }}
                     {% if form.courses_taken.errors %}
                         <div class="text-danger">
-                            {% for error in form.courses_taken.errors %}
+                            {% for error in form.courses_served.errors %}
                                 <p>{{ error }}</p>
                             {% endfor %}
                         </div>
                     {% endif %}
                 </div>
 
-                <p>Please enter more information about the courses you've taken.</p>
-                <p><em>(Future implementation will ask for grade and term.)</em></p>
-
-                <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
-            </form>
+                <button type="submit" name="submit_button" value="scroll" class="btn btn-primary">{{ form.submit.label }}</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    if(window.location.hash === '#courses_card'){
+        document.location.hash='#courses_card';
+    }
+</script>
 {% endblock %}

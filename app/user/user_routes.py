@@ -1,7 +1,7 @@
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_required, current_user, login_user, logout_user
 from app import db
-from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm
+from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm, EditCourseExperience
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import CourseExperience, CourseSection
 from app.application.application_models import SAPosition
@@ -186,7 +186,7 @@ def edit_student_profile():
         current_user.cum_gpa = form.cum_gpa.data
         current_user.grad_year = form.grad_year.data
 
-        # Record the courses the user selected
+         # Record the courses the user selected
         experiences = CourseExperience.query.filter_by(user = current_user).all()
         for e in experiences:
             e.has_taken = False
@@ -197,11 +197,12 @@ def edit_student_profile():
         for c in form.courses_taken.data:
             experience = CourseExperience.query.filter_by(course = c, user = current_user).first()
             experience.has_taken = True
-
         db.session.commit()
         flash('Student profile updated successfully!')
+        if request.form['submit_button'] == 'scroll':
+            return redirect(url_for('user.edit_student_profile', _anchor='courses_card'))
         return redirect(url_for('user.edit_student_profile'))
-    
+
     if request.method == 'GET':
         # populate form data from db
         experiences = CourseExperience.query.filter_by(user = current_user).all()
@@ -211,7 +212,9 @@ def edit_student_profile():
             if e.has_taken:
                 form.courses_taken.data.append(e.course)
     
-    return render_template('edit_student_profile.html', form=form)
+    return render_template('edit_student_profile.html', form=form, courses=db.session
+                           .query(CourseExperience).filter(CourseExperience.user == current_user, sqla.or_(CourseExperience.has_taken, CourseExperience.been_sa))
+                           .join(CourseSection.course).order_by(CourseExperience.been_sa.desc(), Course.major, Course.coursenum).all())
 
 # Faculty Edit Profile
 @bp_user.route('/faculty/edit-profile', methods=['GET', 'POST'])
@@ -233,3 +236,24 @@ def edit_faculty_profile():
         return redirect(url_for('user.edit_faculty_profile'))
     
     return render_template('edit_faculty_profile.html', form=form, is_faculty=True)
+
+# Student edit course experience
+@bp_user.route('/student/course/<int:course_id>', methods=['GET', 'POST'])
+@login_required
+def edit_experience(course_id):
+    if not isinstance(current_user, Student):
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('user.index'))
+    
+    experience = db.session.query(CourseExperience).filter(CourseExperience.course_id == course_id, CourseExperience.user == current_user).first()
+    form = EditCourseExperience(obj=experience)
+    if form.validate_on_submit():
+        experience.been_sa = form.been_sa.data
+        experience.has_taken = form.has_taken.data
+        experience.grade = form.grade.data
+        experience.term_taken = form.term_taken.data
+        db.session.commit()
+        flash('Course experience updated successfully!')
+        return redirect(url_for('user.edit_student_profile', _anchor = 'courses_card'))
+    
+    return render_template('edit_experience.html', form=form, course = experience.course)
