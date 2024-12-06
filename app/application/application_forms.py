@@ -16,8 +16,8 @@ class CreateSAPositionForm(FlaskForm):
     submit = SubmitField('Create SA Position')
 
 class ApplyForSAPosition(FlaskForm):
-    test = IntegerField()
-    grade = SelectField('Grade Earned', choices=[], validators=[DataRequired()])
-    year_term_course = SelectField('Year and term you took the course', choices=form_options.past_class_terms)
-    year_term_apply = SelectField('Year and term you are applying for SAship', choices=form_options.future_class_terms)
+    # test = IntegerField()
+    # grade = SelectField('Grade Earned', choices=[], validators=[DataRequired()])
+    # year_term_course = SelectField('Year and term you took the course', choices=form_options.past_class_terms)
+    # year_term_apply = SelectField('Year and term you are applying for SAship', choices=form_options.future_class_terms)
     submit = SubmitField('Apply For SA Position')

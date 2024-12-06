@@ -39,8 +39,8 @@ class SAPosition(db.Model):
 
 class SAApplication(db.Model):    
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
-    position_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('sa_position.id'), nullable=False)
-    student_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('student.id'), nullable=False)
+    position_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('sa_position.id'))
+    student_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('student.id'))
     grade : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), nullable=False, default="C")  
 
     year_term_course : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(7), nullable=False, default="2020A")  
