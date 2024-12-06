@@ -161,9 +161,11 @@ class StudentEditProfileForm(FlaskForm):
 
 
 class EditCourseExperience(FlaskForm):
-    has_taken = BooleanField("")
-    taken_term = SelectField("Term Taken", choices=form_options.past_class_terms)
+    been_sa = BooleanField("SA'd Course")
+    has_taken = BooleanField("Taken Course")
+    term_taken = SelectField("Term Taken", choices=form_options.past_class_terms)
     grade = SelectField("Grade", choices=form_options.grades)
+    submit = SubmitField('Save')
 
 class FacultyEditProfileForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
