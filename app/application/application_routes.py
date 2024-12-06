@@ -100,7 +100,8 @@ def view_applications(pos_id):
     return render_template(
         'view_applications.html',
         sa_position=sa_position,
-        applications=applications
+        applications=applications, 
+        is_faculty = True
     )
 
 

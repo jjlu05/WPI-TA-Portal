@@ -52,6 +52,7 @@ def index():
 @bp_user.route('/student/register', methods=['GET', 'POST'])
 def register_student():
     form = StudentRegistrationForm()
+
     if form.validate_on_submit():
         print("Form submitted and validated")
 
@@ -80,19 +81,28 @@ def register_student():
         db.session.commit()
 
         # Record the courses the user selected
+       
         for c in form.courses_served.data:
             experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
             experience.been_sa = True
+        i=0
         for c in form.courses_taken.data:
             experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
             experience.has_taken = True
+            experience.grade = form.grades.data[i]['gradeReceived']
+            i=i+1
+
+            
         db.session.commit()
 
 
         
         flash('Registration successful! Please log in.', 'success')
+      
+        print(db.session.scalars(sqla.select(CourseExperience)).all())
         return redirect(url_for('user.login'))  
     else:
+        print(form.errors)
         print("Form validation failed")
         
     return render_template('register_student.html', form=form)

@@ -37,7 +37,7 @@ class Course(db.Model):
     coursenum: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4))
 
     #relationship
-    experiences : sqlo.WriteOnlyMapped['CourseExperience'] = sqlo.relationship(back_populates= 'course')
+    experiences : sqlo.Mapped['CourseExperience'] = sqlo.relationship(back_populates= 'course')
     course_sections : sqlo.WriteOnlyMapped['CourseSection'] = sqlo.relationship(back_populates= 'course')
 
     def __repr__(self):
@@ -56,3 +56,5 @@ class CourseExperience(db.Model):
     # relationships
     course : sqlo.Mapped[Course] = sqlo.relationship( back_populates= 'experiences')
     user : sqlo.Mapped[Student] = sqlo.relationship( back_populates= 'experiences')
+    def __repr__(self):
+        return f"<Course(id={self.course_id}, major='{self.grade}', userid='{self.user_id}')>"
