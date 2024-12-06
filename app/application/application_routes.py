@@ -5,7 +5,7 @@ from app.application.application_forms import CreateSAPositionForm, ApplyForSAPo
 from app.application.application_models import SAPosition, SAApplication
 from app.user.user_models import Faculty
 from app.user import user_blueprint as bp_user
-from app.course.course_models import CourseSection, Course
+from app.course.course_models import CourseSection, Course, CourseExperience
 from datetime import date, datetime
 from datetime import timezone 
 import datetime 
@@ -56,24 +56,35 @@ def apply(pos_id):
         return redirect(url_for('user.index'))
 
     form = ApplyForSAPosition()
-    form.test.data = pos_id
     pos = SAPosition.query.get(pos_id)  
+    experience = db.session.query(CourseExperience).filter(CourseExperience.user == current_user, CourseExperience.course == pos.course_section.course).first()
 
-    form.grade.choices=['A','B','C']
     if form.validate_on_submit():
+        term_course = 'None'
+        course_grade = 'NA'
+        if experience.has_taken:
+            term_course = experience.term_taken
+            course_grade = experience.grade
         sa_Application = SAApplication(
-            student_id = current_user.id,
-            position_id = form.test.data,
-            grade=form.grade.data,
-            year_term_course = form.year_term_course.data,
-            year_term_apply = form.year_term_apply.data
+            student = current_user,
+            saPosition = pos,
+            # grade=form.grade.data,
+            # year_term_course = form.year_term_course.data,
+            # year_term_apply = form.year_term_apply.data
+            grade = course_grade,
+            year_term_course = term_course,
+            year_term_apply = pos.course_section.term
         )
         db.session.add(sa_Application)
         db.session.commit()
         flash('SA Application successful!', 'success')
         return redirect(url_for('user.index'))  
 
-    return render_template('applicationForm.html', form=form, pos=pos)
+    # sa_experience is true or false based on if user has ANY previous SA experience
+    sa_experience = "No"
+    if db.session.query(CourseExperience).filter(CourseExperience.user == current_user, CourseExperience.been_sa == True).first():
+        sa_experience = "Yes"
+    return render_template('applicationForm.html', form=form, pos=pos, experience=experience, sa_experience=sa_experience)
 
 
 @bp_user.route('/faculty/view-applications/<int:pos_id>', methods=['GET'])

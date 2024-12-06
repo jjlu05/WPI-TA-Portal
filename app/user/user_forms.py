@@ -46,7 +46,7 @@ class StudentRegistrationForm(FlaskForm):
         widget=ListWidget(prefix_label=False), 
         option_widget=CheckboxInput(),  
     ) 
-    grades = FieldList(FormField(GradeForm),"Test", min_entries=10)
+    # grades = FieldList(FormField(GradeForm),"Test", min_entries=10)
 
     submit = SubmitField('Register')
 
