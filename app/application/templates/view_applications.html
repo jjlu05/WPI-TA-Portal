@@ -42,16 +42,15 @@
                         {% endfor %}
                     </ul>
                 </td>
-               <td> 
-                <ul style="list-style-position: inside; padding-left: 0;">
-                    {% for SAxp in application.student.experiences %}
-                        {% if SAxp.been_sa %}
-                            <li>{{ SAxp.course.major }} {{ SAxp.course.coursenum }}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </td>
-
+                <td> 
+                    <ul style="list-style-position: inside; padding-left: 0;">
+                        {% for SAxp in application.student.experiences %}
+                            {% if SAxp.been_sa %}
+                                <li>{{ SAxp.course.major }} {{ SAxp.course.coursenum }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
                 <td>
                     {% if is_already_hired %}
                         <span class="text-danger">Already Hired</span>
@@ -61,13 +60,15 @@
                 </td>
                 <td>
                     {% if is_already_hired %}
-                        <button class="btn btn-secondary" disabled>Approve</button>
+                        <button class="btn btn-secondary" disabled data-bs-toggle="tooltip" data-bs-placement="top" title="Student already hired">Approve</button>
                     {% else %}
-                        <a href="{{ url_for('user.approve_application', app_id=application.id) }}" class="btn btn-primary">Approve</a>
+                        <form method="POST" action="{{ url_for('user.approve_application', app_id=application.id) }}">
+                            <button type="submit" class="btn btn-primary">Approve</button>
+                        </form>
                     {% endif %}
                 </td>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
         {% if not applications %}
