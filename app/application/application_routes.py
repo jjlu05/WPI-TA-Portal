@@ -50,7 +50,6 @@ def create_sa_position():
 @bp_user.route('/student/apply/<int:pos_id>', methods=['GET', 'POST'])
 @login_required
 def apply(pos_id):
-    # Check if the current user is a Faculty member
     if isinstance(current_user, Faculty):
         flash('You do not have permission to access this page.', 'danger')
         return redirect(url_for('user.index'))
@@ -58,7 +57,6 @@ def apply(pos_id):
     form = ApplyForSAPosition()
     pos = SAPosition.query.get_or_404(pos_id)
 
-    # Check if the current user already applied for this position
     existing_application = SAApplication.query.filter_by(student_id=current_user.id, position_id=pos_id).first()
     if existing_application:
         flash('You have already applied for this position.', 'warning')
@@ -69,16 +67,16 @@ def apply(pos_id):
         CourseExperience.course == pos.course_section.course
     ).first()
 
-    if form.validate_on_submit():
-        term_course = 'None'
-        course_grade = 'NA'
-        if experience and experience.has_taken:
-            term_course = experience.term_taken
-            course_grade = experience.grade
+    term_course = 'None'
+    course_grade = 'NA'
+    if experience and experience.has_taken:
+        term_course = experience.term_taken
+        course_grade = experience.grade
 
+    if form.validate_on_submit():
         sa_application = SAApplication(
             student=current_user,
-            saPosition=pos,
+            position_id=pos.id,
             grade=course_grade,
             year_term_course=term_course,
             year_term_apply=pos.course_section.term
@@ -88,15 +86,19 @@ def apply(pos_id):
         flash('SA Application successful!', 'success')
         return redirect(url_for('user.index'))
 
-    # sa_experience is true or false based on if user has ANY previous SA experience
-    sa_experience = "No"
-    if db.session.query(CourseExperience).filter(
+    
+    sa_experience = "Yes" if db.session.query(CourseExperience).filter(
         CourseExperience.user == current_user,
         CourseExperience.been_sa == True
-    ).first():
-        sa_experience = "Yes"
+    ).first() else "No"
 
-    return render_template('applicationForm.html', form=form, pos=pos, experience=experience, sa_experience=sa_experience)
+    return render_template(
+        'applicationForm.html',
+        form=form,
+        pos=pos,
+        experience=experience,
+        sa_experience=sa_experience
+    )
 
 
 @bp_user.route('/faculty/view-applications/<int:pos_id>', methods=['GET'])
