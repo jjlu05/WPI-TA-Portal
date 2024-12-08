@@ -6,9 +6,11 @@ from app.application.application_models import SAPosition
 from app.course.course_models import CourseExperience
 
 def get_weight(student, sa_position):
-    experience = CourseExperience.query.filter_by(course = sa_position.course_section.course, user = student).first()
-    weight = 0
+    if not meets_requirements:
+        return 0
 
+    weight = 0
+    experience = CourseExperience.query.filter_by(course = sa_position.course_section.course, user = student).first()
     if experience.has_taken:
         weight += 10
 
@@ -16,3 +18,8 @@ def get_weight(student, sa_position):
         weight += 20
 
     return weight
+
+def meets_requirements(student, sa_position):
+    experience = CourseExperience.query.filter_by(course = sa_position.course_section.course, user = student).first()
+    
+    return True

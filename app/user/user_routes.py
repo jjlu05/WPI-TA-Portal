@@ -57,6 +57,8 @@ def index():
                                 listOfRelevantPos=listOfRelevantPos,
                                 SAPosCourses=SAPosCourses
                             )
+    
+    return render_template('index.html')
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
 def register_student():
