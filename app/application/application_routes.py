@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import jsonify, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user, login_user
 from app import db
 from app.application.application_forms import CreateSAPositionForm, ApplyForSAPosition
@@ -99,6 +99,18 @@ def apply(pos_id):
         experience=experience,
         sa_experience=sa_experience
     )
+
+
+@bp_user.route('/withdraw_application/<int:application_id>', methods=['POST'])
+
+def withdraw_application(application_id):
+    application = SAApplication.query.get(application_id)
+    if not application:
+        return jsonify({'status': 'error', 'message': 'Application not found'}), 404
+
+    db.session.delete(application)
+    db.session.commit()
+    return jsonify({'status': 'success', 'message': 'Application withdrawn successfully'}), 200
 
 
 @bp_user.route('/faculty/view-applications/<int:pos_id>', methods=['GET'])
