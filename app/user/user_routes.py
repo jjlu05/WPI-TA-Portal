@@ -4,7 +4,7 @@ from app import db
 from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm, EditCourseExperience
 from app.user.user_models import User, Student, Faculty
 from app.course.course_models import CourseExperience, CourseSection
-from app.application.application_models import SAPosition
+from app.application.application_models import SAApplication, SAPosition
 from app.course.course_models import Course, CourseExperience
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
@@ -18,14 +18,17 @@ def index():
     SAPosCourses = []
     if isinstance(current_user, Student):
         isStudent=True
-        studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+        studentCourses = db.session.scalars(sqla.select(CourseExperience).where(CourseExperience.has_taken == True)).all()
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+        applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
 
-        for c in studentCourses:
-            for SAPos in SAPosCourses:
-                if c==SAPos.course_section_id.course_id:#still need course and course section relationship
-                    listOfRelevantPos.append(SAPos)
-                    SAPosCourses.remove(SAPos)
+        return render_template('index.html',applications = applications,
+                               facultyCourses = facultyCourses,
+                               current_user=current_user,
+                               isStudent =isinstance(current_user, Student),
+                               is_faculty=isinstance(current_user, Faculty),
+                               listOfRelevantPos = listOfRelevantPos,
+                               SAPosCourses = SAPosCourses)
 
     
     if isinstance(current_user, Faculty):
@@ -140,7 +143,7 @@ def register_faculty():
 def login():
     # If the user is already logged in, redirect to the index page
     if current_user.is_authenticated:
-        return redirect(url_for('course.index'))
+        return redirect(url_for('user.index'))
 
     form = LoginForm()
     
