@@ -33,13 +33,13 @@
                 <td>{{ application.year_term_course }}</td>
                 <td>{{ application.year_term_apply }}</td>
                 <td>{{ application.student.cum_gpa }}</td>
-                <td style="width:15%;">{% for courseGrade in application.student.experiences %}
+                <td style="width:25%;">{% for courseGrade in application.student.experiences %}
                     {%if  courseGrade.has_taken%}
                     <li>{{ courseGrade.course.major }}{{courseGrade.course.coursenum}}:{{courseGrade.grade}}</li>
                     {%endif%}
                     {%endfor%}
                 </td>
-               <td style="width:15%;"> {%for SAxp in application.student.experiences%}
+               <td style="width:25%;"> {%for SAxp in application.student.experiences%}
                 {%if SAxp.been_sa%}
                 <li>{{ SAxp.course.major }}{{SAxp.course.coursenum}}</li>
                 {%endif%}
