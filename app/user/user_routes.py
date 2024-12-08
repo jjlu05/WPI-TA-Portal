@@ -28,6 +28,9 @@ def index():
                 listOfRelevantPos.append(pos)
         listOfRelevantPos = sorted(listOfRelevantPos, key=lambda pos:recomended.get_weight(current_user, pos), reverse=True)
 
+        for pos in listOfRelevantPos:
+            SAPosCourses.remove(pos)
+
         return render_template('index.html',applications = applications,
                                facultyCourses = facultyCourses,
                                current_user=current_user,

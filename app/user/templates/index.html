@@ -53,14 +53,14 @@
     {% endif %}
 
     <br>
-    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">All Open Positions</h3>
+    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
 
     {% if SAPosCourses %}
       <div class="accordion">
         <!-- Accordion for collaspe bc its cooler -->
         <div class="accordion-item">
           <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions" aria-expanded="false">
-            View All Open Positions
+            View Other Open Positions
           </button>
           <div id="collapseOpenPositions" class="accordion-collapse collapse">
             <div class="accordion-body">
@@ -88,7 +88,7 @@
         </div>
       </div>
     {% else %}
-      <p>No open positions found.</p>
+      <p>No other open positions found.</p>
     {% endif %}
     <br>
 
