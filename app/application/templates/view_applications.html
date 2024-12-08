@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card shadow-lg mb-4 mx-auto p-4" style="max-width: 1000px;">
+<div class="card shadow-lg mb-4 mx-auto p-4" style="max-width: 900px;">
     <div class="card-body">
 
     <h1>Applications for {{ sa_position.course_section.course.major }} {{ sa_position.course_section.course.coursenum }} - Section {{ sa_position.course_section.section_number }}</h1>
@@ -13,8 +13,8 @@
                 <tr>
                     <th>Student Name</th>
                     <th>Grade</th>
-                    <th>Year & Term (Course)</th>
-                    <th>Year & Term (Applying)</th>
+                    <th style="width: 15%;">Year & Term Taken</th>
+                    <th style="width: 15%;">Year & Term Applying</th>
                     <th>GPA</th>
 
                     <th style="width: 40%;">Recent Grades</th>
