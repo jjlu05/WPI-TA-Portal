@@ -31,12 +31,14 @@
                     <!-- Used cards for a more intuitive design -->
                     <div class="card shadow-lg">
                       <div class="card-body">
-                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%;">Sect #: {{pos.course_section.section_number}}</span></h5>
+                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%; text-align: right;">{{pos.course_section.term}}<br>Section {{pos.course_section.section_number}}</span></h5>
                         <p class="card-text">
                           <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                           <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                          <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %} <br>
+                          <strong>Instructor:</strong> {{ pos.course_section.instructor.first_name }} {{ pos.course_section.instructor.last_name }} <br>
+                          <strong>Contact:</strong> {{ pos.course_section.instructor.email }} <br>
+                          <strong>Date Posted:</strong> {{ pos.current_date }}
                         </p>
                         <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-color">Apply</a>
                       </div>
@@ -70,12 +72,14 @@
                     <!-- Used cards for a more intuitive design -->
                     <div class="card shadow-lg">
                       <div class="card-body">
-                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%;">Sect #: {{pos.course_section.section_number}}</span></h5>
+                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%; text-align: right;">{{pos.course_section.term}}<br>Section {{pos.course_section.section_number}}</span></h5>
                         <p class="card-text">
                           <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                           <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                          <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %} <br>
+                          <strong>Instructor:</strong> {{ pos.course_section.instructor.first_name }} {{ pos.course_section.instructor.last_name }} <br>
+                          <strong>Contact:</strong> {{ pos.course_section.instructor.email }} <br>
+                          <strong>Date Posted:</strong> {{ pos.current_date }}
                         </p>
                         <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-color">Apply</a>
                       </div>
