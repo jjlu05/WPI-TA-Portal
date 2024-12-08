@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card shadow-lg mb-4">
+<div class="card shadow-lg mb-4 mx-auto p-4" style="max-width: 950px;">
     <div class="card-body">
 
     <h1>Applications for {{ sa_position.course_section.course.major }} {{ sa_position.course_section.course.coursenum }} - Section {{ sa_position.course_section.section_number }}</h1>
@@ -13,12 +13,12 @@
                 <tr>
                     <th>Student Name</th>
                     <th>Grade</th>
-                    <th>Year & Term (Course)</th>
-                    <th>Year & Term (Applying)</th>
+                    <th style="width: 15%;">Year & Term Taken</th>
+                    <th style="width: 15%;">Year & Term Applying</th>
                     <th>GPA</th>
 
-                    <th>Recent Grades</th>
-                    <th>All SA Experience</th>
+                    <th style="width: 40%;">Recent Grades</th>
+                    <th style="width: 40%;">All SA Experience</th>
                     <th>Status</th>
                     <th>Actions</th>
 
@@ -33,17 +33,23 @@
                 <td>{{ application.year_term_course }}</td>
                 <td>{{ application.year_term_apply }}</td>
                 <td>{{ application.student.cum_gpa }}</td>
-                <td style="width:15%;">{% for courseGrade in application.student.experiences %}
-                    {%if  courseGrade.has_taken%}
-                    <li>{{ courseGrade.course.major }}{{courseGrade.course.coursenum}}:{{courseGrade.grade}}</li>
-                    {%endif%}
-                    {%endfor%}
+                <td> 
+                    <ul style="list-style-position: inside; padding-left: 0;">
+                        {% for courseGrade in application.student.experiences %}
+                            {% if courseGrade.has_taken %}
+                                <li>{{ courseGrade.course.major }} {{ courseGrade.course.coursenum }}: {{ courseGrade.grade }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
                 </td>
-               <td style="width:15%;"> {%for SAxp in application.student.experiences%}
-                {%if SAxp.been_sa%}
-                <li>{{ SAxp.course.major }}{{SAxp.course.coursenum}}</li>
-                {%endif%}
-                {%endfor%}
+               <td> 
+                <ul style="list-style-position: inside; padding-left: 0;">
+                    {% for SAxp in application.student.experiences %}
+                        {% if SAxp.been_sa %}
+                            <li>{{ SAxp.course.major }} {{ SAxp.course.coursenum }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             </td>
 
                 <td>

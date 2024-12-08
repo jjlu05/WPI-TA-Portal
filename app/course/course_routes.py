@@ -12,7 +12,7 @@ from app.course.course_forms import CreateCourseForm
 from app.course.course_models import CourseSection, CourseExperience
 from app.user.user_models import Faculty,Student
 from app.course.course_models import Course
-from app.application.application_models import SAPosition
+from app.application.application_models import SAPosition, SAApplication
 
 
 
@@ -20,10 +20,12 @@ from app.application.application_models import SAPosition
 @bp_course.route('/', methods=['GET'])
 @bp_course.route('/index', methods=['GET', 'POST'])
 def index():
+
     isStudent=False
     listOfRelevantPos= []
     facultyCourses = []
     SAPosCourses = []
+    applications = []
     if isinstance(current_user, Student):
         isStudent=True
         #studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
@@ -34,14 +36,14 @@ def index():
         #         if c==SAPos.course_section_id.course_id:#still need course and course section relationship
         #             listOfRelevantPos.append(SAPos)
         #             SAPosCourses.remove(SAPos)
+        applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
 
     
     if isinstance(current_user, Faculty):
         facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
-
-    return render_template('index.html',facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
+    return render_template('index.html',applications = applications, facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
 
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 @login_required

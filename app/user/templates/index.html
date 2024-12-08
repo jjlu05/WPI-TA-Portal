@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+  {% endif %}
+{% endwith %}
   {% if isStudent %}
     <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Open SA Positions</h2>
     <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
@@ -38,7 +49,7 @@
                     <!-- Used cards for a more intuitive design -->
                     <div class="card shadow-lg">
                       <div class="card-body">
-                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
+                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%;">Sect #: {{pos.course_section.section_number}}</span></h5>
                         <p class="card-text">
                           <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                           <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
@@ -58,6 +69,61 @@
     {% else %}
       <p>No open positions found.</p>
     {% endif %}
+
+
+
+
+
+
+    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">My Applications</h3>
+    <div class="accordion-item">
+      <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions">
+        View My Applications
+      </button>
+      <div id="collapseOpenPositions">
+        <div class="accordion-body">
+          <div class="row row-cols-2 row-cols-md-3 g-4">
+            {% for application in applications %}
+              <div class="col-md-4 mb-3">
+                <!-- Used cards for a more intuitive design -->
+                <div class="card shadow-lg">
+                  <div class="card-body">
+                    <h5 class="card-title"> {{application.saPosition.course_section.course.major}}
+                      {{application.saPosition.course_section.course.coursenum}}<span style="position: absolute; right: 5%; top: 25%;">Course Section: {{application.saPosition.course_section_id}}</span></h5>
+                    <p class="card-text">
+                     
+                    </p>
+                    <button class="btn btn-color" onclick="withdrawApplication({{ application.id }})">Withdraw</button>
+
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function withdrawApplication(applicationId) {
+        fetch(`/withdraw_application/${applicationId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(response => response.json()) 
+        .then(data => {
+          if (data.status === 'success') {
+            window.location.href = window.location.href; 
+          }
+        })
+        
+      }
+    </script>
+    
+    
+    
+
     
 
 
