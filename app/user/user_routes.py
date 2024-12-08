@@ -6,6 +6,7 @@ from app.user.user_models import User, Student, Faculty
 from app.course.course_models import CourseExperience, CourseSection
 from app.application.application_models import SAApplication, SAPosition
 from app.course.course_models import Course, CourseExperience
+from app.static import recomended
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
 
@@ -21,6 +22,11 @@ def index():
         studentCourses = db.session.scalars(sqla.select(CourseExperience).where(CourseExperience.has_taken == True)).all()
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
         applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
+
+        for pos in SAPosCourses:
+            if(recomended.get_weight(current_user, pos) > 0):
+                listOfRelevantPos.append(pos)
+        listOfRelevantPos = sorted(listOfRelevantPos, key=lambda pos:recomended.get_weight(current_user, pos), reverse=True)
 
         return render_template('index.html',applications = applications,
                                facultyCourses = facultyCourses,
