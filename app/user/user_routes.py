@@ -82,20 +82,18 @@ def register_student():
 
         # Record the courses the user selected
        
-        # for c in form.courses_served.data:
-        #     experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
-        #     experience.been_sa = True
+        for c in form.courses_served.data:
+            experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
+            experience.been_sa = True
         # i=0
-        # for c in form.courses_taken.data:
-        #     experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
-        #     experience.has_taken = True
-        #     experience.grade = form.grades.data[i]['gradeReceived']
-        #     i=i+1
+        for c in form.courses_taken.data:
+            experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
+            experience.has_taken = True
+            # experience.grade = form.grades.data[i]['gradeReceived']
+            # i=i+1
 
             
-        # db.session.commit()
-
-
+        db.session.commit()
         
         flash('Registration successful! Please log in.', 'success')
       
