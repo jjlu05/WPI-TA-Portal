@@ -22,6 +22,9 @@ def index():
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
         applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
 
+        for pos in SAPosCourses:
+            listOfRelevantPos.append(pos)
+
         return render_template('index.html',applications = applications,
                                facultyCourses = facultyCourses,
                                current_user=current_user,

@@ -17,31 +17,52 @@
     <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
 
     {% if listOfRelevantPos %}
-      <ul>
-        {% for pos in listOfRelevantPos %}
-          <li>
-            Course ID: {{ pos.course_section.course_id }},
-            Minimum GPA: {{ pos.min_gpa }},
-            Minimum Grade: {{ pos.min_grade }},
-            Experience: {{ pos.prior_experience }},
-            Date Posted: {{ pos.course_section.date }}
-          </li>
-        {% endfor %}
-      </ul>
+      <div class="accordion">
+        <!-- Accordion for collaspe bc its cooler -->
+        <div class="accordion-item">
+          <button class="accordion-button open" data-bs-toggle="collapse" data-bs-target="#collapseRelevantPositions" aria-expanded="true">
+            View Relevant Positions
+          </button>
+          <div id="collapseRelevantPositions" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for pos in listOfRelevantPos %}
+                  <div class="col-md-4 mb-3">
+                    <!-- Used cards for a more intuitive design -->
+                    <div class="card shadow-lg">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%;">Sect #: {{pos.course_section.section_number}}</span></h5>
+                        <p class="card-text">
+                          <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
+                          <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+                          <strong>Date Posted:</strong> {{ pos.current_date }}<br>
+                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                        </p>
+                        <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-color">Apply</a>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     {% else %}
       <p>No relevant positions found.</p>
     {% endif %}
 
-    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
+    <br>
+    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">All Open Positions</h3>
 
     {% if SAPosCourses %}
       <div class="accordion">
         <!-- Accordion for collaspe bc its cooler -->
         <div class="accordion-item">
           <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions" aria-expanded="false">
-            View Open Positions
+            View All Open Positions
           </button>
-          <div id="collapseOpenPositions" class="accordiion-collapse collapse">
+          <div id="collapseOpenPositions" class="accordion-collapse collapse">
             <div class="accordion-body">
               <div class="row row-cols-2 row-cols-md-3 g-4">
                 {% for pos in SAPosCourses %}
@@ -69,6 +90,7 @@
     {% else %}
       <p>No open positions found.</p>
     {% endif %}
+    <br>
 
 
 
@@ -128,8 +150,8 @@
 
 
 
-    {% elif is_faculty %}
-    <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your Courses</h2>
+  {% elif is_faculty %}
+  <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your Courses</h2>
   
     {% if facultyCourses %}
       <div class="accordion">
@@ -202,7 +224,7 @@
       </div>
     {% else %}
       <p>No SA positions created.</p>
-  {% endif %}
+    {% endif %}
   
     {% else %}
     <main class="container mt-5">
