@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, jsonify
+from flask import render_template, redirect, url_for, flash
 from flask_login import login_required, current_user, login_user
 from app import db
 from app.application.application_forms import CreateSAPositionForm, ApplyForSAPosition
@@ -11,17 +11,8 @@ from datetime import timezone
 import datetime 
 import sqlalchemy.orm as sqlo
 
-@bp_user.route('/withdraw_application/<int:application_id>', methods=['POST'])
 
-def withdraw_application(application_id):
-    application = SAApplication.query.get(application_id)
-    if not application:
-        return jsonify({'status': 'error', 'message': 'Application not found'}), 404
 
-    db.session.delete(application)
-    db.session.commit()
-    return jsonify({'status': 'success', 'message': 'Application withdrawn successfully'}), 200
-   
 @bp_user.route('/faculty/create', methods=['GET', 'POST'])
 @login_required
 def create_sa_position():
@@ -123,19 +114,18 @@ def view_applications(pos_id):
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
 
-    applications = db.session.query(
-        SAApplication,
-        db.session.query(SAApplication)
-        .filter(SAApplication.student_id == SAApplication.student_id, SAApplication.is_assigned == True)
-        .exists().label('is_already_hired')
-    ).filter(SAApplication.position_id == pos_id).all()
+    applications = db.session.query(SAApplication).filter_by(position_id=pos_id).all()
 
+    application_data = []
+    for application in applications:
+        is_already_hired = application.is_assigned
+        application_data.append((application, is_already_hired))
 
     return render_template(
         'view_applications.html',
         sa_position=sa_position,
-        applications=applications, 
-        is_faculty = True
+        applications=application_data,
+        is_faculty=True
     )
 
 
@@ -152,8 +142,13 @@ def approve_application(app_id):
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
 
-    if application.is_assigned:
-        flash("Application cannot be approved: Student is already assigned to another position.", "danger")
+    assigned_count = db.session.query(SAApplication).filter(
+        SAApplication.position_id == application.position_id,
+        SAApplication.is_assigned == True
+    ).count()
+
+    if assigned_count >= application.saPosition.number_of_sas:
+        flash("Cannot approve: Maximum number of SAs already assigned.", "danger")
         return redirect(url_for('user.view_applications', pos_id=application.position_id))
 
     
@@ -161,3 +156,4 @@ def approve_application(app_id):
     db.session.commit()
     flash("Application approved successfully!", "success")
     return redirect(url_for('user.view_applications', pos_id=application.position_id))
+
