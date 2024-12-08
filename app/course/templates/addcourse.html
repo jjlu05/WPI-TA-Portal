@@ -2,30 +2,33 @@
 {% import 'bootstrap_wtf.html' as wtf %}
 
 {% block content %}
-<h1 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Create a new class</h1>
-<!-- Made it a card -->
-<div class="card shadow-lg border-primary">
-    <div class="card-body">
-        <form action = "{{url_for('course.createclass')}}" method = "POST">
-            {{ form.hidden_tag() }} 
+    <div class="card shadow-lg border-primary form-control">
+        <div class="card-body">
+            <h2 class="fw-bold border-bottom border-dark pb-2 mb-4">Create a New Class</h2>
 
+            <form action="{{ url_for('course.createclass') }}" method="POST">
+                {{ form.hidden_tag() }}
 
-            
-            {{wtf.form_field(form.course_choices)}}
+                <div>
+                    {{ wtf.form_field(form.course_choices) }}
+                </div>
 
+                <div>
+                    {{ wtf.form_field(form.section_number) }}
+                </div>
 
-            
+                <div>
+                    {{ wtf.form_field(form.term) }}
+                </div>
 
-            {{wtf.form_field(form.section_number)}}
-            {{wtf.form_field(form.term)}}
+                <div>
+                    <button type="submit" class="btn btn-color">
+                        {{ form.submit.label }}
+                    </button>
+                </div>
+                
 
-            {{wtf.form_field(form.submit)}}
-
-
-
-
-
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

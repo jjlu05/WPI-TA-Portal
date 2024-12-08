@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}SA Connect{% endblock %}</title>
-    
+
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
@@ -12,20 +11,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/sandstone.min.css') }}">
 </head>
 
-<body>  
-
-<!-- Header Section -->
-<header class="bg-primary text-white text-center py-3">
-    {% if current_user.is_authenticated %}
-        {% if is_faculty %}
-            <h1>Welcome to the Faculty Portal</h1>             
-        {% else %}
-            <h1>Welcome to the Student Portal</h1> 
-        {% endif %}
-    {% else %}
-        <h1>Welcome to the Student and Faculty Portal</h1>
-    {% endif %}
-</header>
+<!-- Picture background if not authenticated, red background if authenticated -->
+<body class="{{ 'faded-background' if not current_user.is_authenticated else 'red-background' }}">
 
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,63 +22,48 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Collapsible navigation -->
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Collapsible navigation?? (Implement?) -->
             <ul class="navbar-nav ms-auto align-items-center">
                 {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <span class="navbar-text me-3">
+                        <span class="badge bg-info me-2">
+                            {% if is_faculty %}
+                                Faculty
+                            {% else %}
+                                Student
+                            {% endif %}
+                        </span>
+                        <span class="navbar-text">
                             {% if is_faculty %}
                                 Welcome, Instructor <span class="username">{{ current_user.last_name }}</span>!
                             {% else %}
                                 Welcome, <span class="username">{{ current_user.first_name }}</span>!
                             {% endif %}
                         </span>
-                    </li>   
-
-                
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.register_student') }}">Student Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.register_faculty') }}">Faculty Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.login') }}">Login</a>
-                </li>
-                {% endif %}
-                
-                {% if current_user.is_authenticated %}
-                    {% if is_faculty %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('course.createclass') }}">Create Class</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('user.create_sa_position') }}">Create SA Position</a>
-                        </li>    
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('user.edit_faculty_profile') }}">Edit Profile</a>
-                        </li>               
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('user.edit_student_profile') }}">Edit Profile</a>
-                        </li>
-                    {%endif%}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('user.logout') }}">Logout</a>
                     </li>
+
+                    {% if is_faculty %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('course.createclass') }}">Create Class</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user.create_sa_position') }}">Create SA Position</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user.edit_faculty_profile') }}">Edit Profile</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user.edit_student_profile') }}">Edit Profile</a></li>
+                    {% endif %}
+
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.logout') }}">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.register_student') }}">Student Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.register_faculty') }}">Faculty Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.login') }}">Login</a></li>
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
-
-<!-- Main Content -->
+ 
 <main class="container mt-5">
-{% block content %}
-<!-- Content will be rendered here -->
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 </main>
 
 <!-- Bootstrap JS (for interactivity) -->

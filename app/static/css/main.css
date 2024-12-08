@@ -24,3 +24,78 @@ input.form-control {
 .card-crimson {
     border: 2px solid crimson;
   }
+
+.navbar-text {
+    font-size: 0.9rem;
+    margin-right: 1rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.red-background {
+    background-color: #BF3333;
+    color: white; 
+    min-height: 100vh;
+}
+
+/* Apply background to entire body */
+body.faded-background {
+    background-image: url('https://i.ytimg.com/vi/pzmishrWqiA/maxresdefault.jpg');
+    background-size: cover;  /* Ensure the image covers the entire background */
+    background-position: center;  /* Center the image */
+    background-attachment: fixed;  /* Ensure the background doesn't scroll with the page */
+    position: relative;
+    min-height: 100vh;  /* Ensure the background covers the full height of the viewport */
+    height: 100%;  /* Ensure the background stretches with content */
+}
+
+/* To make the background faded and text more readable */
+body.faded-background::before {
+    content: '';  
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;  /* Ensure the overlay covers the entire background */
+    background-color: rgba(255, 255, 255, 0.5);  /* White overlay with opacity (can adjust to your preference) */
+    z-index: -1;  /* Ensure the overlay is behind the content */
+}
+
+.btn-color {
+    background-color: #BF3333 !important;
+    border-color: #BF3333 !important;
+    color: white!important;
+}
+
+.btn-color:hover {
+    background-color: #A12B2B !important; /* Darker red on hover */
+    border-color: #A12B2B !important;
+}
+
+.btn-color:active {
+    background-color: #8C2323 !important; /* Even darker red when active */
+    border-color: #8C2323 !important;
+}
+
+.red {
+    color: #BF3333;
+}
+
+.white-text {
+    color: white;
+}
+
+.card {
+    width: 100%;
+    max-width: 800px; /* Ensures cards have the same width */
+    margin: 20px auto; /* Centers cards horizontally with margin */
+}
+
+.form-control {
+    width: 100%;  /* Ensures input fields take up full width of the card */
+    padding: 10px; /* Uniform padding inside form fields */
+    margin-bottom: 15px; /* Adds spacing between fields */
+}

@@ -2,8 +2,8 @@
 
 {% block content %}
   {% if isStudent %}
-    <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Open SA Positions</h2>
-    <h3 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Relevant Positions</h3>
+    <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Open SA Positions</h2>
+    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
 
     {% if listOfRelevantPos %}
       <ul>
@@ -21,82 +21,164 @@
       <p>No relevant positions found.</p>
     {% endif %}
 
-    <h3 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Other Open Positions</h3>
-    <!-- To format two on smaller screens, and 3 on medium screens and bigger-->
-    <div class="row row-cols-2 row-cols-md-3 g-4">
-      {% for pos in SAPosCourses %}
-        <div class="col-md-4 mb-3">
-          <!-- Used cards instead of just plain bullet points for a more intuitive design -->
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
-              <p class="card-text">
-                <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
-                <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
-              </p>
-              <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-primary">Apply</a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
+    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
 
-  {% elif is_faculty %}
-    <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Your Courses</h2>
-
-    {% if facultyCourses %}
-      <div class="row row-cols-2 row-cols-md-3 g-4">
-        {% for course in facultyCourses %}
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ course.course.major }} {{ course.course.coursenum }}</h5>
-                <p class="card-text">
-                  <strong>Section:</strong> {{ course.section_number }}<br>
-                  <strong>Term:</strong> {{ course.term }}
-                </p>
+    {% if SAPosCourses %}
+      <div class="accordion">
+        <!-- Accordion for collaspe bc its cooler -->
+        <div class="accordion-item">
+          <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions">
+            View Open Positions
+          </button>
+          <div id="collapseOpenPositions">
+            <div class="accordion-body">
+              <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for pos in SAPosCourses %}
+                  <div class="col-md-4 mb-3">
+                    <!-- Used cards for a more intuitive design -->
+                    <div class="card shadow-lg">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
+                        <p class="card-text">
+                          <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
+                          <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+                          <strong>Date Posted:</strong> {{ pos.current_date }}<br>
+                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                        </p>
+                        <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-color">Apply</a>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
-        {% endfor %}
+        </div>
+      </div>
+    {% else %}
+      <p>No open positions found.</p>
+    {% endif %}
+    
+
+
+
+    {% elif is_faculty %}
+    <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your Courses</h2>
+  
+    {% if facultyCourses %}
+      <div class="accordion">
+        <!-- Accordion for collapse bc its cooler -->
+        <div class="accordion-item">
+            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseCourses">
+              View
+            </button>
+          </h2>
+          <div id="collapseCourses" >
+            <div class="accordion-body">
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for course in facultyCourses %}
+                  <div class="col">
+                    <div class="card shadow-lg">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ course.course.major }} {{ course.course.coursenum }}</h5>
+                        <p class="card-text">
+                          <strong>Section:</strong> {{ course.section_number }}<br>
+                          <strong>Term:</strong> {{ course.term }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     {% else %}
       <p>No relevant courses found.</p>
     {% endif %}
-
-    <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Your SA Positions</h2>
+  <br>
+    <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your SA Positions</h2>
+  
     {% if SAPosCourses %}
-      <div class="row row-cols-2 row-cols-md-3 g-4">
-        {% for pos in SAPosCourses %}
-        {% if pos.course_section.instructor_id==current_user.id%}
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
-                <p class="card-text">
-                  <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
-                  <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                  <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                  <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
-                </p>
-                <!-- Button to view applications -->
-                <a href="{{ url_for('user.view_applications', pos_id=pos.id) }}" class="btn btn-primary">
-                  View Applications
-                </a>
+      <div class="accordion">
+        <!-- Accordion for collapse bc its coolor -->
+        <div class="accordion-item">
+            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseSAPositions">
+              View
+            </button>
+          </h2>
+          <div id="collapseSAPositions">
+            <div class="accordion-body">
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for pos in SAPosCourses %}
+                  {% if pos.course_section.instructor_id == current_user.id %}
+                    <div class="col">
+                      <div class="card shadow-lg">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
+                          <p class="card-text">
+                            <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
+                            <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+                            <strong>Date Posted:</strong> {{ pos.current_date }}<br>
+                            <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                          </p>
+                          <a href="{{ url_for('user.view_applications', pos_id=pos.id) }}" class="btn btn-color mt-2">View Applications</a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
               </div>
             </div>
           </div>
-          {% endif %}
-        {% endfor %}
+        </div>
       </div>
     {% else %}
       <p>No SA positions created.</p>
-    {% endif %}
+  {% endif %}
+  
+    {% else %}
+    <main class="container mt-5">
+      {% if not current_user.is_authenticated %}
+                  <div class="text-center mb-5">
+                    <div class="bg-light bg-opacity-50 p-4">
+                      <h1 class="fw-bold text-dark">Welcome to SA Connect</h1>
+                      <p class="lead fw-bold text-dark">Your gateway to managing Student Assistant positions efficiently.</p>
+                    </div>
+                    
+                  </div>
+  
+                  <div class="row row-cols-1 row-cols-md-2 g-4">
+                      <!-- Card for Student section -->
+                      <div class="col">
+                          <div class="card h-100 border-primary">
+                              <div class="card-body text-center">   
+                                  <h5 class="card-title">For Students</h5>
+                                  <p class="card-text">Browse open SA positions, apply to jobs, and track your application status with ease!!!</p>
+                                  <a href="{{ url_for('user.register_student') }}" class="btn btn-color">Learn More</a>
+                              </div>
+                          </div>
+                      </div>
+  
+                      <!-- Card for Faculty section -->
+                      <div class="col">
+                          <div class="card h-100 border-secondary">
+                              <div class="card-body text-center">
+                                  <h5 class="card-title">For Faculty</h5>
+                                  <p class="card-text">Post SA positions, view student applications, and manage your courses seamlessly!!!</p>
+                                  <a href="{{ url_for('user.register_faculty') }}" class="btn btn-color">Learn More</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {% endif %}
+  </main>
+  
 
-  {% else %}
-    <h1 class="text-primary fw-bold mb-4">Welcome User!</h1>
-    <h3>Please <a href="{{url_for('user.login')}}">Log In</a></h3>
+
+  
   {% endif %}
 {% endblock %}

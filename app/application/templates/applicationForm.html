@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Apply For SA Position</h2>
     <!-- Made it a card -->
-    <div class="card shadow-lg border-primary">
+    <div class="card shadow-lg border-primary form-control">
         <div class="card-body">
+            <h2 class="fw-bold border-bottom border-dark pb-2 mb-4">Apply For SA Position</h2>
 
             <form method="POST" action="{{ url_for('user.apply', pos_id=pos.id)  }}">
                 {{ form.hidden_tag() }}

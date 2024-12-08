@@ -4,13 +4,14 @@
 
 {% block content %}
 <div class="container">
-    <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Edit Student Profile</h2>
 
     <form method="POST">
         {{ form.hidden_tag() }}
         <!-- Made it a card -->
-        <div class="card shadow-lg border-primary">
+        <div class="card shadow-lg border-primary form-control">
             <div class="card-body">
+                    <h2 class="fw-bold border-bottom border-dark pb-2 mb-4">Edit Student Profile</h2>
+
 
                 <div class="mb-3">
                     {{ form.first_name.label }} 
@@ -54,17 +55,20 @@
                     {{ form.grad_year(class="form-control") }}
                 </div>
 
-                <button type="submit" name="submit_button" value = "nothing" class="btn btn-primary">{{ form.submit.label }}</button>
-                
+                <div>
+                    <button type="submit" class="btn btn-color">
+                        {{ form.submit.label }}
+                    </button>
+                </div>                
             </div>
         </div>
 
         <br>
 
         <!-- Made it a card -->
-        <div id="courses_card" class="card shadow-lg border-primary">
+        <div id="courses_card" class="card shadow-lg border-primary form-control">
             <div class="card-body">
-                <h3 class="text-primary fw-bold border-bottom border-dark pb-2 mb-2">My Courses</h3>
+                <h3 class="fw-bold border-bottom border-dark pb-2 mb-4">My Courses</h3>
 
                 <div class="row row-cols-2 row-cols-md-3 g-3">
                     {% for c in courses %}
@@ -87,7 +91,7 @@
                                 {% endif %}
                             </p>
                             <!-- Button to view applications -->
-                            <a href="{{ url_for('user.edit_experience', course_id=c.course.id) }}" class="btn btn-primary">
+                            <a href="{{ url_for('user.edit_experience', course_id=c.course.id) }}" class="btn btn-color">
                                 Edit
                             </a>
                           </div>
@@ -122,8 +126,11 @@
                         </div>
                     {% endif %}
                 </div>
-
-                <button type="submit" name="submit_button" value="scroll" class="btn btn-primary">{{ form.submit.label }}</button>
+                <div>
+                    <button type="submit" class="btn btn-color">
+                        {{ form.submit.label }}
+                    </button>
+                </div>
             </div>
         </div>
     </form>

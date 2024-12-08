@@ -2,10 +2,11 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-primary fw-bold border-bottom border-dark pb-2 mb-4">Faculty Registration</h2>
     <!-- Made it a card -->
-    <div class="card shadow-lg border-primary">
+    <div class="card shadow-lg border-primary form-control">
         <div class="card-body">
+            <h2 class="fw-bold border-bottom border-dark pb-2 mb-4">Faculty Registration</h2>
+
             <form method="POST" action="{{ url_for('user.register_faculty') }}">
                 {{ form.hidden_tag() }}
                 
@@ -118,7 +119,7 @@
                 </div>
 
                 <div class="mb-3">
-                    {{ form.submit(class="btn btn-primary") }}
+                    {{ form.submit(class="btn btn-color") }}
                 </div>
             </form>
         </div>

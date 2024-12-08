@@ -1,23 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="card shadow-lg mb-4">
+    <div class="card-body">
+
     <h1>Applications for {{ sa_position.course_section.course.major }} {{ sa_position.course_section.course.coursenum }} - Section {{ sa_position.course_section.section_number }}</h1>
     <p>Position Requirements: Min GPA {{ sa_position.min_gpa }}, Min Grade {{ sa_position.min_grade }}, Prior Experience {{ 'Yes' if sa_position.prior_experience else 'No' }}</p>
     
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Student Name</th>
-                <th>Grade</th>
-                <th>Year & Term (Course)</th>
-                <th>Year & Term (Applying)</th>
-                <th>GPA</th>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Student Name</th>
+                    <th>Grade</th>
+                    <th>Year & Term (Course)</th>
+                    <th>Year & Term (Applying)</th>
+                    <th>GPA</th>
 
-                <th>Recent Grades</th>
-                <th>All SA Experience</th>
+                    <th>Recent Grades</th>
+                    <th>All SA Experience</th>
+                    <th>Status</th>
+                    <th>Actions</th>
 
 
-            </tr>
+                </tr>
         </thead>
         <tbody>
             {% for application, is_already_hired in applications %}
