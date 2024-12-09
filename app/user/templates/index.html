@@ -126,6 +126,7 @@
     {% else %}
       <p>No applications submitted.</p>
     {% endif %}
+    <br>
     <script>
       function withdrawApplication(applicationId) {
         fetch(`/withdraw_application/${applicationId}`, {
@@ -226,6 +227,7 @@
     {% else %}
       <p>No SA positions created.</p>
     {% endif %}
+    <br>
   
     {% else %}
     <main class="container mt-5">
