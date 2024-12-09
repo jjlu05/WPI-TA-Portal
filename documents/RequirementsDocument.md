@@ -59,7 +59,7 @@ In the student section:
 2. Students should be able to login through two methods:
   a. Using their WPI email and password. 
   b. Using the WPI SSO service.
-3. Students can view open SA positions. In addition to seeing a list of all open SA positions, there will be a seperate "Recommended SA Positions" section to display recomended positions in ranked order based on specified criteria. Positions under this tab should be sorted based on how many conditions in this criteria the student has met. The criteria is open-ended, but must include: 
+3. Students can view open SA positions. In addition to seeing a list of all open SA positions, there will be a seperate "Recommended SA Positions" section to display recommended positions in ranked order based on specified criteria. Positions under this tab should be sorted based on how many conditions in this criteria the student has met. The criteria is open-ended, but must include: 
   a. If the student already served as an SA for the course
   b. If the student took the course and received A
 4. Each SA position should have this information displayed

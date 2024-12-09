@@ -6,7 +6,7 @@ from app.user.user_models import User, Student, Faculty
 from app.course.course_models import CourseExperience, CourseSection
 from app.application.application_models import SAApplication, SAPosition
 from app.course.course_models import Course, CourseExperience
-from app.static import recomended
+from app.static import recommended
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
 
@@ -25,12 +25,12 @@ def index():
 
         for app in applications:
             SAPosCourses.remove(app.saPosition)
-        SAPosCourses = sorted(SAPosCourses, key=lambda pos:recomended.get_weight(current_user, pos), reverse=True)
+        SAPosCourses = sorted(SAPosCourses, key=lambda pos:recommended.get_weight(current_user, pos), reverse=True)
 
         for pos in SAPosCourses:
-            if(recomended.meets_requirements(current_user, pos)):
+            if(recommended.meets_requirements(current_user, pos)):
                 listOfRelevantPos.append(pos)
-        listOfRelevantPos = sorted(listOfRelevantPos, key=lambda pos:recomended.get_weight(current_user, pos), reverse=True)
+        listOfRelevantPos = sorted(listOfRelevantPos, key=lambda pos:recommended.get_weight(current_user, pos), reverse=True)
 
         for pos in listOfRelevantPos:
             SAPosCourses.remove(pos)
