@@ -188,43 +188,70 @@ def login_azure():
         flash("Authentication not configured", "error")
         return redirect(url_for('user.login'))
 
-    return render_template("azure_login.html", **auth.log_in(
-        scopes=current_app.config["SCOPE"],
-        redirect_uri="http://localhost:5000/getAToken",
-        prompt="select_account"
-    ))
+    try:
+        # Generate the Azure login URL with additional scopes
+        auth_data = auth.log_in(
+            scopes=current_app.config["SCOPE"],
+            redirect_uri=url_for("user.auth_response", _external=True),
+            prompt="select_account"
+        )
+        print("Generated auth data:", auth_data)  # Debug print
+        
+        # Directly redirect to the auth_uri instead of rendering template
+        if 'auth_uri' in auth_data:
+            return redirect(auth_data['auth_uri'])
+            
+        flash("Failed to generate authentication URL", "error")
+        return redirect(url_for('user.login'))
+        
+    except Exception as ex:
+        print(f"Exception in login_azure: {str(ex)}")
+        flash(f"Failed to initiate login: {str(ex)}", "error")
+        return redirect(url_for('user.login'))
 
 # redirect
 @bp_user.route("/getAToken")
 def auth_response():
     try:
+        # Complete the login process
         result = auth.complete_log_in(request.args)
+        print("Auth result:", result)  # Debug print
         
         if "error" in result:
+            print("Error in result:", result["error"])
             return render_template("auth_error.html", result=result)
         
-        user_info = auth.get_user()
-        if user_info:
-            email = user_info.get("preferred_username")
+        # Get email directly from the ID token
+        if "preferred_username" in result:
+            email = result["preferred_username"]
+            print(f"Looking up user with email: {email}")
             
+            # Look for user in both Student and Faculty tables
             user = Student.query.filter_by(email=email).first() or \
                    Faculty.query.filter_by(email=email).first()
             
             if user is None:
+                print(f"No user found for email: {email}")
                 flash(f"No account found with email: {email}. Please register first.", "error")
                 return redirect(url_for("user.register_student"))
 
+            print(f"Found user: {user}")
             login_user(user)
-            flash(f'Welcome back, {user.username}!', 'success')
-            return redirect(url_for('user.index'))
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('user.index')
+            return redirect(next_page)
 
-        flash("Authentication failed: No user information received", "error")
+        print("No email found in token")
+        flash("Authentication failed: No email information received", "error")
         return redirect(url_for("user.login"))
         
     except Exception as ex:
+        print(f"Exception in auth_response: {str(ex)}")
+        import traceback
+        print(f"Traceback: {traceback.format_exc()}")
         flash(f"Authentication failed: {str(ex)}", "error")
         return redirect(url_for("user.login"))
-
 
 
 @bp_user.route('/logout', methods=['GET'])
