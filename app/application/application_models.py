@@ -20,7 +20,7 @@ class SAPosition(db.Model):
     course_section_id: sqlo.Mapped[int] = sqlo.mapped_column(sqla.ForeignKey('course_section.id'), nullable=False)
     number_of_sas: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, nullable=False)
     min_gpa: sqlo.Mapped[float] = sqlo.mapped_column(sqla.Float, nullable=False, default=0.0)  
-    min_grade: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(2), nullable=False, default="C")  
+    min_grade: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(4), nullable=False, default="C")  
     prior_experience: sqlo.Mapped[bool] = sqlo.mapped_column(sqla.Boolean, nullable=False, default=False)  
     current_date : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable = False)
 

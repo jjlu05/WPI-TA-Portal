@@ -25,9 +25,10 @@ def index():
 
         for app in applications:
             SAPosCourses.remove(app.saPosition)
+        SAPosCourses = sorted(SAPosCourses, key=lambda pos:recomended.get_weight(current_user, pos), reverse=True)
 
         for pos in SAPosCourses:
-            if(recomended.get_weight(current_user, pos) > 0):
+            if(recomended.meets_requirements(current_user, pos)):
                 listOfRelevantPos.append(pos)
         listOfRelevantPos = sorted(listOfRelevantPos, key=lambda pos:recomended.get_weight(current_user, pos), reverse=True)
 
