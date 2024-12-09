@@ -23,10 +23,16 @@ def index():
         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
         applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
 
+        for app in applications:
+            SAPosCourses.remove(app.saPosition)
+
         for pos in SAPosCourses:
             if(recomended.get_weight(current_user, pos) > 0):
                 listOfRelevantPos.append(pos)
         listOfRelevantPos = sorted(listOfRelevantPos, key=lambda pos:recomended.get_weight(current_user, pos), reverse=True)
+
+        for pos in listOfRelevantPos:
+            SAPosCourses.remove(pos)
 
         return render_template('index.html',applications = applications,
                                facultyCourses = facultyCourses,

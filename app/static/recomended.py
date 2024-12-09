@@ -6,7 +6,7 @@ from app.application.application_models import SAPosition
 from app.course.course_models import CourseExperience
 
 def get_weight(student, sa_position):
-    if not meets_requirements:
+    if not meets_requirements(student, sa_position):
         return 0
 
     weight = 0
@@ -20,6 +20,8 @@ def get_weight(student, sa_position):
     return weight
 
 def meets_requirements(student, sa_position):
+    if student.cum_gpa <= sa_position.min_gpa - 0.00001: # account for float variance
+        return False
     experience = CourseExperience.query.filter_by(course = sa_position.course_section.course, user = student).first()
     
     return True
