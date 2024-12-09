@@ -111,17 +111,18 @@
           <div id="collapseViewApplications" class="accordion-collapse collapse show">
             <div class="accordion-body">
               <div class="row row-cols-2 row-cols-md-3 g-4">
-                {% for application in applications %}
+                {% for app in applications %}
                   <div class="col-md-4 mb-3">
                     <!-- Used cards for a more intuitive design -->
                     <div class="card shadow-lg">
                       <div class="card-body">
-                        <h5 class="card-title"> {{application.saPosition.course_section.course.major}}
-                          {{application.saPosition.course_section.course.coursenum}}<span style="position: absolute; right: 5%; top: 25%;">Course Section: {{application.saPosition.course_section_id}}</span></h5>
+                        <h5 class="card-title">{{ app.saPosition.course_section.course.major }} {{ app.saPosition.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%; text-align: right;">{{app.saPosition.course_section.term}}<br>Section {{app.saPosition.course_section.section_number}}</span></h5>
                         <p class="card-text">
-                        
+                          <strong>Instructor:</strong> {{ app.saPosition.course_section.instructor.first_name }} {{ app.saPosition.course_section.instructor.last_name }} <br>
+                          <strong>Contact:</strong> {{ app.saPosition.course_section.instructor.email }} <br>
+                          <strong>Status:</strong>
                         </p>
-                        <button class="btn btn-color" onclick="withdrawApplication({{ application.id }})">Withdraw</button>
+                        <button class="btn btn-color" onclick="withdrawApplication({{ app.id }})">Withdraw</button>
 
                       </div>
                     </div>
