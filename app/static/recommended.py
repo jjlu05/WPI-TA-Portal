@@ -6,11 +6,12 @@ from app.application.application_models import SAPosition, SAApplication
 from app.course.course_models import Course, CourseExperience
 
 # How the relevant positions works:
-# - The relevant positions is made up of all the positions for which the student matches the qualifications
+# - The relevant positions is made up of all the positions for which the student matches ALL the required qualifications
 #     - Meets the gpa requirement
 #     - Meets the grade requirement
 #       - If there is no grade requirement, the student must have either taken the course or passed a course in the same major with a higher course number
 #     - If the position requires experience, the student must have previously SA'd ANY course
+#     - THIS MEANS A COURSE MAY NOT BE RECOMENDED EVEN IF THE STUDENT PREVIOUSLY GOT AN 'A' OR SA'D THE COURSE IF THEY DON'T MEET ALL THE OTHER REQUIREMENTS
 #
 # - Both the relevant positions and the other positions are sorted based on an algorithm counting weight.
 # - Things that affect weight include:
