@@ -2,16 +2,6 @@
 
 {% block content %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-      {% for category, message in messages %}
-        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
-  {% endif %}
-{% endwith %}
   {% if isStudent %}
     <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Open SA Positions</h2>
     <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>

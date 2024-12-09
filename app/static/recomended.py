@@ -69,7 +69,7 @@ def meets_requirements(student, sa_position):
         grade = CourseExperience.query.filter(CourseExperience.user == student, CourseExperience.course == sa_position.course_section.course).first().grade
         if not grade_equal_or_greater(grade, sa_position.min_grade):
             return False
-    elif highest_coursenum(student, sa_position.course_section.course.major) < int(sa_position.course_section.course.coursenum):
+    elif int(highest_coursenum(student, sa_position.course_section.course.major)) < int(sa_position.course_section.course.coursenum):
         return False
 
     return True
