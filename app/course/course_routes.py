@@ -16,34 +16,36 @@ from app.application.application_models import SAPosition, SAApplication
 
 
 
+# WHY DID WE HAVE THIS SECOND MOSTLY UNUSED INDEX ROUTE THAT SEEMS ENTIRELY USELESS
+# LEFT IN COMMENTS IN CASE SOMETHING POPS UP FROM IT BEING DELETED (already had to change some stuff in other index to make it work alone???)
 
-@bp_course.route('/', methods=['GET'])
-@bp_course.route('/index', methods=['GET', 'POST'])
-def index():
+# @bp_course.route('/', methods=['GET'])
+# @bp_course.route('/index', methods=['GET', 'POST'])
+# def index():
 
-    isStudent=False
-    listOfRelevantPos= []
-    facultyCourses = []
-    SAPosCourses = []
-    applications = []
-    if isinstance(current_user, Student):
-        isStudent=True
-        #studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
-        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+#     isStudent=False
+#     listOfRelevantPos= []
+#     facultyCourses = []
+#     SAPosCourses = []
+#     applications = []
+#     if isinstance(current_user, Student):
+#         isStudent=True
+#         #studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+#         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
-        # for c in studentCourses:
-        #     for SAPos in SAPosCourses:
-        #         if c==SAPos.course_section_id.course_id:#still need course and course section relationship
-        #             listOfRelevantPos.append(SAPos)
-        #             SAPosCourses.remove(SAPos)
-        applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
+#         # for c in studentCourses:
+#         #     for SAPos in SAPosCourses:
+#         #         if c==SAPos.course_section_id.course_id:#still need course and course section relationship
+#         #             listOfRelevantPos.append(SAPos)
+#         #             SAPosCourses.remove(SAPos)
+#         applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
 
     
-    if isinstance(current_user, Faculty):
-        facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
-        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+#     if isinstance(current_user, Faculty):
+#         facultyCourses = db.session.execute(sqla.select(CourseSection).where(CourseSection.instructor_id==current_user.id)).scalars().all()
+#         SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
 
-    return render_template('index.html',applications = applications, facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
+#     return render_template('index.html',applications = applications, facultyCourses = facultyCourses, current_user=current_user, isStudent =isinstance(current_user, Student), is_faculty=isinstance(current_user, Faculty), listOfRelevantPos = listOfRelevantPos, SAPosCourses = SAPosCourses)
 
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 @login_required

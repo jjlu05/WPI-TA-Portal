@@ -17,44 +17,28 @@
     <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
 
     {% if listOfRelevantPos %}
-      <ul>
-        {% for pos in listOfRelevantPos %}
-          <li>
-            Course ID: {{ pos.course_section.course_id }},
-            Minimum GPA: {{ pos.min_gpa }},
-            Minimum Grade: {{ pos.min_grade }},
-            Experience: {{ pos.prior_experience }},
-            Date Posted: {{ pos.course_section.date }}
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No relevant positions found.</p>
-    {% endif %}
-
-    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
-
-    {% if SAPosCourses %}
       <div class="accordion">
-        <!-- Accordion for collaspe bc its cooler -->
+        <!-- Accordion for collapse bc its cooler -->
         <div class="accordion-item">
-          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions" aria-expanded="false">
-            View Open Positions
+          <button class="accordion-button open" data-bs-toggle="collapse" data-bs-target="#collapseRelevantPositions" aria-expanded="true">
+            View Relevant Positions
           </button>
-          <div id="collapseOpenPositions" class="accordiion-collapse collapse">
+          <div id="collapseRelevantPositions" class="accordion-collapse collapse show">
             <div class="accordion-body">
               <div class="row row-cols-2 row-cols-md-3 g-4">
-                {% for pos in SAPosCourses %}
+                {% for pos in listOfRelevantPos %}
                   <div class="col-md-4 mb-3">
                     <!-- Used cards for a more intuitive design -->
                     <div class="card shadow-lg">
                       <div class="card-body">
-                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%;">Sect #: {{pos.course_section.section_number}}</span></h5>
+                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%; text-align: right;">{{pos.course_section.term}}<br>Section {{pos.course_section.section_number}}</span></h5>
                         <p class="card-text">
                           <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                           <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                          <strong>Date Posted:</strong> {{ pos.current_date }}<br>
-                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
+                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %} <br>
+                          <strong>Instructor:</strong> {{ pos.course_section.instructor.first_name }} {{ pos.course_section.instructor.last_name }} <br>
+                          <strong>Contact:</strong> {{ pos.course_section.instructor.email }} <br>
+                          <strong>Date Posted:</strong> {{ pos.current_date }}
                         </p>
                         <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-color">Apply</a>
                       </div>
@@ -67,8 +51,50 @@
         </div>
       </div>
     {% else %}
-      <p>No open positions found.</p>
+      <p>No relevant positions found.</p>
     {% endif %}
+
+    <br>
+    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
+
+    {% if SAPosCourses %}
+      <div class="accordion">
+        <!-- Accordion for collapse bc its cooler -->
+        <div class="accordion-item">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions" aria-expanded="false">
+            View Other Open Positions
+          </button>
+          <div id="collapseOpenPositions" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for pos in SAPosCourses %}
+                  <div class="col-md-4 mb-3">
+                    <!-- Used cards for a more intuitive design -->
+                    <div class="card shadow-lg">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%; text-align: right;">{{pos.course_section.term}}<br>Section {{pos.course_section.section_number}}</span></h5>
+                        <p class="card-text">
+                          <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
+                          <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
+                          <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %} <br>
+                          <strong>Instructor:</strong> {{ pos.course_section.instructor.first_name }} {{ pos.course_section.instructor.last_name }} <br>
+                          <strong>Contact:</strong> {{ pos.course_section.instructor.email }} <br>
+                          <strong>Date Posted:</strong> {{ pos.current_date }}
+                        </p>
+                        <a href="{{ url_for('user.apply', pos_id=pos.id) }}" class="btn btn-color">Apply</a>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p>No other open positions found.</p>
+    {% endif %}
+    <br>
 
 
 
@@ -76,33 +102,40 @@
 
 
     <h3 class="fw-bold border-bottom border-white pb-2 mb-4">My Applications</h3>
-    <div class="accordion-item">
-      <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseViewApplications">
-        View My Applications
-      </button>
-      <div id="collapseViewApplications">
-        <div class="accordion-body">
-          <div class="row row-cols-2 row-cols-md-3 g-4">
-            {% for application in applications %}
-              <div class="col-md-4 mb-3">
-                <!-- Used cards for a more intuitive design -->
-                <div class="card shadow-lg">
-                  <div class="card-body">
-                    <h5 class="card-title"> {{application.saPosition.course_section.course.major}}
-                      {{application.saPosition.course_section.course.coursenum}}<span style="position: absolute; right: 5%; top: 25%;">Course Section: {{application.saPosition.course_section_id}}</span></h5>
-                    <p class="card-text">
-                     
-                    </p>
-                    <button class="btn btn-color" onclick="withdrawApplication({{ application.id }})">Withdraw</button>
+    {% if applications %}
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseViewApplications" aria-expanded="false">
+            View My Applications
+          </button>
+          <div id="collapseViewApplications" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              <div class="row row-cols-2 row-cols-md-3 g-4">
+                {% for app in applications %}
+                  <div class="col-md-4 mb-3">
+                    <!-- Used cards for a more intuitive design -->
+                    <div class="card shadow-lg">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ app.saPosition.course_section.course.major }} {{ app.saPosition.course_section.course.coursenum }}<span style="position: absolute; right: 5%; top: 8%; text-align: right;">{{app.saPosition.course_section.term}}<br>Section {{app.saPosition.course_section.section_number}}</span></h5>
+                        <p class="card-text">
+                          <strong>Instructor:</strong> {{ app.saPosition.course_section.instructor.first_name }} {{ app.saPosition.course_section.instructor.last_name }} <br>
+                          <strong>Contact:</strong> {{ app.saPosition.course_section.instructor.email }} <br>
+                          <strong>Status:</strong>
+                        </p>
+                        <button class="btn btn-color" onclick="withdrawApplication({{ app.id }})">Withdraw</button>
 
+                      </div>
+                    </div>
                   </div>
-                </div>
+                {% endfor %}
               </div>
-            {% endfor %}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    {% else %}
+      <p>No applications submitted.</p>
+    {% endif %}
     <script>
       function withdrawApplication(applicationId) {
         fetch(`/withdraw_application/${applicationId}`, {
@@ -128,8 +161,8 @@
 
 
 
-    {% elif is_faculty %}
-    <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your Courses</h2>
+  {% elif is_faculty %}
+  <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your Courses</h2>
   
     {% if facultyCourses %}
       <div class="accordion">
@@ -202,7 +235,7 @@
       </div>
     {% else %}
       <p>No SA positions created.</p>
-  {% endif %}
+    {% endif %}
   
     {% else %}
     <main class="container mt-5">
