@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, session, current_app
 from flask_login import login_required, current_user, login_user, logout_user
 from app import db
 from app.user.user_forms import FacultyEditProfileForm, StudentEditProfileForm, StudentRegistrationForm, FacultyRegistrationForm, LoginForm, EditCourseExperience
@@ -9,45 +9,77 @@ from app.course.course_models import Course, CourseExperience
 from app.user import user_blueprint as bp_user
 import sqlalchemy as sqla
 
-@bp_user.route('/', methods=['GET', 'POST'])
+import identity.web
+from config import Config as app_config
+from flask_session import Session 
+
+
+auth = None
+
+@bp_user.record
+def record_auth(setup_state):
+    global auth
+    auth = identity.web.Auth(
+        session=session,
+        authority=setup_state.app.config["AUTHORITY"],
+        client_id=setup_state.app.config["CLIENT_ID"],
+        client_credential=setup_state.app.config["CLIENT_SECRET"],
+    )
+
+@bp_user.route('/')
 @bp_user.route('/index', methods=['GET', 'POST'])
 def index():
-    isStudent=False
-    listOfRelevantPos= []
-    facultyCourses = []
-    SAPosCourses = []
-    if isinstance(current_user, Student):
-        isStudent=True
-        studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
-        SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+    # Check if the user is authenticated through Flask-Login first
+    if not current_user.is_authenticated:
+        return redirect(url_for("user.login"))  
 
-        for c in studentCourses:
-            for SAPos in SAPosCourses:
-                if c==SAPos.course_section_id.course_id:#still need course and course section relationship
-                    listOfRelevantPos.append(SAPos)
-                    SAPosCourses.remove(SAPos)
 
-    
-    if isinstance(current_user, Faculty):
-        # Retrieve courses and sections managed by the faculty
-        facultyCourses = db.session.scalars(
-            sqla.select(CourseSection).where(CourseSection.instructor_id == current_user.id)).all()
+    user_info = auth.get_user() 
 
-        # Get IDs of the faculty's course sections
-        faculty_section_ids = [section.id for section in facultyCourses]
+    # Check user role 
+    if user_info:
+        user = User.query.filter_by(username=user_info["preferred_username"]).first()
+        
+        if user is None:
+            flash("User not found.")
+            return redirect(url_for("user.login_azure"))
 
-        # Fetch SA positions associated with these course sections
-        SAPosCourses = db.session.scalars(sqla.select(SAPosition).where(SAPosition.course_section_id.in_(faculty_section_ids))).all()
+        isStudent = False
+        listOfRelevantPos = []
+        facultyCourses = []
+        SAPosCourses = []
+
+        if isinstance(user, Student):
+            isStudent = True
+            studentCourses = db.session.scalars(sqla.select(CourseExperience.id).where(CourseExperience.has_taken == True)).all()
+            SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+
+            for c in studentCourses:
+                for SAPos in SAPosCourses:
+                    if c == SAPos.course_section_id.course_id:
+                        listOfRelevantPos.append(SAPos)
+                        SAPosCourses.remove(SAPos)
+
+        if isinstance(user, Faculty):
+            facultyCourses = db.session.scalars(
+                sqla.select(CourseSection).where(CourseSection.instructor_id == user.id)).all()
+            faculty_section_ids = [section.id for section in facultyCourses]
+            SAPosCourses = db.session.scalars(sqla.select(SAPosition).where(SAPosition.course_section_id.in_(faculty_section_ids))).all()
 
         return render_template(
-                                'index.html',
-                                facultyCourses=facultyCourses,
-                                current_user=current_user,
-                                isStudent=isStudent,
-                                is_faculty=isinstance(current_user, Faculty),
-                                listOfRelevantPos=listOfRelevantPos,
-                                SAPosCourses=SAPosCourses
-                            )
+            'index.html',
+            facultyCourses=facultyCourses,
+            current_user=user,
+            isStudent=isStudent,
+            is_faculty=isinstance(user, Faculty),
+            listOfRelevantPos=listOfRelevantPos,
+            SAPosCourses=SAPosCourses,
+        )
+    else:
+        flash("Authentication failed. Please try again.")
+        return redirect(url_for("user.login_azure"))  
+
+
 
 @bp_user.route('/student/register', methods=['GET', 'POST'])
 def register_student():
@@ -56,7 +88,6 @@ def register_student():
     if form.validate_on_submit():
         print("Form submitted and validated")
 
-        # Create a new User object
         new_user = Student(
             username=form.username.data,
             email=form.email.data,
@@ -68,19 +99,14 @@ def register_student():
             grad_year=form.graduation_year.data,
             cum_gpa=form.gpa.data,
         )
-        # Set the password using the set_password method
         new_user.set_password(form.password.data)
 
-        # Add the new user to the session
         db.session.add(new_user)
 
-        # Create experience table for student
         courses = db.session.scalars(sqla.select(Course)).all()
         for c in courses:
             db.session.add(CourseExperience(course_id = c.id, user_id = new_user.id))
         db.session.commit()
-
-        # Record the courses the user selected
        
         for c in form.courses_served.data:
             experience = CourseExperience.query.filter_by(course = c, user = new_user).first()
@@ -98,7 +124,7 @@ def register_student():
         flash('Registration successful! Please log in.', 'success')
       
         print(db.session.scalars(sqla.select(CourseExperience)).all())
-        return redirect(url_for('user.login'))  
+        return redirect(url_for('user.login_azure'))  
     else:
         print(form.errors)
         print("Form validation failed")
@@ -113,7 +139,6 @@ def register_faculty():
 
     form = FacultyRegistrationForm()
     if form.validate_on_submit():
-        # Create a new User object
         new_user = Faculty(
             username=form.username.data,
             email=form.email.data,
@@ -123,48 +148,116 @@ def register_faculty():
             wpi_id=form.wpi_id.data,
             department=form.department.data
         )
-        # Set the password using the set_password method
         new_user.set_password(form.password.data)
 
-        # Add the new user to the session and commit
         db.session.add(new_user)
         db.session.commit()
         
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('user.login'))  
+        return redirect(url_for('user.login_azure'))  
         
     return render_template('register_faculty.html', form=form)
-
-
+    
+# flask login
 @bp_user.route('/login', methods=['GET', 'POST'])
 def login():
-    # If the user is already logged in, redirect to the index page
     if current_user.is_authenticated:
-        return redirect(url_for('course.index'))
-
-    form = LoginForm()
-    
-    if form.validate_on_submit():
-        # Check for the user in both Student and Faculty tables
-        query = sqla.select(Student).where(Student.username == form.username.data)
-        user = db.session.scalars(query).first()       
-        if user is None:
-            query = sqla.select(Faculty).where(Faculty.username == form.username.data)
-            user = db.session.scalars(query).first()
-        if (user is None) or (user.check_password(form.password.data) == False):
-            flash('Incorrect username or password.')
-            return redirect(url_for('user.login'))
-        login_user(user, remember = form.remember_me.data)
-        flash('Welcome back, {}!'.format(current_user.username))
         return redirect(url_for('user.index'))
-    return render_template('login.html', form=form)
+    
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = Student.query.filter_by(username=form.username.data).first() or \
+               Faculty.query.filter_by(username=form.username.data).first()
+        
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('user.login'))
+        
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('user.index'))
+    
+    return render_template('login.html', form=form, auth=auth)  
+
+# Azure SSO login
+@bp_user.route('/login/azure')
+def login_azure():
+    if current_user.is_authenticated:
+        return redirect(url_for('user.index'))
+
+    if auth is None:
+        flash("Authentication not configured", "error")
+        return redirect(url_for('user.login'))
+
+    return render_template("azure_login.html", **auth.log_in(
+        scopes=current_app.config["SCOPE"],
+        redirect_uri="http://localhost:5000/getAToken",
+        prompt="select_account"
+    ))
+
+# redirect
+@bp_user.route("/getAToken")
+def auth_response():
+    try:
+        result = auth.complete_log_in(request.args)
+        
+        if "error" in result:
+            return render_template("auth_error.html", result=result)
+        
+        user_info = auth.get_user()
+        if user_info:
+            email = user_info.get("preferred_username")
+            
+            user = Student.query.filter_by(email=email).first() or \
+                   Faculty.query.filter_by(email=email).first()
+            
+            if user is None:
+                flash(f"No account found with email: {email}. Please register first.", "error")
+                return redirect(url_for("user.register_student"))
+
+            login_user(user)
+            flash(f'Welcome back, {user.username}!', 'success')
+            return redirect(url_for('user.index'))
+
+        flash("Authentication failed: No user information received", "error")
+        return redirect(url_for("user.login"))
+        
+    except Exception as ex:
+        flash(f"Authentication failed: {str(ex)}", "error")
+        return redirect(url_for("user.login"))
+
+
 
 @bp_user.route('/logout', methods=['GET'])
-@login_required 
+@login_required
 def logout():
-    logout_user()  
+    logout_user()
+    
+    session.clear()
+    
     flash('You have been logged out.', 'info')
-    return redirect(url_for('user.index')) 
+    return redirect(url_for('user.login'))
+
+    # fixed to correctly logout to login page instead of microsoft
+    """
+    # Get the post-logout redirect URL
+    redirect_url = url_for('user.login', _external=True)
+    
+    # Perform local Flask-Login logout
+    logout_user()
+    
+    # Clear any session data
+    session.clear()
+    
+    # If using Azure auth, perform Azure logout with prompt=none
+    if auth:
+        logout_url = auth.log_out(redirect_url)
+        logout_url += "&prompt=none"  # Add prompt=none to skip confirmation
+        return redirect(logout_url)
+    
+    # If not using Azure, redirect directly
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('user.login'))
+    """
 
 
 @bp_user.route('/student/edit-profile', methods=['GET', 'POST'])

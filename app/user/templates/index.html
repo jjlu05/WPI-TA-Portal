@@ -1,41 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% if isStudent %}
-    <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Open SA Positions</h2>
-    <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
+  {% if current_user.is_authenticated %}
+    {% if isStudent %}
+      <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Open SA Positions</h2>
+      <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
 
-    {% if listOfRelevantPos %}
-      <ul>
-        {% for pos in listOfRelevantPos %}
-          <li>
-            Course ID: {{ pos.course_section.course_id }},
-            Minimum GPA: {{ pos.min_gpa }},
-            Minimum Grade: {{ pos.min_grade }},
-            Experience: {{ pos.prior_experience }},
-            Date Posted: {{ pos.course_section.date }}
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No relevant positions found.</p>
-    {% endif %}
+      {% if listOfRelevantPos %}
+        <ul>
+          {% for pos in listOfRelevantPos %}
+            <li>
+              Course ID: {{ pos.course_section.course_id }},
+              Minimum GPA: {{ pos.min_gpa }},
+              Minimum Grade: {{ pos.min_grade }},
+              Experience: {{ pos.prior_experience }},
+              Date Posted: {{ pos.course_section.date }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No relevant positions found.</p>
+      {% endif %}
 
     <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
-
     {% if SAPosCourses %}
-      <div class="accordion">
-        <!-- Accordion for collaspe bc its cooler -->
+      <div class="accordion" id="openPositionsAccordion">
+        <!-- Accordion for collapse bc its cooler -->
         <div class="accordion-item">
-          <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions">
-            View Open Positions
-          </button>
-          <div id="collapseOpenPositions">
+          <h2 class="accordion-header" id="headingOpenPositions">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions" aria-expanded="true" aria-controls="collapseOpenPositions">
+              View Open Positions
+            </button>
+          </h2>
+          <div id="collapseOpenPositions" class="accordion-collapse collapse show" aria-labelledby="headingOpenPositions">
             <div class="accordion-body">
               <div class="row row-cols-2 row-cols-md-3 g-4">
                 {% for pos in SAPosCourses %}
-                  <div class="col-md-4 mb-3">
-                    <!-- Used cards for a more intuitive design -->
+                  <div class="col">
                     <div class="card shadow-lg">
                       <div class="card-body">
                         <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
@@ -58,22 +59,19 @@
     {% else %}
       <p>No open positions found.</p>
     {% endif %}
-    
 
-
-
-    {% elif is_faculty %}
+  {% elif is_faculty %}
     <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your Courses</h2>
-  
     {% if facultyCourses %}
-      <div class="accordion">
+      <div class="accordion" id="facultyCoursesAccordion">
         <!-- Accordion for collapse bc its cooler -->
         <div class="accordion-item">
-            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseCourses">
-              View
+          <h2 class="accordion-header" id="headingFacultyCourses">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCourses" aria-expanded="true" aria-controls="collapseCourses">
+              View Courses
             </button>
           </h2>
-          <div id="collapseCourses" >
+          <div id="collapseCourses" class="accordion-collapse collapse show" aria-labelledby="headingFacultyCourses">
             <div class="accordion-body">
               <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 {% for course in facultyCourses %}
@@ -97,18 +95,18 @@
     {% else %}
       <p>No relevant courses found.</p>
     {% endif %}
-  <br>
+
     <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your SA Positions</h2>
-  
     {% if SAPosCourses %}
-      <div class="accordion">
-        <!-- Accordion for collapse bc its coolor -->
+      <div class="accordion" id="facultySAPositionsAccordion">
+        <!-- Accordion for collapse bc its cooler -->
         <div class="accordion-item">
-            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseSAPositions">
-              View
+          <h2 class="accordion-header" id="headingSAPositions">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSAPositions" aria-expanded="true" aria-controls="collapseSAPositions">
+              View Positions
             </button>
           </h2>
-          <div id="collapseSAPositions">
+          <div id="collapseSAPositions" class="accordion-collapse collapse show" aria-labelledby="headingSAPositions">
             <div class="accordion-body">
               <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 {% for pos in SAPosCourses %}
@@ -136,49 +134,42 @@
       </div>
     {% else %}
       <p>No SA positions created.</p>
+    {% endif %}
+
   {% endif %}
-  
-    {% else %}
-    <main class="container mt-5">
-      {% if not current_user.is_authenticated %}
-                  <div class="text-center mb-5">
-                    <div class="bg-light bg-opacity-50 p-4">
-                      <h1 class="fw-bold text-dark">Welcome to SA Connect</h1>
-                      <p class="lead fw-bold text-dark">Your gateway to managing Student Assistant positions efficiently.</p>
-                    </div>
-                    
-                  </div>
-  
-                  <div class="row row-cols-1 row-cols-md-2 g-4">
-                      <!-- Card for Student section -->
-                      <div class="col">
-                          <div class="card h-100 border-primary">
-                              <div class="card-body text-center">   
-                                  <h5 class="card-title">For Students</h5>
-                                  <p class="card-text">Browse open SA positions, apply to jobs, and track your application status with ease!!!</p>
-                                  <a href="{{ url_for('user.register_student') }}" class="btn btn-color">Learn More</a>
-                              </div>
-                          </div>
-                      </div>
-  
-                      <!-- Card for Faculty section -->
-                      <div class="col">
-                          <div class="card h-100 border-secondary">
-                              <div class="card-body text-center">
-                                  <h5 class="card-title">For Faculty</h5>
-                                  <p class="card-text">Post SA positions, view student applications, and manage your courses seamlessly!!!</p>
-                                  <a href="{{ url_for('user.register_faculty') }}" class="btn btn-color">Learn More</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+
+{% else %}
+  <!-- Unauthenticated View -->
+  <main class="container mt-5">
+    <div class="text-center mb-5">
+      <div class="bg-light bg-opacity-50 p-4 rounded">
+        <h1 class="fw-bold text-dark">Welcome to SA Connect</h1>
+        <p class="lead fw-bold text-dark">Your gateway to managing Student Assistant positions efficiently.</p>
+        <a href="{{ url_for('user.login') }}" class="btn btn-primary btn-lg mt-3">Login</a>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col">
+        <div class="card h-100 border-primary">
+          <div class="card-body text-center">
+            <h5 class="card-title">For Students</h5>
+            <p class="card-text">Browse open SA positions, apply to jobs, and track your application status with ease!</p>
+            <a href="{{ url_for('user.register_student') }}" class="btn btn-color">Learn More</a>
           </div>
-      {% endif %}
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100 border-secondary">
+          <div class="card-body text-center">
+            <h5 class="card-title">For Faculty</h5>
+            <p class="card-text">Post SA positions, view student applications, and manage your courses seamlessly!</p>
+            <a href="{{ url_for('user.register_faculty') }}" class="btn btn-color">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
-  
+{% endif %}
 
-
-  
-  {% endif %}
 {% endblock %}

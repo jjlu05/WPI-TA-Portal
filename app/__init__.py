@@ -4,11 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_moment import Moment
+from flask_session import Session
+import identity.web  
 
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager() 
 login.login_view = 'user.login'  
+app_session = Session()
 
 
 def create_app(config_class=Config):
@@ -20,8 +23,16 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
+    Session(app)
+    
+    # Azure auth
+    auth = identity.web.Auth(
+        session=Session,
+        authority=app.config["AUTHORITY"],
+        client_id=app.config["CLIENT_ID"],
+        client_credential=app.config["CLIENT_SECRET"],
+    )
 
-    # Blueprint registration
     from app.application import application_blueprint as application
     application.template_folder = Config.TEMPLATE_FOLDER_APPLICATION
     app.register_blueprint(application)
@@ -37,5 +48,6 @@ def create_app(config_class=Config):
     from app.errors import error_blueprint as errors
     errors.template_folder = Config.TEMPLATE_FOLDER_ERRORS
     app.register_blueprint(errors)
+
 
     return app
