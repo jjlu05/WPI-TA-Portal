@@ -1,7 +1,7 @@
 import os
 import pytest
 from app import create_app, db
-from app.course.course_models import Course, CourseExperience
+from app.course.course_models import Course, CourseExperience, CourseSection
 from app.user.user_models import Faculty, Student
 from config import Config
 import sqlalchemy as sqla
@@ -209,6 +209,7 @@ def test_student_edit_profile(request,test_client,init_database):
                           follow_redirects = True)
     assert response.status_code == 200
     # Assumptions: page redirects to itself
+    assert Student.query.filter_by(username='student1').first().major == 'DS'
     assert b"DS" in response.data
     assert b"Student profile updated" in response.data
     do_logout(test_client, path = '/logout')
@@ -237,6 +238,7 @@ def test_faculty_edit_profile(request,test_client,init_database):
                           follow_redirects = True)
     assert response.status_code == 200
     # Assumptions: page redirects to itself
+    assert Faculty.query.filter_by(username='faculty1').first().department == 'Data Science'
     assert b"Data Science" in response.data
     assert b"Faculty profile updated" in response.data
     do_logout(test_client, path = '/logout')
@@ -247,8 +249,9 @@ def test_student_course_page(request,test_client,init_database):
     WHEN the '/student/course/<int:course_id>' page is requested (GET)
     THEN check that the response is valid
     """
+    course_id = Course.query.filter_by(coursenum = '1101').first().id
     do_login(test_client, path = 'login', username = 'student1', passwd = '123')
-    response = test_client.get('/student/course/1')
+    response = test_client.get('/student/course/'+str(course_id))
     assert response.status_code == 200
     assert b"Taken Course" in response.data
     assert b"Term Taken" in response.data
@@ -260,12 +263,17 @@ def test_student_edit_course(request,test_client,init_database):
     WHEN the '/student/course/<int:course_id>' page is submitted (POST)
     THEN check that the response is valid
     """
+    course = Course.query.filter_by(coursenum = '1101').first()
+    course_id = course.id
+    experience = CourseExperience.query.filter_by(course=course).first()
     do_login(test_client, path = 'login', username = 'student1', passwd = '123')
-    response = test_client.get('/student/course/1',
-                               data=dict(been_sa=True, has_taken=True, grade='A', term_taken='2020-A'),
+    response = test_client.post('/student/course/'+str(course_id),
+                               data=dict(been_sa=True, has_taken=True, grade='A', term_taken='2022-E2', submit_button='scroll'),
                                follow_redirects = True)
     assert response.status_code == 200
-    assert b"2020-A" in response.data
+    assert experience.term_taken == '2022-E2'
+    assert b"Course experience updated" in response.data
+    assert b"My Courses" in response.data
     do_logout(test_client, path = '/logout')
 
 def test_create_course_page(request,test_client,init_database):
@@ -275,7 +283,7 @@ def test_create_course_page(request,test_client,init_database):
     THEN check that the response is valid
     """
     do_login(test_client, path = '/login', username = 'faculty1', passwd = '123')
-    response = test_client.post('/course/create')
+    response = test_client.get('/course/create')
     assert response.status_code == 200
     # Assumptions: page redirects to index
     assert b"Create a New Class" in response.data
@@ -288,11 +296,11 @@ def test_create_course(request,test_client,init_database):
     THEN check that the response is valid
     """
     do_login(test_client, path = '/login', username = 'faculty1', passwd = '123')
+    course = Course.query.filter_by(coursenum='1101').first()
     response = test_client.post('/course/create', 
-                          data=dict(section_number=10, course_choices=Course.query.filter_by(major='CS',coursenum='1101').first(), term='2024-A'),
+                          data=dict(section_number=10, course_choices=course.id, term='2024-A'),
                           follow_redirects = True)
     assert response.status_code == 200
-    # Assumptions: page redirects to index
-    assert b"CS 1101" in response.data
-    assert b"Create a New Class" in response.data
+    assert CourseSection.query.filter_by(term = '2024-A', section_number = 10).first() is not None
+    assert b"is created" in response.data
     do_logout(test_client, path = '/logout')
