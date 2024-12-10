@@ -7,7 +7,15 @@ from app.static import form_options
 import sqlalchemy as sqla
 import sqlalchemy.orm as sqlo
 
+# Azure stuff
+import identity.web
+from flask_session import Session
+from werkzeug.middleware.proxy_fix import ProxyFix
+
 app = create_app(Config)
+app.jinja_env.globals.update(Auth=identity.web.Auth)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+Session(app)
 
 @app.shell_context_processor
 def make_shell_context():
@@ -27,4 +35,4 @@ def init_db(*args, **kwargs):
     add_courses()
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=3001)
+    app.run(debug=True, host='0.0.0.0', port=5000)
