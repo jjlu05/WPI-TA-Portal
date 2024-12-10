@@ -65,7 +65,7 @@ def init_database(request,test_client):
 
     
     # add users
-    student_user = new_student('student1', 'student@wpi.edu', '123', 'Stu', 'Dent', '1234567890', '123456789', 'CS', 3.0, '2026')
+    student_user = new_student('student1', 'student@wpi.edu', '123', 'Stu', 'Dent', '1234567890', '123456789', 'CS', 3.0, 2026)
     db.session.add(student_user)
     faculty_user = new_faculty('faculty1', 'faculty@wpi.edu', '123', 'Fac', 'Ulty', '0987654321', '987654321', 'Computer Science')
     db.session.add(faculty_user)
@@ -204,12 +204,13 @@ def test_student_edit_profile(request,test_client,init_database):
     THEN check that the response is valid
     """
     do_login(test_client, path = '/login', username = 'student1', passwd = '123')
-    response = test_client.get('/student/edit-profile', 
-                          data=dict(email='student@wpi.edu', first_name='Stu',last_name='Dent', phone_number='1234567890',major='DS', cum_gpa=2.0, grad_year='2026', courses_taken=[], courses_served=[]),
+    response = test_client.post('/student/edit-profile', 
+                          data=dict(email='student@wpi.edu', first_name='Stu',last_name='Dent', phone_number='1234567890',major='DS', cum_gpa=2.0, grad_year=2026, courses_taken=[], courses_served=[], submit_button='scroll'),
                           follow_redirects = True)
     assert response.status_code == 200
     # Assumptions: page redirects to itself
     assert b"DS" in response.data
+    assert b"Student profile updated" in response.data
     do_logout(test_client, path = '/logout')
 
 def test_faculty_edit_profile_page(request,test_client,init_database):
@@ -231,12 +232,13 @@ def test_faculty_edit_profile(request,test_client,init_database):
     THEN check that the response is valid
     """
     do_login(test_client, path = '/login', username = 'faculty1', passwd = '123')
-    response = test_client.get('/faculty/edit-profile', 
+    response = test_client.post('/faculty/edit-profile', 
                           data=dict(email='faculty@wpi.edu', first_name='Fac',last_name='Ulty', phone_number='0987654321',department='Data Science'),
                           follow_redirects = True)
     assert response.status_code == 200
     # Assumptions: page redirects to itself
     assert b"Data Science" in response.data
+    assert b"Faculty profile updated" in response.data
     do_logout(test_client, path = '/logout')
 
 def test_student_course_page(request,test_client,init_database):
@@ -264,4 +266,33 @@ def test_student_edit_course(request,test_client,init_database):
                                follow_redirects = True)
     assert response.status_code == 200
     assert b"2020-A" in response.data
+    do_logout(test_client, path = '/logout')
+
+def test_create_course_page(request,test_client,init_database):
+    """
+    GIVEN a Flask application configured for testing
+    WHEN the '/course/create' page is requested (GET)
+    THEN check that the response is valid
+    """
+    do_login(test_client, path = '/login', username = 'faculty1', passwd = '123')
+    response = test_client.post('/course/create')
+    assert response.status_code == 200
+    # Assumptions: page redirects to index
+    assert b"Create a New Class" in response.data
+    do_logout(test_client, path = '/logout')
+
+def test_create_course(request,test_client,init_database):
+    """
+    GIVEN a Flask application configured for testing
+    WHEN the '/course/create' page is submitted (POST)
+    THEN check that the response is valid
+    """
+    do_login(test_client, path = '/login', username = 'faculty1', passwd = '123')
+    response = test_client.post('/course/create', 
+                          data=dict(section_number=10, course_choices=Course.query.filter_by(major='CS',coursenum='1101').first(), term='2024-A'),
+                          follow_redirects = True)
+    assert response.status_code == 200
+    # Assumptions: page redirects to index
+    assert b"CS 1101" in response.data
+    assert b"Create a New Class" in response.data
     do_logout(test_client, path = '/logout')
