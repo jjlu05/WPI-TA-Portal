@@ -40,11 +40,11 @@ jobs:
         python -m pytest -v tests/test_routes.py
 
     # Set up Selenium dependencies
-    - name: Set up Selenium
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb firefox firefox-geckodriver
-        pip install selenium
+    # - name: Set up Selenium
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y xvfb firefox firefox-geckodriver
+    #     pip install selenium
 
     # # Run Selenium tests (run virtual display server first)
     # - name: Run Selenium tests
