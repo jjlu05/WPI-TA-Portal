@@ -7,9 +7,16 @@ from app.user.user_models import Faculty
 from app.user import user_blueprint as bp_user
 from app.course.course_models import CourseSection, Course, CourseExperience
 from datetime import date, datetime
-from datetime import timezone 
-import datetime 
+from datetime import timezone
+from app.static import recommended
+
+
+import datetime
 import sqlalchemy.orm as sqlo
+import sqlalchemy as sqla
+
+
+
 
 
 
@@ -21,11 +28,14 @@ def create_sa_position():
         flash('You do not have permission to access this page.', 'danger')
         return redirect(url_for('user.index'))
 
+
     form = CreateSAPositionForm()
+
 
     # Populate the course section dropdown
     course_sections = CourseSection.query.filter_by(instructor_id=current_user.id).join(CourseSection.course).order_by(Course.major, Course.coursenum, CourseSection.term, CourseSection.section_number).all()
     form.course_section.choices = [(str(section.id), f"{section.course.major} {section.course.coursenum} - {section.section_number} - {section.term}") for section in course_sections]
+
 
     if form.validate_on_submit():
         sa_position = SAPosition(
@@ -36,13 +46,19 @@ def create_sa_position():
             prior_experience=form.prior_experience.data,
             current_date = datetime.datetime.now(timezone.utc).date()
 
+
         )
         db.session.add(sa_position)
         db.session.commit()
         flash('SA Position created successfully!', 'success')
-        return redirect(url_for('user.index'))  # fix to reflect faculty main page 
+        return redirect(url_for('user.index'))  # fix to reflect faculty main page
+
 
     return render_template('create.html', form=form, is_faculty=True)
+
+
+
+
 
 
 
@@ -54,24 +70,29 @@ def apply(pos_id):
         flash('You do not have permission to access this page.', 'danger')
         return redirect(url_for('user.index'))
 
+
     form = ApplyForSAPosition()
     pos = SAPosition.query.get_or_404(pos_id)
+
 
     existing_application = SAApplication.query.filter_by(student_id=current_user.id, position_id=pos_id).first()
     if existing_application:
         flash('You have already applied for this position.', 'warning')
         return redirect(url_for('user.index'))
 
+
     experience = db.session.query(CourseExperience).filter(
         CourseExperience.user == current_user,
         CourseExperience.course == pos.course_section.course
     ).first()
+
 
     term_course = 'None'
     course_grade = 'NA'
     if experience and experience.has_taken:
         term_course = experience.term_taken
         course_grade = experience.grade
+
 
     if form.validate_on_submit():
         sa_application = SAApplication(
@@ -86,11 +107,13 @@ def apply(pos_id):
         flash('SA Application successful!', 'success')
         return redirect(url_for('user.index'))
 
-    
+
+   
     sa_experience = "Yes" if db.session.query(CourseExperience).filter(
         CourseExperience.user == current_user,
         CourseExperience.been_sa == True
     ).first() else "No"
+
 
     return render_template(
         'applicationForm.html',
@@ -101,16 +124,159 @@ def apply(pos_id):
     )
 
 
-@bp_user.route('/withdraw_application/<int:application_id>', methods=['POST'])
 
+
+
+
+
+
+
+
+@bp_user.route('/replace', methods=['POST'])
+def replace():
+    print("called replace")
+    listOfRelevantPos= []
+    facultyCourses = []
+    SAPosCourses = []
+    isStudent=True
+    test=[]
+    other=[]
+    studentCourses = db.session.scalars(sqla.select(CourseExperience).where(CourseExperience.has_taken == True)).all()
+
+
+    SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+    applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id==current_user.id)).all()
+
+
+    for app in applications:
+        if app.saPosition in SAPosCourses:
+            SAPosCourses.remove(app.saPosition)
+
+
+    SAPosCourses = sorted(SAPosCourses, key=lambda pos: recommended.get_weight(current_user, pos), reverse=True)
+
+
+    for pos in SAPosCourses:
+        if recommended.meets_requirements(current_user, pos):
+            listOfRelevantPos.append(pos)
+    listOfRelevantPos = sorted(listOfRelevantPos, key=lambda pos: recommended.get_weight(current_user, pos), reverse=True)
+
+
+    for pos in listOfRelevantPos:
+        SAPosCourses.remove(pos)
+    for pos in listOfRelevantPos:
+        course = {'major': pos.course_section.course.major,
+                  'coursenum': pos.course_section.course.coursenum}
+        instructor = {'email': pos.course_section.instructor.email,
+                      'first_name': pos.course_section.instructor.first_name,
+                      'last_name': pos.course_section.instructor.last_name,
+                      }
+
+
+        courseS={'id': pos.course_section.id,
+                 'instructor': pos.course_section.instructor_id,
+                 'section_number': pos.course_section.section_number,
+                 'term':pos.course_section.term,
+                 'instructor': instructor,
+                 'course': course
+                     }
+        test.append({'id': pos.id,
+                     'min_gpa': pos.min_gpa,
+                     'min_grade': pos.min_grade,
+                     'prior_experience': pos.prior_experience,
+                     'current_date': pos.current_date,
+                     'course_section': courseS,
+                     })
+       
+
+
+
+
+
+
+
+
+
+
+
+
+    for pos in SAPosCourses:
+        course = {'major': pos.course_section.course.major,
+                  'coursenum': pos.course_section.course.coursenum}
+        instructor = {'email': pos.course_section.instructor.email,
+                      'first_name': pos.course_section.instructor.first_name,
+                      'last_name': pos.course_section.instructor.last_name,
+                      }
+
+
+        courseS={'id': pos.course_section.id,
+                 'instructor': pos.course_section.instructor_id,
+                 'section_number': pos.course_section.section_number,
+                 'term':pos.course_section.term,
+                 'instructor': instructor,
+                 'course': course
+                     }
+        other.append({'id': pos.id,
+                     'min_gpa': pos.min_gpa,
+                     'min_grade': pos.min_grade,
+                     'prior_experience': pos.prior_experience,
+                     'current_date': pos.current_date,
+                     'course_section': courseS,
+                     })
+    return jsonify({'test':test,'other':other})
+
+
+
+
+
+
+
+
+
+
+@bp_user.route('/withdraw_application/<int:application_id>', methods=['POST'])
 def withdraw_application(application_id):
     application = SAApplication.query.get(application_id)
-    if not application:
-        return jsonify({'status': 'error', 'message': 'Application not found'}), 404
-
     db.session.delete(application)
     db.session.commit()
-    return jsonify({'status': 'success', 'message': 'Application withdrawn successfully'}), 200
+    test = []
+
+
+    applications = []
+    course_section = []
+    studentCourses = db.session.scalars(sqla.select(CourseExperience).where(CourseExperience.has_taken == True)).all()
+    SAPosCourses = db.session.scalars(sqla.select(SAPosition)).all()
+    applications = db.session.scalars(sqla.select(SAApplication).where(SAApplication.student_id == current_user.id)).all()
+    saPosition = {}
+    courseS = {}
+   
+    for appl in applications:
+        course = {'major': appl.saPosition.course_section.course.major,
+                  'coursenum': appl.saPosition.course_section.course.coursenum}
+        instructor = {'email': appl.saPosition.course_section.instructor.email,
+                      'first_name': appl.saPosition.course_section.instructor.first_name,
+                      'last_name': appl.saPosition.course_section.instructor.last_name,
+                      }
+        courseS = {'id': appl.saPosition.course_section.id,
+                   'instructor': appl.saPosition.course_section.instructor_id,
+                   'section_number': appl.saPosition.course_section.section_number,
+                   'term': appl.saPosition.course_section.term,
+                   'instructor': instructor,
+                   'course': course
+                  }
+        saPosition = {'id': appl.saPosition.id,
+                      'course_section': courseS}
+        test.append({'id': appl.id,
+                     'position ID': appl.position_id,
+                     'student ID': appl.student_id,
+                     'grade': appl.grade,
+                     'year_term_course': appl.year_term_course,
+                     'year_term_apply': appl.year_term_apply,
+                     'is_assigned': appl.is_assigned,
+                     'saPosition': saPosition
+                     })
+   
+    return jsonify(test), 200
 
 
 @bp_user.route('/faculty/view-applications/<int:pos_id>', methods=['GET'])
@@ -120,18 +286,23 @@ def view_applications(pos_id):
         flash("Access denied: Only faculty members can view applications.", "danger")
         return redirect(url_for('user.index'))
 
+
     sa_position = SAPosition.query.get_or_404(pos_id)
+
 
     if sa_position.course_section.instructor_id != current_user.id:
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
 
+
     applications = db.session.query(SAApplication).filter_by(position_id=pos_id).all()
+
 
     application_data = []
     for application in applications:
         is_already_hired = application.is_assigned
         application_data.append((application, is_already_hired))
+
 
     return render_template(
         'view_applications.html',
@@ -141,6 +312,8 @@ def view_applications(pos_id):
     )
 
 
+
+
 @bp_user.route('/faculty/approve_application/<int:app_id>', methods=['POST'])
 @login_required
 def approve_application(app_id):
@@ -148,24 +321,28 @@ def approve_application(app_id):
         flash("Access denied: Only faculty members can approve applications.", "danger")
         return redirect(url_for('user.index'))
 
+
     application = SAApplication.query.get_or_404(app_id)
+
 
     if application.saPosition.course_section.instructor_id != current_user.id:
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
+
 
     assigned_count = db.session.query(SAApplication).filter(
         SAApplication.position_id == application.position_id,
         SAApplication.is_assigned == True
     ).count()
 
+
     if assigned_count >= application.saPosition.number_of_sas:
         flash("Cannot approve: Maximum number of SAs already assigned.", "danger")
         return redirect(url_for('user.view_applications', pos_id=application.position_id))
 
-    
+
+   
     application.is_assigned = True
     db.session.commit()
     flash("Application approved successfully!", "success")
     return redirect(url_for('user.view_applications', pos_id=application.position_id))
-
