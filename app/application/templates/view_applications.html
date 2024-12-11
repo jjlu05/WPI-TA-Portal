@@ -19,7 +19,7 @@
                         <th style="width: 40%;">All SA Experience</th>
                         <th>Status</th>
                         <th>Actions</th>
-                        <th>More Info</th>
+                        <th>Contact Info</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,14 +67,13 @@
                         <td>
                             <!-- Collapsible More Info Section -->
                             <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#info-{{ application.id }}" aria-expanded="false" aria-controls="info-{{ application.id }}">
-                                More Info
+                                Contact
                             </button>
                             <div class="collapse mt-2" id="info-{{ application.id }}">
                                 <div class="card card-body">
-                                    <p><strong>Student ID:</strong> {{ application.student.id }}</p>
+                                    <p><strong>WPI ID:</strong> {{ application.student.wpi_id }}</p>
                                     <p><strong>Email:</strong> {{ application.student.email }}</p>
                                     <p><strong>Phone:</strong> {{ application.student.phone_number }}</p>
-                                    <p><strong>GPA:</strong> {{ application.student.cum_gpa }}</p>
                                 </div>
                             </div>
                         </td>
