@@ -28,6 +28,14 @@ class CourseSection(db.Model):
     
     def get_coursenum(self):
         return self.course.coursenum
+    
+    def get_sa_positions(self):
+        return (self.sa_positions)
+    def get_course(self):
+        return self.course
+    def assign_course(self, courseID):
+        self.course_id=courseID
+     
 
 
 
@@ -38,10 +46,14 @@ class Course(db.Model):
 
     #relationship
     experiences : sqlo.Mapped['CourseExperience'] = sqlo.relationship(back_populates= 'course')
-    course_sections : sqlo.WriteOnlyMapped['CourseSection'] = sqlo.relationship(back_populates= 'course')
-
+    course_sections : sqlo.Mapped['CourseSection'] = sqlo.relationship(back_populates= 'course')
+    #changed sqlo.writeonlymapped to sqlo.mapped for course_sections
     def __repr__(self):
         return f"<Course(id={self.id}, major='{self.major}', coursenum='{self.coursenum}')>"
+    def get_experiences(self):
+        return self.experiences
+    def get_course_sections(self):
+        return self.course_sections
     
     
 # Course Experience Model

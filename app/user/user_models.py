@@ -7,7 +7,6 @@ from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 @login.user_loader
 def load_user(user_id):
     # Tried querying Student and Faculty 
@@ -41,10 +40,15 @@ class User(db.Model, UserMixin):
     # change id to username since user_id overlaps between Student and Faculty tables
     def get_id(self):
         return self.username
+   
 
+    # #FJDOISHGOISDHOG
+    # GET BACK TO THIS
+    # LOOK UP
 
 # Student Model
 class Student(User):
+
     major: sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(64), default="none", nullable=False)
     cum_gpa: sqlo.Mapped[float] = sqlo.mapped_column(sqla.Float, default=0, nullable=False)
     grad_year: sqlo.Mapped[int] = sqlo.mapped_column(sqla.Integer, default=0, nullable=False)
@@ -54,7 +58,14 @@ class Student(User):
     studentSAApplications: sqlo.Mapped[list['SAApplication']] = sqlo.relationship('SAApplication', back_populates='student')
 
     def __repr__(self):
-        return f"<Student(id={self.id}, major='{self.major}')>"
+        return f"<Student(id={self.id}, major='{self.major}', email='{self.email}')>"
+    def take_course(self, course, g, tt):
+        from app.course.course_models import CourseExperience           
+        newCourseExp = CourseExperience( course_id = course.id, user_id=self.id, has_taken=True, been_sa=False, grade=g, term_taken=tt )
+        db.session.add(newCourseExp)
+        db.session.commit()
+    def get_SAApplications(self):
+        return self.studentSAApplications
 
 
 # Faculty Model
@@ -67,3 +78,11 @@ class Faculty(User):
 
     def __repr__(self):
         return f"<Faculty(id={self.id}, department='{self.department}')>"
+    def get_course_sections(self):
+        return self.course_sections
+    def take_course(self, course, g, tt):
+        from app.course.course_models import CourseExperience   
+
+        newCourseExp = CourseExperience( course_id = course.id, user_id=self.id, has_taken=True, been_sa=False, grade=g, term_taken=tt )
+        db.session.add(newCourseExp)
+        db.session.commit()

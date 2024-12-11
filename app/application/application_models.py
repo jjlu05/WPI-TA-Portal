@@ -35,7 +35,16 @@ class SAPosition(db.Model):
             f"number_of_sas={self.number_of_sas}, min_gpa={self.min_gpa}, "
             f"min_grade='{self.min_grade}', prior_experience={self.prior_experience})>"
         )
+    def get_saApplications(self):
+        return self.saApplications
+    def get_course_section(self):
+        return self.course_section
     
+    def apply(self, course_section, sID, g, ytc, yta, isA):
+
+        saAPP = SAApplication(position_id=self.id, student_id=sID, grade=g, year_term_course=ytc, year_term_apply=yta, is_assigned=isA)
+        db.session.add(saAPP)
+        db.session.commit()
 
 class SAApplication(db.Model):    
     id: sqlo.Mapped[int] = sqlo.mapped_column(primary_key=True)
@@ -57,3 +66,8 @@ class SAApplication(db.Model):
             f"<SAApplication(id={self.id}, saPosition = {self.saPosition}, student_id={self.student_id}, position_id={self.position_id}, "
             f"grade='{self.grade}', year_term_course='{self.year_term_course}', year_term_apply='{self.year_term_apply}')>"
         )
+    def get_saPosition(self):
+        return self.saPosition
+    def get_student(self):
+        return self.student
+    
