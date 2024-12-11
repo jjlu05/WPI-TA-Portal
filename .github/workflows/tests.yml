@@ -1,0 +1,15 @@
+# Install dependencies
+- name: Install dependencies
+  run: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+
+# Run all tests with pytest
+- name: Run tests with pytest
+  run: |
+    python -m pytest --cov=your_app_name ./tests
+
+# Generate coverage report (optional)
+- name: Generate coverage report
+  run: |
+    python -m pytest --cov-report html --cov=your_app_name ./tests
