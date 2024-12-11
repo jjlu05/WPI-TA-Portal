@@ -369,7 +369,7 @@ def test_apply_and_withdraw(request, test_client, init_database):
     GIVEN a Flask application configured for testing
     WHEN the '/student/apply/<int:pos_id>' page is submitted (POST)
     THEN check that the response is valid
-    WHEN the '/student/apply/<int:pos_id>' page is submitted (POST)
+    WHEN the '/student/withdraw_application/<int:application_id>' page is submitted (POST)
     THEN check that the response is valid
     """
     new_section = CourseSection(section_number = 20,
@@ -394,6 +394,45 @@ def test_apply_and_withdraw(request, test_client, init_database):
                                 follow_redirects=True)
     assert response.status_code == 200
     assert len(SAApplication.query.all()) == 0
+
+    do_logout(test_client, path = '/logout')
+
+def test_view_and_approve_application(request, test_client, init_database):
+    """
+    GIVEN a Flask application configured for testing
+    WHEN the '/faculty/view-applications/<int:pos_id>' page is requested (GET)
+    THEN check that the response is valid
+    WHEN the '/faculty/approve_application/<int:app_id>' page is submitted (POST)
+    THEN check that the response is valid
+    """
+    new_section = CourseSection(section_number = 21,
+                                 instructor=Faculty.query.filter_by(username='faculty1').first(),
+                                 course=Course.query.filter_by(coursenum='2303').first(), term='2024-A')
+    db.session.add(new_section)
+    new_position = SAPosition(course_section=new_section, number_of_sas=1, min_gpa=2.0, min_grade='B', prior_experience=False, current_date = datetime.datetime.now(datetime.timezone.utc).date())
+    db.session.add(new_position)
+    new_application = SAApplication(student = Student.query.filter_by(username='student1').first(),
+                                    saPosition = new_position,
+                                    grade = 'A',
+                                    year_term_course = '2020-A',
+                                    year_term_apply = '2024-B',
+                                    is_assigned = False)
+    db.session.add(new_application)
+    db.session.commit()
+
+    pos_id = new_position.id
+    app_id = new_application.id
+
+    do_login(test_client, path = '/login', username = 'faculty1', passwd = '123')
+    response = test_client.get('/faculty/view-applications/'+str(pos_id))
+    assert len(SAApplication.query.all()) == 1
+    assert b"Applications for CS 2303" in response.data
+    assert b"Stu Dent" in response.data
+
+    response = test_client.post('/faculty/approve_application/'+str(app_id),
+                               follow_redirects = True)
+    assert b"Application approved successfully" in response.data
+    assert b"Already Hired" in response.data
 
     do_logout(test_client, path = '/logout')
 
