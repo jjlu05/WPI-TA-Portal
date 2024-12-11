@@ -101,7 +101,7 @@ def apply(pos_id):
     )
 
 
-@bp_user.route('/withdraw_application/<int:application_id>', methods=['POST'])
+@bp_user.route('/withdraw-application/<int:application_id>', methods=['POST'])
 
 def withdraw_application(application_id):
     application = SAApplication.query.get(application_id)
