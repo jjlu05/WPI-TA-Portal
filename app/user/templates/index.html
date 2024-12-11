@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
+
 {% block content %}
   {% if current_user.is_authenticated %}
     {% if isStudent %}
       <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Open SA Positions</h2>
       <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
 
-      {% if listOfRelevantPos %}
-        <div class="accordion">
+
+        <div id = 'rp' class="accordion">
           <div class="accordion-item">
             <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseRelevantPositions">
               View Relevant Positions
@@ -15,6 +16,7 @@
             <div id="collapseRelevantPositions" class="accordion-collapse collapse show">
               <div class="accordion-body">
                 <div class="row row-cols-2 row-cols-md-3 g-4">
+                 
                   {% for pos in listOfRelevantPos %}
                     <div class="col-md-4 mb-3">
                       <div class="card shadow-lg">
@@ -28,7 +30,6 @@
                             <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                             <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
                             <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %} <br>
-                            <strong>Number of SAs:</strong> {{ pos.number_of_sas }} <br>
                             <strong>Instructor:</strong> {{ pos.course_section.instructor.first_name }} {{ pos.course_section.instructor.last_name }} <br>
                             <strong>Contact:</strong> {{ pos.course_section.instructor.email }} <br>
                             <strong>Date Posted:</strong> {{ pos.current_date }}
@@ -43,14 +44,13 @@
             </div>
           </div>
         </div>
-      {% else %}
-        <p>No relevant positions found.</p>
-      {% endif %}
-      <br>
+        <br>
+
+
+
 
       <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
-      {% if SAPosCourses %}
-        <div class="accordion">
+        <div id = "other" class="accordion">
           <div class="accordion-item">
             <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions">
               View Other Open Positions
@@ -73,7 +73,6 @@
                             <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                             <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
                             <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %} <br>
-                            <strong>Number of SAs:</strong> {{ pos.number_of_sas }} <br>
                             <strong>Instructor:</strong> {{ pos.course_section.instructor.first_name }} {{ pos.course_section.instructor.last_name }} <br>
                             <strong>Contact:</strong> {{ pos.course_section.instructor.email }} <br>
                             <strong>Date Posted:</strong> {{ pos.current_date }}
@@ -88,14 +87,12 @@
             </div>
           </div>
         </div>
-      {% else %}
-        <p>No other open positions found.</p>
-      {% endif %}
+     
       <br>
       <h3 class="fw-bold border-bottom border-white pb-2 mb-4">My Applications</h3>
       {% if applications %}
         <!-- Applications accordion section -->
-        <div class="accordion">
+        <div id = "bottom" class="accordion">
           <div class="accordion-item">
             <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseViewApplications">
               View My Applications
@@ -130,6 +127,8 @@
       {% else %}
         <p>No applications submitted.</p>
       {% endif %}
+      <br>
+
 
     {% elif is_faculty %}
       <!-- Faculty view -->
@@ -165,7 +164,7 @@
       {% else %}
         <p>No courses found.</p>
       {% endif %}
-      <br>
+
 
       <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your SA Positions</h2>
       {% if SAPosCourses %}
@@ -183,17 +182,12 @@
                       <div class="col">
                         <div class="card shadow-lg">
                           <div class="card-body">
-                            <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}
-                              <span style="position: absolute; right: 5%; top: 8%; text-align: right;">
-                                {{pos.course_section.term}}<br>Section {{pos.course_section.section_number}}
-                              </span>
-                            </h5>
+                            <h5 class="card-title">{{ pos.course_section.course.major }} {{ pos.course_section.course.coursenum }}</h5>
                             <p class="card-text">
                               <strong>Minimum GPA:</strong> {{ pos.min_gpa }}<br>
                               <strong>Minimum Grade:</strong> {{ pos.min_grade }}<br>
-                              <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %} <br>
-                              <strong>Number of SAs:</strong> {{ pos.number_of_sas }} <br>
-                              <strong>Date Posted:</strong> {{ pos.current_date }}
+                              <strong>Date Posted:</strong> {{ pos.current_date }}<br>
+                              <strong>SA Experience:</strong> {% if pos.prior_experience %} Required {% else %} Not Required {% endif %}
                             </p>
                             <a href="{{ url_for('user.view_applications', pos_id=pos.id) }}" class="btn btn-color mt-2">View Applications</a>
                           </div>
@@ -210,7 +204,7 @@
         <p>No SA positions created.</p>
       {% endif %}
     {% endif %}
-    <br>
+
 
     {% else %}
     <!-- Unauthenticated view  (starter) -->
@@ -222,6 +216,7 @@
         </div>
       </div>
 
+
               <div class="text-center mb-3">
                 <a href="{{ url_for('user.login') }}" class="btn btn-primary btn-lg">Login with Email</a>
               </div>
@@ -232,11 +227,12 @@
         </div>
       </div>
 
+
       <!-- cards for both student and faculty on main page -->
       <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
           <div class="card h-100 border-primary">
-            <div class="card-body text-center">   
+            <div class="card-body text-center">  
               <h5 class="card-title">For Students</h5>
               <p class="card-text">Browse open SA positions, apply to jobs, and track your application status with ease!</p>
               <a href="{{ url_for('user.register_student') }}" class="btn btn-color">Learn More</a>
@@ -256,26 +252,216 @@
     </main>
   {% endif %}
 
+
   <!-- Withdraw Application Script -->
   <script>
     function withdrawApplication(applicationId) {
-      fetch(`/withdraw-application/${applicationId}`, {
+        fetch(`/withdraw_application/${applicationId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+       
+       
+        .then(response => response.json())
+    .then(data => {
+
+
+      let applicationsList = document.getElementById('bottom');
+       
+      let firstElement = data;
+      let test = JSON.stringify(firstElement)
+
+
+      applicationsList.innerHTML =  `<p>${JSON.stringify(firstElement)}</p>`
+       
+        let accordionHTML = `
+        <div class="accordion-item">
+          <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseViewApplications" aria-expanded="false">
+            View My Applications
+          </button>
+          <div id="collapseViewApplications" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              <div class="row row-cols-2 row-cols-md-3 g-4">`;
+ 
+        data.forEach(app => {
+            accordionHTML += `
+                  <div class="col-md-4 mb-3">
+                    <div class="card shadow-lg">
+                      <div class="card-body">
+                       
+                        <h5 class="card-title">${app.saPosition.course_section.course.major} ${app.saPosition.course_section.course.coursenum}<span style="position: absolute; right: 5%; top: 8%; text-align: right;">${app.saPosition.course_section.term}<br>Section ${app.saPosition.course_section.section_number}</span></h5>
+                        <p class="card-text">
+                          <strong>Instructor:</strong> ${ app.saPosition.course_section.instructor.first_name } ${ app.saPosition.course_section.instructor.last_name } <br>
+                          <strong>Contact:</strong> ${ app.saPosition.course_section.instructor.email } <br>
+                          <strong>Status:</strong> ${app.is_assigned}
+                        </p>
+                        <button class="btn btn-color" onclick="withdrawApplication(${app.id})">Withdraw</button>
+                      </div>
+                    </div>
+                  </div>`;
+        });
+
+
+         accordionHTML += `
+              </div>
+            </div>
+          </div>
+        </div>`;
+        applicationsList.innerHTML=accordionHTML
+
+
+       if(data.length===0){
+        applicationsList.innerHTML =`<p>No applications submitted</p>`
+
+
+       }
+       replacePos();
+
+
+    })
+
+
+    }
+
+
+
+
+  function replacePos(){
+
+
+    fetch(`/replace`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      .then(response => response.json()) 
+      .then(response => response.json())
       .then(data => {
-        if (data.status === 'success') {
-          window.location.href = window.location.href; 
-        }
-      });
-    }
+        let rpContainer = document.getElementById('rp');
 
-    document.getElementById('flaskLoginBtn').addEventListener('click', function() {
-        document.getElementById('flaskLoginForm').style.display = 'block';
-        this.style.display = 'none';
-    });
-  </script>
+
+        let accordionHTML = `
+<div id="rp" class="accordion">
+  <div class="accordion-item">
+    <button class="accordion-button open" data-bs-toggle="collapse" data-bs-target="#collapseRelevantPositions" aria-expanded="true">
+      View Relevant Positions
+    </button>
+    <div id="collapseRelevantPositions" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <div id="applications-list" class="row row-cols-2 row-cols-md-3 g-4">
+`;
+
+
+ data.test.forEach(pos => {
+  accordionHTML += `
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title">
+            ${pos.course_section.course.major} ${pos.course_section.course.coursenum}
+            <span style="position: absolute; right: 5%; top: 8%; text-align: right;">
+              ${pos.course_section.term}<br>Section ${pos.course_section.section_number}
+            </span>
+          </h5>
+          <p class="card-text">
+            <strong>Minimum GPA:</strong> ${pos.min_gpa}<br>
+            <strong>Minimum Grade:</strong> ${pos.min_grade}<br>
+            <strong>SA Experience:</strong> ${pos.prior_experience ? "Required" : "Not Required"}<br>
+            <strong>Instructor:</strong> ${pos.course_section.instructor.first_name} ${pos.course_section.instructor.last_name}<br>
+            <strong>Contact:</strong> ${pos.course_section.instructor.email}<br>
+            <strong>Date Posted:</strong> ${pos.current_date}
+          </p>
+          <a href="/student/apply/${pos.id}" class="btn btn-color">Apply</a>
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+
+ accordionHTML += `
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+
+rpContainer.innerHTML = accordionHTML;
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let otherContainer = document.getElementById('other');
+
+
+let otherAccordionHTML = `
+<div id="other" class="accordion">
+  <div class="accordion-item">
+    <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOpenPositions">
+      View Other Open Positions
+    </button>
+    <div id="collapseOpenPositions" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+`;
+
+
+ data.other.forEach(pos => {
+  otherAccordionHTML += `
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title">
+            ${pos.course_section.course.major} ${pos.course_section.course.coursenum}
+            <span style="position: absolute; right: 5%; top: 8%; text-align: right;">
+              ${pos.course_section.term}<br>Section ${pos.course_section.section_number}
+            </span>
+          </h5>
+          <p class="card-text">
+            <strong>Minimum GPA:</strong> ${pos.min_gpa}<br>
+            <strong>Minimum Grade:</strong> ${pos.min_grade}<br>
+            <strong>SA Experience:</strong> ${pos.prior_experience ? "Required" : "Not Required"}<br>
+            <strong>Instructor:</strong> ${pos.course_section.instructor.first_name} ${pos.course_section.instructor.last_name}<br>
+            <strong>Contact:</strong> ${pos.course_section.instructor.email}<br>
+            <strong>Date Posted:</strong> ${pos.current_date}
+          </p>
+          <a href="/student/apply/${pos.id}" class="btn btn-color">Apply</a>
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+
+ otherAccordionHTML += `
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+
+otherContainer.innerHTML = otherAccordionHTML;
+    })
+  }
+    </script>
 {% endblock %}

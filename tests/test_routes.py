@@ -390,10 +390,10 @@ def test_apply_and_withdraw(request, test_client, init_database):
     assert b"Withdraw" in response.data
 
     app_id = SAApplication.query.first().id
-    response = test_client.post('/withdraw-application/'+str(app_id),
+    response = test_client.post('/withdraw_application/'+str(app_id),
                                 follow_redirects=True)
     assert response.status_code == 200
-    assert b"Application withdrawn successfully" in response.data
+    assert b"No applications submitted" in response.data
 
     do_logout(test_client, path = '/logout')
 

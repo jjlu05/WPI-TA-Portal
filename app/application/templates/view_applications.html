@@ -30,23 +30,53 @@
                         <td>{{ application.year_term_course }}</td>
                         <td>{{ application.year_term_apply }}</td>
                         <td>{{ application.student.cum_gpa }}</td>
+                        <!-- changed bulet points to be prettier design using badges and colorign for courses and grades -->
                         <td> 
-                            <ul style="list-style-position: inside; padding-left: 0;">
-                                {% for courseGrade in application.student.experiences %}
-                                    {% if courseGrade.has_taken %}
-                                        <li>{{ courseGrade.course.major }} {{ courseGrade.course.coursenum }}: {{ courseGrade.grade }}</li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <!--sort to sort alphabetically and numerically -->
+                                        {% for courseGrade in application.student.experiences|sort(attribute='course.major')|sort(attribute='course.coursenum') %}
+                                            {% if courseGrade.has_taken %}
+                                                <tr>
+                                                    <!-- to make the info side by side -->
+                                                    <td style="white-space: nowrap;">
+                                                        <span class="badge bg-light text-dark border">
+                                                            {{ courseGrade.course.major }} {{ courseGrade.course.coursenum }}:
+                                                        </span>
+                                                        <span class="badge {% if courseGrade.grade in ['A', 'A-'] %}bg-success{% elif courseGrade.grade in ['B+', 'B', 'B-'] %}bg-info{% else %}bg-warning{% endif %}">
+                                                            {{ courseGrade.grade }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </td>
                         <td> 
-                            <ul style="list-style-position: inside; padding-left: 0;">
-                                {% for SAxp in application.student.experiences %}
-                                    {% if SAxp.been_sa %}
-                                        <li>{{ SAxp.course.major }} {{ SAxp.course.coursenum }}</li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <!-- used sort to sort alphabetically and numerically -->
+                                        {% for SAxp in application.student.experiences|sort(attribute='course.major')|sort(attribute='course.coursenum') %}
+                                            {% if SAxp.been_sa %}
+                                                <tr>
+                                                    <td style="white-space: nowrap;">
+                                                        <span class="badge bg-primary">
+                                                            {{ SAxp.course.major }} {{ SAxp.course.coursenum }}
+                                                        </span>
+                                                        <small class="text-muted ms-1">
+                                                            ({{ SAxp.term_taken }})
+                                                        </small>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </td>
                         <td>
                             {% if is_already_hired %}
