@@ -185,6 +185,7 @@ def replace():
                      'min_grade': pos.min_grade,
                      'prior_experience': pos.prior_experience,
                      'current_date': pos.current_date,
+                     'number_of_sas': pos.number_of_sas,
                      'course_section': courseS,
                      })
        
@@ -221,7 +222,8 @@ def replace():
                      'min_grade': pos.min_grade,
                      'prior_experience': pos.prior_experience,
                      'current_date': pos.current_date,
-                     'course_section': courseS,
+                     'number_of_sas': pos.number_of_sas,
+                     'course_section': courseS
                      })
     return jsonify({'test':test,'other':other})
 
