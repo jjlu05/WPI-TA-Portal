@@ -4,7 +4,6 @@
 {% block content %}
   {% if current_user.is_authenticated %}
     {% if isStudent %}
-      <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Open SA Positions</h2>
       <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
 
 
@@ -167,7 +166,7 @@
         <p>No courses found.</p>
       {% endif %}
 
-
+      <br>
       <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your SA Positions</h2>
       {% if SAPosCourses %}
         <!-- Faculty SA positions accordion -->
