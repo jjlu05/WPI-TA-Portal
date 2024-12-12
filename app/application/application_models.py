@@ -71,3 +71,12 @@ class SAApplication(db.Model):
     def get_student(self):
         return self.student
     
+    def withdraw_other_applications(self):
+        other_applications = db.session.query(SAApplication).filter(
+            SAApplication.student_id == self.student_id,
+            SAApplication.id != self.id
+        ).all()
+        for app in other_applications:
+            app.is_assigned = False  
+            db.session.delete(app)  
+        db.session.commit()

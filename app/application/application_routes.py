@@ -238,31 +238,54 @@ def view_applications(pos_id):
     if not isinstance(current_user, Faculty):
         flash("Access denied: Only faculty members can view applications.", "danger")
         return redirect(url_for('user.index'))
+
     sa_position = SAPosition.query.get_or_404(pos_id)
     if sa_position.course_section.instructor_id != current_user.id:
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
+
     applications = db.session.query(SAApplication).filter_by(position_id=pos_id).all()
     application_data = []
     for application in applications:
-        is_already_hired = application.is_assigned
-        application_data.append((application, is_already_hired))
+        is_already_hired = db.session.query(SAApplication).filter(
+            SAApplication.student_id == application.student_id,
+            SAApplication.is_assigned == True
+        ).first()
+        application_data.append((application, bool(is_already_hired)))
+
     return render_template(
         'view_applications.html',
         sa_position=sa_position,
         applications=application_data,
         is_faculty=True
     )
+
+
 @bp_user.route('/faculty/approve_application/<int:app_id>', methods=['POST'])
 @login_required
 def approve_application(app_id):
     if not isinstance(current_user, Faculty):
         flash("Access denied: Only faculty members can approve applications.", "danger")
         return redirect(url_for('user.index'))
+
     application = SAApplication.query.get_or_404(app_id)
+
+    # Ensure the faculty member manages the position
     if application.saPosition.course_section.instructor_id != current_user.id:
         flash("Access denied: You do not manage this position.", "danger")
         return redirect(url_for('user.index'))
+
+    # Check if the student is already hired
+    is_hired = db.session.query(SAApplication).filter(
+        SAApplication.student_id == application.student_id,
+        SAApplication.is_assigned == True
+    ).first()
+
+    if is_hired:
+        flash("This student is already hired for another position.", "warning")
+        return redirect(url_for('user.view_applications', pos_id=application.position_id))
+
+    # Ensure the maximum number of SAs hasn't been exceeded
     assigned_count = db.session.query(SAApplication).filter(
         SAApplication.position_id == application.position_id,
         SAApplication.is_assigned == True
@@ -270,7 +293,13 @@ def approve_application(app_id):
     if assigned_count >= application.saPosition.number_of_sas:
         flash("Cannot approve: Maximum number of SAs already assigned.", "danger")
         return redirect(url_for('user.view_applications', pos_id=application.position_id))
+
+    # Approve the application
     application.is_assigned = True
     db.session.commit()
-    flash("Application approved successfully!", "success")
+
+    # Withdraw other applications for the same student
+    application.withdraw_other_applications()
+
+    flash("Application approved successfully! All other applications by this student have been withdrawn.", "success")
     return redirect(url_for('user.view_applications', pos_id=application.position_id))
