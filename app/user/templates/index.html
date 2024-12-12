@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 
+
+
 {% block content %}
   {% if current_user.is_authenticated %}
     {% if isStudent %}
       <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Relevant Positions</h3>
-
-
         <div id = 'rp' class="accordion">
           <div class="accordion-item">
             <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseRelevantPositions">
@@ -45,9 +45,6 @@
           </div>
         </div>
         <br>
-
-
-
 
       <h3 class="fw-bold border-bottom border-white pb-2 mb-4">Other Open Positions</h3>
         <div id = "other" class="accordion">
@@ -113,9 +110,15 @@
                           <p class="card-text">
                             <strong>Instructor:</strong> {{ app.saPosition.course_section.instructor.first_name }} {{ app.saPosition.course_section.instructor.last_name }} <br>
                             <strong>Contact:</strong> {{ app.saPosition.course_section.instructor.email }} <br>
-                            <strong>Status:</strong> {{ app.status }}
+                            {% if app.is_assigned%}
+                            <strong>Status:</strong> Approved
+                            {% else %}
+                            <strong>Status:</strong> Pending
+                            {%endif%}
                           </p>
+                          {% if not app.is_assigned%}
                           <button class="btn btn-color" onclick="withdrawApplication({{ app.id }})">Withdraw</button>
+                          {%endif%}
                         </div>
                       </div>
                     </div>
@@ -129,6 +132,7 @@
         <p>No applications submitted.</p>
       {% endif %}
       <br>
+
 
 
     {% elif is_faculty %}
@@ -166,7 +170,7 @@
         <p>No courses found.</p>
       {% endif %}
 
-      <br>
+
       <h2 class="fw-bold border-bottom border-white pb-2 mb-4">Your SA Positions</h2>
       {% if SAPosCourses %}
         <!-- Faculty SA positions accordion -->
@@ -212,6 +216,8 @@
     {% endif %}
 
 
+
+
     {% else %}
     <!-- Unauthenticated view  (starter) -->
     <main class="container mt-5">
@@ -221,8 +227,6 @@
           <p class="lead fw-bold text-dark">Your gateway to managing Student Assistant positions efficiently.</p>
         </div>
       </div>
-
-
               <div class="text-center mb-3">
                 <a href="{{ url_for('user.login') }}" class="btn btn-primary btn-lg">Login</a>
               </div>
@@ -232,6 +236,8 @@
           </div>
         </div>
       </div>
+
+
 
 
       <!-- cards for both student and faculty on main page -->
@@ -259,6 +265,8 @@
   {% endif %}
 
 
+
+
   <!-- Withdraw Application Script -->
   <script>
     function withdrawApplication(applicationId) {
@@ -274,10 +282,14 @@
     .then(data => {
 
 
+
+
       let applicationsList = document.getElementById('bottom');
        
       let firstElement = data;
       let test = JSON.stringify(firstElement)
+
+
 
 
       applicationsList.innerHTML =  `<p>${JSON.stringify(firstElement)}</p>`
@@ -301,13 +313,16 @@
                         <p class="card-text">
                           <strong>Instructor:</strong> ${ app.saPosition.course_section.instructor.first_name } ${ app.saPosition.course_section.instructor.last_name } <br>
                           <strong>Contact:</strong> ${ app.saPosition.course_section.instructor.email } <br>
-                          <strong>Status:</strong> ${app.is_assigned}
+                          <strong>Status:</strong> ${ app.is_assigned ? 'Approved' : 'Pending'}
                         </p>
-                        <button class="btn btn-color" onclick="withdrawApplication(${app.id})">Withdraw</button>
+                       
+                        ${app.is_assigned ? '': `<button class="btn btn-color" onclick="withdrawApplication(${app.id})">Withdraw</button>`}
                       </div>
                     </div>
                   </div>`;
         });
+
+
 
 
          accordionHTML += `
@@ -318,15 +333,23 @@
         applicationsList.innerHTML=accordionHTML
 
 
+
+
        if(data.length===0){
         applicationsList.innerHTML =`<p>No applications submitted</p>`
+
+
 
 
        }
        replacePos();
 
 
+
+
     })
+
+
 
 
     }
@@ -334,7 +357,13 @@
 
 
 
+
+
+
+
   function replacePos(){
+
+
 
 
     fetch(`/replace`, {
@@ -348,6 +377,8 @@
         let rpContainer = document.getElementById('rp');
 
 
+
+
         let accordionHTML = `
 <div id="rp" class="accordion">
   <div class="accordion-item">
@@ -358,6 +389,8 @@
       <div class="accordion-body">
         <div id="applications-list" class="row row-cols-2 row-cols-md-3 g-4">
 `;
+
+
 
 
  data.test.forEach(pos => {
@@ -388,12 +421,16 @@
 });
 
 
+
+
  accordionHTML += `
         </div>
       </div>
     </div>
   </div>
 </div>`;
+
+
 
 
 rpContainer.innerHTML = accordionHTML;
@@ -416,7 +453,27 @@ rpContainer.innerHTML = accordionHTML;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let otherContainer = document.getElementById('other');
+
+
 
 
 let otherAccordionHTML = `
@@ -429,6 +486,8 @@ let otherAccordionHTML = `
       <div class="accordion-body">
         <div class="row row-cols-2 row-cols-md-3 g-4">
 `;
+
+
 
 
  data.other.forEach(pos => {
@@ -446,6 +505,7 @@ let otherAccordionHTML = `
             <strong>Minimum GPA:</strong> ${pos.min_gpa}<br>
             <strong>Minimum Grade:</strong> ${pos.min_grade}<br>
             <strong>SA Experience:</strong> ${pos.prior_experience ? "Required" : "Not Required"}<br>
+            <strong>Number of SAs:</strong> ${ pos.number_of_sas } <br>
             <strong>Instructor:</strong> ${pos.course_section.instructor.first_name} ${pos.course_section.instructor.last_name}<br>
             <strong>Contact:</strong> ${pos.course_section.instructor.email}<br>
             <strong>Date Posted:</strong> ${pos.current_date}
@@ -458,6 +518,8 @@ let otherAccordionHTML = `
 });
 
 
+
+
  otherAccordionHTML += `
         </div>
       </div>
@@ -465,6 +527,8 @@ let otherAccordionHTML = `
   </div>
 </div>
 `;
+
+
 
 
 otherContainer.innerHTML = otherAccordionHTML;
