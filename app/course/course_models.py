@@ -31,8 +31,10 @@ class CourseSection(db.Model):
     
     def get_sa_positions(self):
         return (self.sa_positions)
+
     def get_course(self):
         return self.course
+
     def assign_course(self, courseID):
         self.course_id=courseID
      
@@ -51,9 +53,9 @@ class Course(db.Model):
     def __repr__(self):
         return f"<Course(id={self.id}, major='{self.major}', coursenum='{self.coursenum}')>"
     def get_experiences(self):
-        return self.experiences
+        return CourseExperience.query.filter_by(course_id=self.id).all()
     def get_course_sections(self):
-        return self.course_sections
+        return CourseSection.query.filter_by(course_id=self.id).all()
     
     
 # Course Experience Model
@@ -70,3 +72,6 @@ class CourseExperience(db.Model):
     user : sqlo.Mapped[Student] = sqlo.relationship( back_populates= 'experiences')
     def __repr__(self):
         return f"<Course(id={self.course_id}, major='{self.grade}', userid='{self.user_id}')>"
+
+    def get_course(self):
+        return self.course
