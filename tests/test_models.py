@@ -129,7 +129,7 @@ class TestModels(unittest.TestCase):
         courseXP = CourseExperience(course_id=course.id, user_id=-1, has_taken=True, been_sa=True, grade='A', term_taken='2023A')
         db.session.add(courseXP)
         db.session.commit()
-        self.assertEqual(course.get_experiences().has_taken,True )
+        self.assertEqual(course.get_experiences()[0].has_taken,True )
 
 
     def test_Course_get_course_sections(self):
@@ -140,8 +140,26 @@ class TestModels(unittest.TestCase):
         courseS.assign_course(course.id)
         db.session.add(courseS)
         db.session.commit()
-        self.assertEqual(course.get_course_sections().term,'2024A')
-    
+        self.assertEqual(course.get_course_sections()[0].term,'2024A')
+        courseS2 = CourseSection(section_number='1',term="2024B", course_id=-1,instructor_id=-1)
+        courseS2.assign_course(course.id)
+        db.session.add(courseS2)
+        db.session.commit()
+        self.assertEqual(course.get_course_sections()[1].term,'2024B')
+
+
+    def test_CourseExperience_get_course(self):
+        course = Course(major='CS', coursenum='3733')
+        db.session.add(course)
+        db.session.commit()
+        courseXP = CourseExperience(course_id=course.id, user_id=-1, has_taken=True, been_sa=True, grade='A', term_taken='2023A')
+        course.courseAttachExperience(courseXP)
+        db.session.add(courseXP)
+        db.session.commit()
+        self.assertEqual(courseXP.get_course().major,'CS')
+        self.assertEqual(courseXP.get_course().coursenum,'3733')
+
+
     
 
 
@@ -167,16 +185,41 @@ class TestModels(unittest.TestCase):
         db.session.commit()
         self.assertEqual(sap.get_saPosition(), saPos)
     
-    def test_apply(self):
+    def test_SAPosition_apply(self):
         saPos = SAPosition(course_section_id = -1, number_of_sas = 3, min_gpa=3.0, min_grade='A', prior_experience=True, current_date = "test")
         db.session.add(saPos)
         db.session.commit()
         saPos.apply(1, 1, 'A', '2024A', '2024B', False)
-        self.assertEqual(saPos.saApplications.grade, 'A')
+        self.assertEqual(saPos.saApplications[0].grade, 'A')
+        saPos.apply(2, 2, 'B', '2024D', '2025B', False)
+        self.assertEqual(saPos.saApplications[1].grade, 'B')
 
 
 
+    def test_SAPosition_get_applications(self):
+        
+        saPos = SAPosition(course_section_id = -1, number_of_sas = 3, min_gpa=3.0, min_grade='A', prior_experience=True, current_date = "test")
+        db.session.add(saPos)
+        db.session.commit()
+        sap = SAApplication(position_id=saPos.id, student_id=-1, grade="", year_term_course="", year_term_apply="", is_assigned=False)
+        
+        db.session.add(sap)
+        db.session.commit()
 
 
+        self.assertEqual(len(saPos.get_saApplications()), 1)
+        sap2 = SAApplication(position_id=saPos.id, student_id=-1, grade="B", year_term_course="", year_term_apply="", is_assigned=False)
+        
+        db.session.add(sap2)
+        db.session.commit()
+        self.assertEqual(saPos.get_saApplications()[1].grade, "B")
 
-    
+    def test_SAPosition_get_applications(self):
+        courseS2 = CourseSection(section_number='1',term="2024B", course_id=1,instructor_id=1)
+        db.session.add(courseS2)
+        db.session.commit()
+        saPos = SAPosition(course_section_id = courseS2.id, number_of_sas = 3, min_gpa=3.0, min_grade='A', prior_experience=True, current_date = "test")
+        db.session.add(saPos)
+        db.session.commit()
+        
+        self.assertEqual(saPos.get_course_section().term, "2024B")

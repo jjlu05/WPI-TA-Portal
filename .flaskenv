@@ -5,4 +5,4 @@ CLIENT_ID=c1002189-570c-460a-b24e-5c32cee87aca
 CLIENT_SECRET=1vj8Q~~xY5Cc71gH1aQkWCeVPrdudEXTYEGa9cTa
 
 
-DATABASE_URL=postgresql://adequatej:Adequatelight24@localhost:5432/sa_connect
+DATABASE_URL=postgresql://postgres:Bozo1234@localhost:5432/smile

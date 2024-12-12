@@ -25,7 +25,7 @@ class SAPosition(db.Model):
     current_date : sqlo.Mapped[str] = sqlo.mapped_column(sqla.String(10), nullable = False)
 
     # Relationship
-    saApplications: sqlo.Mapped['SAApplication'] = sqlo.relationship('SAApplication', back_populates='saPosition')
+    saApplications: sqlo.Mapped[list['SAApplication']] = sqlo.relationship('SAApplication', back_populates='saPosition')
 
     course_section: sqlo.Mapped['CourseSection'] = sqlo.relationship('CourseSection', back_populates='sa_positions')
 
