@@ -30,9 +30,9 @@ jobs:
         pip install -r requirements.txt
 
     # Run unittest for models
-    # - name: Run unittest for models
-    #   run: |
-    #     python -m unittest -v tests/test_models.py
+    - name: Run unittest for models
+      run: |
+        python -m unittest -v tests/test_models.py
 
     # Run pytest for routes
     - name: Run pytest for routes
@@ -40,16 +40,16 @@ jobs:
         python -m pytest -v tests/test_routes.py
 
     # Set up Selenium dependencies
-    # - name: Set up Selenium
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install -y xvfb firefox firefox-geckodriver
-    #     pip install selenium
+    - name: Set up Selenium
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb firefox firefox-geckodriver
+        pip install selenium
 
-    # # Run Selenium tests (run virtual display server first)
-    # - name: Run Selenium tests
-    #   env:
-    #     DISPLAY: ':99'
-    #   run: |
-    #     Xvfb :99 -screen 0 1920x1080x24 &
-    #     python -m unittest -v tests/test_selenium.py
+    # Run Selenium tests (run virtual display server first)
+    - name: Run Selenium tests
+      env:
+        DISPLAY: ':99'
+      run: |
+        Xvfb :99 -screen 0 1920x1080x24 &
+        python -m unittest -v tests/test_selenium.py
