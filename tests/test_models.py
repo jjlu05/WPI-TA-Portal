@@ -129,23 +129,24 @@ class TestModels(unittest.TestCase):
         courseXP = CourseExperience(course_id=course.id, user_id=-1, has_taken=True, been_sa=True, grade='A', term_taken='2023A')
         db.session.add(courseXP)
         db.session.commit()
-        self.assertEqual(course.get_experiences()[0].has_taken,True )
+        experiences = list(course.get_experiences())
+        self.assertEqual(experiences[0].has_taken, True)
 
 
     def test_Course_get_course_sections(self):
         course = Course(major='CS', coursenum='3733')
         db.session.add(course)
         db.session.commit()
-        courseS = CourseSection(section_number='1',term="2024A", course_id=-1,instructor_id=-1)
-        courseS.assign_course(course.id)
+        courseS = CourseSection(section_number='1',term="2024A", course_id=course.id,instructor_id=-1)
         db.session.add(courseS)
         db.session.commit()
-        self.assertEqual(course.get_course_sections()[0].term,'2024A')
-        courseS2 = CourseSection(section_number='1',term="2024B", course_id=-1,instructor_id=-1)
-        courseS2.assign_course(course.id)
+        sections = list(course.get_course_sections())
+        self.assertEqual(sections[0].term,'2024A')
+        courseS2 = CourseSection(section_number='1',term="2024B", course_id=course.id,instructor_id=-1)
         db.session.add(courseS2)
         db.session.commit()
-        self.assertEqual(course.get_course_sections()[1].term,'2024B')
+        sections = list(course.get_course_sections())
+        self.assertEqual(sections[1].term,'2024B')
 
 
     def test_CourseExperience_get_course(self):
@@ -153,7 +154,6 @@ class TestModels(unittest.TestCase):
         db.session.add(course)
         db.session.commit()
         courseXP = CourseExperience(course_id=course.id, user_id=-1, has_taken=True, been_sa=True, grade='A', term_taken='2023A')
-        course.courseAttachExperience(courseXP)
         db.session.add(courseXP)
         db.session.commit()
         self.assertEqual(courseXP.get_course().major,'CS')
