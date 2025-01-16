@@ -50,6 +50,7 @@ from app.application.application_models import SAPosition, SAApplication
 @bp_course.route('/course/create', methods=['GET', 'POST'])
 @login_required
 def createclass():
+    print('createclass')
     faculty_member = Faculty.query.filter_by(id=current_user.id).first()
 
     if not isinstance(current_user, Faculty):
@@ -68,10 +69,11 @@ def createclass():
             section_num = cform.section_number.data
         new_class = CourseSection(
         course = cform.course_choices.data,
+        course_id = cform.course_choices.data.id,
         section_number=section_num,
         term=cform.term.data,
-        instructor_id=current_user.id)
-        #course_id = db.session.scalars(sqla.select(Course.id).where(func.substring(cform.major.data, 2, 5) == Course.id)).first())
+        instructor_id=current_user.id,
+        )
         
     
         db.session.add(new_class)
